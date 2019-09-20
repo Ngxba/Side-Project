@@ -24,6 +24,8 @@ class SubmitQuestionForm extends React.Component {
     }
   };
 
+  
+
   render() {
     return (
       <div>
@@ -54,14 +56,14 @@ class SubmitQuestionForm extends React.Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Quiz></Quiz>
+                <Quiz submitQuiz={this.props.submitQuiz}></Quiz>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <Essay></Essay>
+                <Essay submitEssayQuestion = {this.props.submitEssayQuestion}></Essay>
               </Col>
             </Row>
           </TabPane>

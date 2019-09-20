@@ -55,7 +55,7 @@ class App extends React.Component {
     return response
   };
   makeTest = () => {
-    this.props.history.push("/search")
+    this.props.history.push("/addquestion")
   }
   
   home = () => {
@@ -74,7 +74,7 @@ class App extends React.Component {
           home = {this.home}
         ></NavBar>
         <br />
-        <Route path="/search" render={() => <AddQuestion></AddQuestion> }/>
+        <Route path="/addquestion" render={() => <AddQuestion></AddQuestion> }/>
         <Route exact path="/" render={() => <Carousel></Carousel> }/>
         
         <br/>

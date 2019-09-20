@@ -8,7 +8,8 @@ import {
     FormGroup,
     Input,
     Label,
-    Button
+    Button,
+    Form
   } from "reactstrap";
 
 export default class Essay extends Component {
@@ -21,13 +22,24 @@ export default class Essay extends Component {
     onChange = object => {
         this.setState(Object.assign(this.state, object));
       };
+    
+      submit = event => {
+        event.preventDefault();
+        this.props.submitEssayQuestion(this.state);
+        this.setState({
+          numberOfQuest: this.state.numberOfQuest + 1,
+          model : "essay",
+          essayQuestionContent: "",
+          modelEssayQuestionAnswer: ""
+        });
+      };
     render() {
         return (
             <div>
                 <Card>
                   <CardBody>
                     <CardTitle>
-                      <h5>Câu hỏi số {this.state.numberOfQuest}</h5>{" "}
+                      <h5>Câu hỏi tự luận số {this.state.numberOfQuest}</h5>{" "}
                     </CardTitle>
                     <hr />
                     <CardSubtitle>
@@ -35,6 +47,7 @@ export default class Essay extends Component {
                         <em>Vui lòng nhập câu hỏi</em>
                       </h6>
                     </CardSubtitle>
+                    <Form onSubmit= {this.submit}>
                     <FormGroup>
                       <Input
                         type="textarea"
@@ -70,6 +83,7 @@ export default class Essay extends Component {
                       <br/>
                       <Button type="submit" className="float-right">Submit</Button>
                     </FormGroup>
+                    </Form>
                   </CardBody>
                 </Card>
             </div>

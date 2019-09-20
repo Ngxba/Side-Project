@@ -122,7 +122,7 @@ class Login extends React.Component {
           ) : (
             <div style={{ textAlign: "center", marginTop: 20 }}>
               <p>
-                Don't have an account? <span id="regBtn">Register now</span>
+                Don't have an account? <span id="regBtn" onClick={this.props.wantToRegister}>Register now</span>
               </p>
             </div>
           )}

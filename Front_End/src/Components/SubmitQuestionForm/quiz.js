@@ -8,7 +8,8 @@ import {
   Button,
   FormGroup,
   Input,
-  Label
+  Label,
+  Form
 } from "reactstrap";
 
 export default class Quiz extends Component {
@@ -16,7 +17,8 @@ export default class Quiz extends Component {
     model: "quiz",
     numberOfQuest: 1,
     QuizQuestionContent: "",
-    Answers: [{ order: 0, value: "" }]
+    Answers: [{ order: 0, value: "" }],
+    rightAnswer: ""
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -40,13 +42,29 @@ export default class Quiz extends Component {
     });
   };
 
+  submit = event => {
+    event.preventDefault();
+    this.props.submitQuiz(this.state);
+    this.setState({
+      model: "quiz",
+      numberOfQuest: this.state.numberOfQuest + 1,
+      QuizQuestionContent: "",
+      Answers: [{ order: 0, value: "" }],
+      rightAnswer: ""
+    });
+  };
+
+  onChange = object => {
+    this.setState(Object.assign(this.state, object));
+  };
+
   render() {
     return (
       <div>
         <Card>
           <CardBody>
             <CardTitle>
-              <h5>Câu hỏi số {this.state.numberOfQuest}</h5>{" "}
+              <h5>Câu hỏi trắc nhiệm số {this.state.numberOfQuest}</h5>{" "}
             </CardTitle>
             <hr />
             <CardSubtitle>
@@ -54,39 +72,54 @@ export default class Quiz extends Component {
                 <em>Vui lòng nhập câu hỏi</em>
               </h6>
             </CardSubtitle>
-            <FormGroup>
-              <Input
-                type="textarea"
-                name="text"
-                id="question"
-                rows="3"
-                value={this.state.QuizQuestionContent}
-                onChange={event => {
-                  this.onChange({
-                    QuizQuestionContent: event.target.value
-                  });
-                }}
-              />
-            </FormGroup>
-            <hr />
-            <CardText>
-              <strong>Các câu trả lời</strong>
-            </CardText>
-            <FormGroup>
-              {this.state.Answers.map(v => (
-                <Anwser
-                  order={v.order + 1}
-                  key={v.order}
-                  value={v.value}
-                  onChangeValue={this.onChangeAnwser}
+            <Form onSubmit={this.submit}>
+              <FormGroup>
+                <Input
+                  type="textarea"
+                  name="text"
+                  id="question"
+                  rows="3"
+                  value={this.state.QuizQuestionContent}
+                  onChange={event => {
+                    this.onChange({
+                      QuizQuestionContent: event.target.value
+                    });
+                  }}
                 />
-              ))}
-              <button onClick={this.addAnwser}>Add</button>
-              <br />
-              <Button type="submit" className="float-right">
-                Submit
-              </Button>
-            </FormGroup>
+                <hr />
+                <CardText>
+                  <strong>Các câu trả lời</strong>
+                </CardText>
+                {this.state.Answers.map(v => (
+                  <Anwser
+                    order={v.order + 1}
+                    key={v.order}
+                    value={v.value}
+                    onChangeValue={this.onChangeAnwser}
+                  />
+                ))}
+                  <br/>
+                <Button outline color="secondary" className="float-right" type="button" onClick={this.addAnwser}>Add more answer</Button>
+                  <br/>
+                  <hr/>
+                <Label>Câu trả lời đúng:</Label>
+                <Input
+                  type="textarea"
+                  name="text"
+                  onChange={event => {
+                    this.onChange({
+                      rightAnswer: event.target.value
+                    });
+                  }}
+                  value={this.state.rightAnswer}
+                />
+                <br />
+
+                <Button type="submit" className="float-right">
+                  Submit
+                </Button>
+              </FormGroup>
+            </Form>
           </CardBody>
         </Card>
       </div>
