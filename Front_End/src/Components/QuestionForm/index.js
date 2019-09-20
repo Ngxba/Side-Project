@@ -1,19 +1,13 @@
 import React from "react";
-import {
-  Card,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-} from "reactstrap";
+import { Card, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 
 class QuestionForm extends React.Component {
   state = {
     numberOfQuest: 1,
-    answerContentA : "this is content for Answer A",
-    answerContentB : "this is content for Answer B",
-    answerContentC : "this is content for Answer C",
-    answerContentD : "this is content for Answer D"
+    answerContentA: "this is content for Answer A",
+    answerContentB: "this is content for Answer B",
+    answerContentC: "this is content for Answer C",
+    answerContentD: "this is content for Answer D"
   };
   render() {
     return (
@@ -38,12 +32,24 @@ class QuestionForm extends React.Component {
             <hr />
             <CardText>Trả lời</CardText>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div><input type="radio" name="answer" value="A"/> {this.state.answerContentA}</div>
-            <div><input type="radio" name="answer" value="B"/> {this.state.answerContentB}</div>
-            <div><input type="radio" name="answer" value="C"/> {this.state.answerContentC}</div>
-            <div><input type="radio" name="answer" value="D"/> {this.state.answerContentD}</div>
+              <div>
+                <input type="radio" name="answer" value="A" />{" "}
+                {this.state.answerContentA}
+              </div>
+              <div>
+                <input type="radio" name="answer" value="B" />{" "}
+                {this.state.answerContentB}
+              </div>
+              <div>
+                <input type="radio" name="answer" value="C" />{" "}
+                {this.state.answerContentC}
+              </div>
+              <div>
+                <input type="radio" name="answer" value="D" />{" "}
+                {this.state.answerContentD}
+              </div>
             </div>
-            <br/>
+            <br />
             {/* <CardLink href="#">Card Link</CardLink>
             <CardLink href="#">Another Link</CardLink> */}
           </CardBody>

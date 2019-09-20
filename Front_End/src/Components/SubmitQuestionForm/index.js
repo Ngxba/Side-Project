@@ -6,23 +6,23 @@ import {
   TabContent,
   TabPane,
   Row,
-  Col,
+  Col
 } from "reactstrap";
-import Quiz from "./quiz"
-import Essay from "./essay"
+import Quiz from "./quiz";
+import Essay from "./essay";
 import classnames from "classnames";
 
 class SubmitQuestionForm extends React.Component {
   state = {
-    activeTab: "1",
+    activeTab: "1"
   };
   toggle = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
       });
-  };}
-
+    }
+  };
 
   render() {
     return (
@@ -49,11 +49,6 @@ class SubmitQuestionForm extends React.Component {
             </NavLink>
           </NavItem>
         </Nav>
-
-
-
-
-
 
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
