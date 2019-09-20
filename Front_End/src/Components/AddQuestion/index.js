@@ -21,7 +21,6 @@ export default class AddQuestion extends Component {
                 <SubmitQuestionForm submitQuiz = {this.submitQuiz} submitEssayQuestion = {this.submitEssayQuestion}></SubmitQuestionForm>
                 <br/>
                 <div style = {{textAlign : "center"}}><Button color="danger">Hoàn Thành</Button></div>
-                <div style = {{textAlign : "center"}}><Button color="danger">GET DATA</Button></div>
 
             </Container>
         )
