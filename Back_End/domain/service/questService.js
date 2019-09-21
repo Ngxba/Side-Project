@@ -1,6 +1,9 @@
 var Question = require("../model/question");
 
 const questService = {
+  getQuest: () => {
+    return Question.find({});
+},
   pushQuiz: async (model, QuizQuestionContent, Answers, rightAnswer) => {
     const result = await Question.findOne({
       model : model,

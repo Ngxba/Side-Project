@@ -28,14 +28,16 @@ router.post("/", async (req, res) => {
         } catch (err) {
           res.status(400);
           res.json({
-            quiz: err.message
+            err: err.message
           });
         }
   }
 });
 
 router.get("/", async (req, res) => {
-    
+  const result  = await questService.getQuest();
+  const listQuest = result.map(questModel => questModel );
+  res.json(listQuest);
 })
 
 module.exports = router;
