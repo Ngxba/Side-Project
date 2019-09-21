@@ -9,8 +9,11 @@ import {
   FormGroup,
   Input,
   Label,
-  Form
+  Form,
+  Alert,Spinner
 } from "reactstrap";
+
+import { addQuiz } from "../../Action/addQuestion";
 
 export default class Quiz extends Component {
   state = {
@@ -18,7 +21,9 @@ export default class Quiz extends Component {
     numberOfQuest: 1,
     QuizQuestionContent: "",
     Answers: [{ order: 0, value: "" }],
-    rightAnswer: ""
+    rightAnswer: "",
+    loading: false,
+    pushStatus: "not"
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -32,6 +37,12 @@ export default class Quiz extends Component {
     }));
   };
 
+  toggleLoading = () => {
+    this.setState({
+      loading: !this.state.loading
+    });
+  };
+
   onChangeAnwser = (order, value) => {
     this.setState(prev => {
       const answers = [...prev.Answers];
@@ -42,20 +53,43 @@ export default class Quiz extends Component {
     });
   };
 
-  submit = event => {
+  submit = async event => {
     event.preventDefault();
-    this.props.submitQuiz(this.state);
-    this.setState({
-      model: "quiz",
-      numberOfQuest: this.state.numberOfQuest + 1,
-      QuizQuestionContent: "",
-      Answers: [{ order: 0, value: "" }],
-      rightAnswer: ""
-    });
+    const { model, QuizQuestionContent, Answers, rightAnswer } = this.state;
+    try {
+      await addQuiz(model, QuizQuestionContent, Answers, rightAnswer);
+      this.setState({
+        model: "quiz",
+        numberOfQuest: this.state.numberOfQuest + 1,
+        QuizQuestionContent: "",
+        Answers: [{ order: 0, value: "" }],
+        rightAnswer: "",
+        pushStatus: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          pushStatus: "not"
+        });
+      }, 2000);
+    } catch (err) {
+      this.setState({
+        pushStatus: false
+      });
+      setTimeout(() => {
+        this.setState({
+          pushStatus: "not"
+        });
+      }, 2000);
+    }
   };
 
   onChange = object => {
     this.setState(Object.assign(this.state, object));
+  };
+  toggleLoading = () => {
+    this.setState({
+      loading: !this.state.loading
+    });
   };
 
   render() {
@@ -63,6 +97,12 @@ export default class Quiz extends Component {
       <div>
         <Card>
           <CardBody>
+            {this.state.pushStatus === true && <Alert color="success">
+            Submit Question SUCCESS
+            </Alert>}
+            {this.state.pushStatus === false && <Alert color="danger">
+              Submit Question FALSE
+            </Alert>}
             <CardTitle>
               <h5>Câu hỏi trắc nhiệm số {this.state.numberOfQuest}</h5>{" "}
             </CardTitle>
@@ -98,10 +138,18 @@ export default class Quiz extends Component {
                     onChangeValue={this.onChangeAnwser}
                   />
                 ))}
-                  <br/>
-                <Button outline color="secondary" className="float-right" type="button" onClick={this.addAnwser}>Add more answer</Button>
-                  <br/>
-                  <hr/>
+                <br />
+                <Button
+                  outline
+                  color="secondary"
+                  className="float-right"
+                  type="button"
+                  onClick={this.addAnwser}
+                >
+                  Add more answer
+                </Button>
+                <br />
+                <hr />
                 <Label>Câu trả lời đúng:</Label>
                 <Input
                   type="textarea"
@@ -114,7 +162,10 @@ export default class Quiz extends Component {
                   value={this.state.rightAnswer}
                 />
                 <br />
-
+                {this.state.loading &&
+            <div style={{ textAlign: "center" }}>
+              <Spinner style={{ width: "3rem", height: "3rem" }} />
+            </div>}
                 <Button type="submit" className="float-right">
                   Submit
                 </Button>

@@ -24,6 +24,11 @@ class SubmitQuestionForm extends React.Component {
     }
   };
 
+  submitEssayQuestion = async () => {
+    const result = await this.props.submitEssayQuestion
+    console.log(result)
+    return result
+  }
   
 
   render() {
@@ -56,14 +61,14 @@ class SubmitQuestionForm extends React.Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Quiz submitQuiz={this.props.submitQuiz}></Quiz>
+                <Quiz></Quiz>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <Essay submitEssayQuestion = {this.props.submitEssayQuestion}></Essay>
+                <Essay></Essay>
               </Col>
             </Row>
           </TabPane>
