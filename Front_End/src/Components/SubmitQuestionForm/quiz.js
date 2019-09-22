@@ -117,7 +117,7 @@ export default class Quiz extends Component {
                 <Input
                   type="textarea"
                   name="text"
-                  id="question"
+                  id="quizQuestion"
                   rows="3"
                   value={this.state.QuizQuestionContent}
                   onChange={event => {

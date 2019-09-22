@@ -6,6 +6,7 @@ export default class Quiz extends Component {
   render() {
     return (
       <div>
+      <br/>
         <Card>
           <CardBody>
             <CardTitle>
@@ -14,7 +15,7 @@ export default class Quiz extends Component {
             <hr />
             <CardSubtitle>
               <h6>
-                <em>Đọc kĩ câu hỏi trước khi điền câu trả lời</em>
+                <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
               </h6>
             </CardSubtitle>
             <p>
@@ -31,6 +32,7 @@ export default class Quiz extends Component {
               <CardText>Câu trả lời đúng : {this.props.data.rightAnswer} </CardText> 
           </CardBody>
         </Card>
+        
       </div>
     );
   }

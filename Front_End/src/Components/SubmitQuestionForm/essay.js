@@ -88,7 +88,7 @@ export default class Essay extends Component {
                 <Input
                   type="textarea"
                   name="text"
-                  id="question"
+                  id="essayQuestion"
                   rows="3"
                   value={this.state.essayQuestionContent}
                   onChange={event => {
@@ -103,11 +103,11 @@ export default class Essay extends Component {
                 <strong>Câu trả lời</strong>
               </CardText>
               <FormGroup>
-                <Label for="questioAnswerA">Câu trả lời mẫu:</Label>
+                <Label for="questionContent">Câu trả lời mẫu:</Label>
                 <Input
                   type="textarea"
                   name="text"
-                  id="question"
+                  id="questionContent"
                   rows="5"
                   value={this.state.modelEssayQuestionAnswer}
                   onChange={event => {

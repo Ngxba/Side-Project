@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import QuestItem from "../QuestItem";
 import { getQuiz } from "../../Action/getQuest";
-import { Spinner } from "reactstrap";
+import {
+    Nav,
+    NavItem,
+    NavLink,
+    TabContent,
+    TabPane,
+    Row,
+    Col,
+    Spinner,
+    Container
+  } from "reactstrap";
+  import classnames from "classnames";
 export default class GetQuestion extends Component {
   state = {
     listQuest: [],
     loading: false,
     numberOfQuizQuest: [],
-    numberOfEssayQuest: []
+    numberOfEssayQuest: [],
+    activeTab: "1"
   };
   toggleLoading = () => {
     this.setState({
@@ -36,20 +48,21 @@ export default class GetQuestion extends Component {
             numberOfQuizQuest : numberOfQuizQuest,
             numberOfEssayQuest : numberOfEssayQuest
         })
-        // console.log(this.state.numberOfEssayQuest, this.state.numberOfQuizQuest)
       this.toggleLoading();
     }, 3000);
   };
   
-//   componentDidUpdate(prevProps, prevStates) {
-//       if(this.state !== prevStates && this.props !== prevProps){
-          
-//       }
-//   }
-
   componentDidMount() {
     this.fetchNewsFeed();
   }
+
+  toggle = tab => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  };
 
   render() {
     return (
@@ -59,8 +72,36 @@ export default class GetQuestion extends Component {
             <Spinner style={{ width: "3rem", height: "3rem" }} />
           </div>
         ) : (
-          <div>
-            {this.state.numberOfQuizQuest.map((post, index) => {
+            
+          <Container>
+          <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "1" })}
+              onClick={() => {
+                this.toggle("1");
+              }}
+            >
+              Câu hỏi trắc nghiệm
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === "2" })}
+              onClick={() => {
+                this.toggle("2");
+              }}
+            >
+              Câu hỏi tự luận
+            </NavLink>
+          </NavItem>
+        </Nav>
+
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="1">
+            <Row>
+              <Col sm="12">
+              {this.state.numberOfQuizQuest.map((post, index) => {
               return (
                 <QuestItem
                   key={post._id}
@@ -69,16 +110,28 @@ export default class GetQuestion extends Component {
                 ></QuestItem>
               );
             })}
-            {this.state.numberOfEssayQuest.map((post, index) => {
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tabId="2">
+            <Row>
+              <Col sm="12">
+              {this.state.numberOfEssayQuest.map((post, index) => {
               return (
                 <QuestItem
                   key={post._id}
                   data={post}
-                  numberOfQuizQuest={index + 1}
+                  numberOfEssayQuest={index + 1}
                 ></QuestItem>
               );
             })}
-          </div>
+              </Col>
+            </Row>
+          </TabPane>
+        </TabContent>
+            
+            
+          </Container>
         )}
       </div>
     );
