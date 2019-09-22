@@ -5,6 +5,7 @@ import "./Style/App.css";
 import axios from "axios";
 import {Route, withRouter} from "react-router-dom"
 import AddQuestion from "./Components/AddQuestion";
+import GetQuestion from "./Components/GetQuestion";
 
 class App extends React.Component {
   state = {
@@ -61,6 +62,9 @@ class App extends React.Component {
   home = () => {
     this.props.history.push("/")
   }
+  getQuest = () => {
+      this.props.history.push("/getallquestion")
+  }
   render() {
     return (
       <div>
@@ -72,11 +76,13 @@ class App extends React.Component {
           logOut = {this.onLogOut}
           makeTest = {this.makeTest}
           home = {this.home}
+          getQuest = {this.getQuest}
         ></NavBar>
         <br />
         <Route path="/addquestion" render={() => <AddQuestion></AddQuestion> }/>
         <Route exact path="/" render={() => <Carousel></Carousel> }/>
         
+        <Route exact path="/getallquestion" render={() => <GetQuestion></GetQuestion> }/>
         <br/>
       </div>
     );
