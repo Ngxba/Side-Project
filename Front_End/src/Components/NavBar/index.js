@@ -93,6 +93,7 @@ class NavBar extends React.Component {
 
   onLogOut = () => {
     this.props.logOut();
+    this.props.home();
   };
 
   render() {
@@ -113,16 +114,6 @@ class NavBar extends React.Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-              <NavItem>
-                  <NavLink href="#" onClick={this.props.getQuest}>
-                    See all Quest
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.props.makeTest}>
-                    Make Test
-                  </NavLink>
-                </NavItem>
                 {!this.props.isAuthen ? (
                   <>
                     <NavItem>
@@ -137,12 +128,24 @@ class NavBar extends React.Component {
                     </NavItem>
                   </>
                 ) : (
-                  <PesonalBar
-                    logOut={this.onLogOut}
-                    visible={this.state.personalProfile}
-                    onToggle={this.setPersonalProfile}
-                    userInfo={this.props.userInfo}
-                  ></PesonalBar>
+                  <>
+                    <NavItem>
+                      <NavLink href="#" onClick={this.props.getQuest}>
+                        See all Quest
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="#" onClick={this.props.makeTest}>
+                        Make Test
+                      </NavLink>
+                    </NavItem>
+                    <PesonalBar
+                      logOut={this.onLogOut}
+                      visible={this.state.personalProfile}
+                      onToggle={this.setPersonalProfile}
+                      userInfo={this.props.userInfo}
+                    />
+                  </>
                 )}
               </Nav>
             </Collapse>

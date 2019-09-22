@@ -49,7 +49,7 @@ export default class GetQuestion extends Component {
             numberOfEssayQuest : numberOfEssayQuest
         })
       this.toggleLoading();
-    }, 3000);
+    }, 1000);
   };
   
   componentDidMount() {
