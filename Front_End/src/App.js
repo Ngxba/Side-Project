@@ -6,6 +6,7 @@ import axios from "axios";
 import { Route, withRouter } from "react-router-dom";
 import AddQuestion from "./Components/AddQuestion";
 import GetQuestion from "./Components/GetQuestion";
+import MakeTest from "./Components/MakeTest";
 
 class App extends React.Component {
   state = {
@@ -55,10 +56,12 @@ class App extends React.Component {
     }
     return response;
   };
-  makeTest = () => {
+  addQuest = () => {
     this.props.history.push("/addquestion");
   };
-
+  makeTest = () => {
+    this.props.history.push("/maketest");
+  }
   home = () => {
     this.props.history.push("/");
   };
@@ -74,9 +77,10 @@ class App extends React.Component {
           isAuthen={this.state.authenUser.isAuthen}
           userInfo={this.state.authenUser}
           logOut={this.onLogOut}
-          makeTest={this.makeTest}
+          addQuest={this.addQuest}
           home={this.home}
           getQuest={this.getQuest}
+          makeTest = {this.makeTest}
         ></NavBar>
         <br />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
@@ -100,7 +104,10 @@ class App extends React.Component {
               path="/addquestion"
               render={() => <AddQuestion></AddQuestion>}
             />
-            
+            <Route
+              path="/maketest"
+              render={() => <MakeTest></MakeTest>}
+            />
             <Route
               exact
               path="/getallquestion"

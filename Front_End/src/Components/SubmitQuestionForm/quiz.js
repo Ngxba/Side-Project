@@ -210,14 +210,19 @@ export default class Quiz extends Component {
 
 function Anwser(props) {
   const { order, onChangeValue, value } = props;
+  let opacity = 1;
+  if(value === "" ){
+    opacity = 0.5
+  }
   return (
     <>
-      <Label>Câu trả lời {order}:</Label>
+      <Label style = {{opacity : opacity}} >Câu trả lời {order}:</Label>
       <Input
         type="textarea"
         name="text"
         onChange={e => onChangeValue(order, e.target.value)}
         value={value}
+        style = {{opacity : opacity}}
       />
     </>
   );
