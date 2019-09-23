@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card,CardBody,CardSubtitle,CardTitle,CardText} from "reactstrap"
+import {Card,CardBody,CardSubtitle,CardTitle,CardText, Button} from "reactstrap"
 
 export default class Essay extends Component {
     render() {
@@ -9,7 +9,10 @@ export default class Essay extends Component {
                 <Card>
           <CardBody>
             <CardTitle>
-              <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              <h5 style={{display:"inline-block"}}>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              
+              <Button outline className="float-right" color="danger" style={{marginRight : 5, borderRadius : 50}} ><i className="fas fa-trash"></i></Button>
+              <Button outline className="float-right" color="primary" style={{marginRight : 5, borderRadius : 50}}><i className="fas fa-pen"></i></Button>
             </CardTitle>
             <hr />
             <CardSubtitle>
@@ -17,9 +20,9 @@ export default class Essay extends Component {
                 <em>Em hãy đọc câu hỏi sau đây và trả lời :</em>
               </h6>
             </CardSubtitle>
-            <p>
+            <strong>
               {this.props.data.essayQuestionContent}
-            </p>
+            </strong>
             <hr />
             <CardText>Câu trả lời mẫu : </CardText>
               <CardText>{this.props.data.modelEssayQuestionAnswer} </CardText> 

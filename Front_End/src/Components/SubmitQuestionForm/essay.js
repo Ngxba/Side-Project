@@ -50,7 +50,6 @@ export default class Essay extends Component {
         allEssayQuestions : [...prevState.allEssayQuestions,this.state]
       }));
       this.props.sendEssayData(this.state.allEssayQuestions)
-      console.log(this.state.allEssayQuestions)
       setTimeout(() => {
         this.setState({
           pushStatus: "not"

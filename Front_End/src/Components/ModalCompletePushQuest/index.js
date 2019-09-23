@@ -18,38 +18,14 @@ class ModalComplePushQuestion extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
       quizData : [],
       essayData: [],
     };
   }
 
 
-  setStatetoOrigin = () => {
-    this.setState({
-    });
-  };
-
-  toggleLoading = () => {
-    this.setState({
-      loading: !this.state.loading
-    });
-  };
-
-  onLogin = async () => {
-    this.toggleLoading();
-    setTimeout(async () => {
-      await this.props.submit(this.state);
-      this.toggleLoading();
-      if (this.props.loginStatus === true) {
-        this.setStatetoOrigin();
-      }
-    }, 1000);
-  };
-
   onToggle = () => {
     this.props.onToggle();
-    this.setStatetoOrigin();
   };
 
   componentDidMount() {
@@ -78,7 +54,9 @@ class ModalComplePushQuestion extends React.Component {
                 ></QuestItem>
               );
             })}
-            <p>Essay</p>
+            <br/>
+            <hr/>
+            <br/>
             {this.state.essayData.map((post, index) => {
               return (
                 <QuestItem

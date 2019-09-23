@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
 
 
 export default class Quiz extends Component {
@@ -10,7 +10,10 @@ export default class Quiz extends Component {
         <Card>
           <CardBody>
             <CardTitle>
-              <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              <h5 style={{display:"inline-block"}}>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              
+              <Button outline className="float-right" color="danger" style={{marginRight : 5, borderRadius : 50}} ><i className="fas fa-trash"></i></Button>
+              <Button outline className="float-right" color="primary" style={{marginRight : 5, borderRadius : 50}}><i className="fas fa-pen"></i></Button>
             </CardTitle>
             <hr />
             <CardSubtitle>
@@ -18,9 +21,9 @@ export default class Quiz extends Component {
                 <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
               </h6>
             </CardSubtitle>
-            <p>
+            <strong>
               {this.props.data.QuizQuestionContent}
-            </p>
+            </strong>
             <hr />
             <CardText>Các đáp án: </CardText>
             {this.props.data.Answers.map(answer => {
@@ -29,6 +32,7 @@ export default class Quiz extends Component {
                 {answer.value}
               </div>})}
               <br/>
+              <hr/>
               <CardText>Câu trả lời đúng : {this.props.data.rightAnswer} </CardText> 
           </CardBody>
         </Card>

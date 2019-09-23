@@ -114,6 +114,16 @@ class NavBar extends React.Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+              <NavItem>
+                      <NavLink href="#" onClick={this.props.getQuest}>
+                        See all Quest
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="#" onClick={this.props.makeTest}>
+                        Make Test
+                      </NavLink>
+                    </NavItem>
                 {!this.props.isAuthen ? (
                   <>
                     <NavItem>
@@ -129,7 +139,7 @@ class NavBar extends React.Component {
                   </>
                 ) : (
                   <>
-                    <NavItem>
+                    {/* <NavItem>
                       <NavLink href="#" onClick={this.props.getQuest}>
                         See all Quest
                       </NavLink>
@@ -138,7 +148,7 @@ class NavBar extends React.Component {
                       <NavLink href="#" onClick={this.props.makeTest}>
                         Make Test
                       </NavLink>
-                    </NavItem>
+                    </NavItem> */}
                     <PesonalBar
                       logOut={this.onLogOut}
                       visible={this.state.personalProfile}

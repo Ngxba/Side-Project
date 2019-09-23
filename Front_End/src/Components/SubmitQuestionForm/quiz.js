@@ -10,7 +10,8 @@ import {
   Input,
   Label,
   Form,
-  Alert,Spinner
+  Alert,
+  Spinner
 } from "reactstrap";
 
 import { addQuiz } from "../../Action/addQuestion";
@@ -38,6 +39,12 @@ export default class Quiz extends Component {
     }));
   };
 
+  deleteAnswer = () => {
+    this.state.Answers.pop()
+    this.setState({
+      Answers : this.state.Answers
+    })
+  }
 
   toggleLoading = () => {
     this.setState({
@@ -67,9 +74,9 @@ export default class Quiz extends Component {
         Answers: [{ order: 0, value: "" }],
         rightAnswer: "",
         pushStatus: true,
-        allQuizQuestions : [...prevState.allQuizQuestions,this.state]
+        allQuizQuestions: [...prevState.allQuizQuestions, this.state]
       }));
-      this.props.sendQuizdata(this.state.allQuizQuestions)
+      this.props.sendQuizdata(this.state.allQuizQuestions);
       setTimeout(() => {
         this.setState({
           pushStatus: "not"
@@ -101,12 +108,12 @@ export default class Quiz extends Component {
       <div>
         <Card>
           <CardBody>
-            {this.state.pushStatus === true && <Alert color="success">
-            Submit Question SUCCESS
-            </Alert>}
-            {this.state.pushStatus === false && <Alert color="danger">
-              Submit Question FALSE
-            </Alert>}
+            {this.state.pushStatus === true && (
+              <Alert color="success">Submit Question SUCCESS</Alert>
+            )}
+            {this.state.pushStatus === false && (
+              <Alert color="danger">Submit Question FALSE</Alert>
+            )}
             <CardTitle>
               <h5>Câu hỏi trắc nhiệm số {this.state.numberOfQuest}</h5>{" "}
             </CardTitle>
@@ -146,11 +153,22 @@ export default class Quiz extends Component {
                 <Button
                   outline
                   color="secondary"
+                  style={{marginRight : 5}}
                   className="float-right"
                   type="button"
                   onClick={this.addAnwser}
                 >
-                  Add more answer
+                  <i className="fas fa-plus"></i>
+                </Button>
+                <Button
+                  outline
+                  style={{marginRight : 5}}
+                  color="secondary"
+                  className="float-right"
+                  type="button"
+                  onClick={this.deleteAnswer}
+                >
+                  <i className="fas fa-minus"></i>
                 </Button>
                 <br />
                 <hr />
@@ -166,11 +184,19 @@ export default class Quiz extends Component {
                   value={this.state.rightAnswer}
                 />
                 <br />
-                {this.state.loading &&
-            <div style={{ textAlign: "center" }}>
-              <Spinner style={{ width: "3rem", height: "3rem" }} />
-            </div>}
-                <Button disabled={this.state.pushStatus === true || this.state.pushStatus === false } type="submit" className="float-right">
+                {this.state.loading && (
+                  <div style={{ textAlign: "center" }}>
+                    <Spinner style={{ width: "3rem", height: "3rem" }} />
+                  </div>
+                )}
+                <Button
+                  disabled={
+                    this.state.pushStatus === true ||
+                    this.state.pushStatus === false
+                  }
+                  type="submit"
+                  className="float-right"
+                >
                   Submit
                 </Button>
               </FormGroup>
