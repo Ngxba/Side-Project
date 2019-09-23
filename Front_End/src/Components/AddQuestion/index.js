@@ -5,7 +5,8 @@ import SubmitQuestionForm from "../SubmitQuestionForm";
 
 export default class AddQuestion extends Component {
   state = {
-    loading: false
+    loading: false,
+    ModalComplePushQuestion : false
   };
 
   toggleLoading = () => {
@@ -19,6 +20,11 @@ export default class AddQuestion extends Component {
     setTimeout(this.toggleLoading, 1000);
   }
 
+  ToggleModalComplePushQuestion = () => {
+    this.setState({
+      ModalComplePushQuestion : !this.state.ModalComplePushQuestion
+    })
+  }
   render() {
     return (
       <Container>
@@ -28,10 +34,10 @@ export default class AddQuestion extends Component {
           </div>
         ) : (
           <>
-            <SubmitQuestionForm></SubmitQuestionForm>
+            <SubmitQuestionForm ModalComplePushQuestion ={this.state.ModalComplePushQuestion} onToggle = {this.ToggleModalComplePushQuestion}></SubmitQuestionForm>
             <br />
             <div style={{ textAlign: "center" }}>
-              <Button color="danger">Hoàn Thành</Button>
+              <Button color="danger" onClick={this.ToggleModalComplePushQuestion}>Hoàn Thành</Button>
             </div>
           </>
         )}

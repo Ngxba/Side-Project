@@ -11,10 +11,14 @@ import {
 import Quiz from "./quiz";
 import Essay from "./essay";
 import classnames from "classnames";
+import ModalComplePushQuestion from "../ModalCompletePushQuest";
 
 class SubmitQuestionForm extends React.Component {
   state = {
-    activeTab: "1"
+    activeTab: "1",
+    quizData : [],
+    essayData : [],
+
   };
   toggle = tab => {
     if (this.state.activeTab !== tab) {
@@ -61,18 +65,28 @@ class SubmitQuestionForm extends React.Component {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Quiz></Quiz>
+                <Quiz sendQuizdata={(data)=>{
+                  this.setState({
+                    quizData : data
+                  })
+                }}></Quiz>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <Essay></Essay>
+                <Essay sendEssayData={(data)=>{
+                  this.setState({
+                    essayData : data
+                  })
+                }}></Essay>
               </Col>
             </Row>
           </TabPane>
         </TabContent>
+        { this.props.ModalComplePushQuestion &&   <ModalComplePushQuestion essayData={this.state.essayData} quizData={this.state.quizData} visible = {this.props.ModalComplePushQuestion} onToggle ={this.props.onToggle}></ModalComplePushQuestion>}
+     
       </div>
     );
   }

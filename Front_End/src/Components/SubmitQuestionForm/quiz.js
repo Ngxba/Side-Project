@@ -23,7 +23,8 @@ export default class Quiz extends Component {
     Answers: [{ order: 0, value: "" }],
     rightAnswer: "",
     loading: false,
-    pushStatus: "not"
+    pushStatus: "not",
+    allQuizQuestions: []
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -36,6 +37,7 @@ export default class Quiz extends Component {
       ]
     }));
   };
+
 
   toggleLoading = () => {
     this.setState({
@@ -58,14 +60,16 @@ export default class Quiz extends Component {
     const { model, QuizQuestionContent, Answers, rightAnswer } = this.state;
     try {
       await addQuiz(model, QuizQuestionContent, Answers, rightAnswer);
-      this.setState({
+      this.setState(prevState => ({
         model: "quiz",
         numberOfQuest: this.state.numberOfQuest + 1,
         QuizQuestionContent: "",
         Answers: [{ order: 0, value: "" }],
         rightAnswer: "",
         pushStatus: true,
-      });
+        allQuizQuestions : [...prevState.allQuizQuestions,this.state]
+      }));
+      this.props.sendQuizdata(this.state.allQuizQuestions)
       setTimeout(() => {
         this.setState({
           pushStatus: "not"
@@ -166,7 +170,7 @@ export default class Quiz extends Component {
             <div style={{ textAlign: "center" }}>
               <Spinner style={{ width: "3rem", height: "3rem" }} />
             </div>}
-                <Button type="submit" className="float-right">
+                <Button disabled={this.state.pushStatus === true || this.state.pushStatus === false } type="submit" className="float-right">
                   Submit
                 </Button>
               </FormGroup>

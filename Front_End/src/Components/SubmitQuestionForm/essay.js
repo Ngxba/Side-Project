@@ -20,7 +20,8 @@ export default class Essay extends Component {
     numberOfQuest: 1,
     essayQuestionContent: "",
     modelEssayQuestionAnswer: "",
-    pushStatus: "not"
+    pushStatus: "not",
+    allEssayQuestions : []
   };
 
   onChange = object => {
@@ -40,18 +41,22 @@ export default class Essay extends Component {
         essayQuestionContent,
         modelEssayQuestionAnswer
       );
-      this.setState({
+      this.setState(prevState => ({
         numberOfQuest: this.state.numberOfQuest + 1,
         model: "essay",
         essayQuestionContent: "",
         modelEssayQuestionAnswer: "",
-        pushStatus: true
-      });
+        pushStatus: true,
+        allEssayQuestions : [...prevState.allEssayQuestions,this.state]
+      }));
+      this.props.sendEssayData(this.state.allEssayQuestions)
+      console.log(this.state.allEssayQuestions)
       setTimeout(() => {
         this.setState({
           pushStatus: "not"
         });
       }, 3000);
+      
     } catch (err) {
       this.setState({
         pushStatus: false
@@ -99,6 +104,7 @@ export default class Essay extends Component {
                 />
               </FormGroup>
               <hr />
+
               <CardText>
                 <strong>Câu trả lời</strong>
               </CardText>

@@ -80,7 +80,7 @@ class App extends React.Component {
         ></NavBar>
         <br />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
-        {
+        {/* {
           this.state.authenUser.isAuthen && 
           <>
             <Route
@@ -94,7 +94,19 @@ class App extends React.Component {
               render={() => <GetQuestion></GetQuestion>}
             />
           </>
-        }
+        } */}
+        <>
+            <Route
+              path="/addquestion"
+              render={() => <AddQuestion></AddQuestion>}
+            />
+            
+            <Route
+              exact
+              path="/getallquestion"
+              render={() => <GetQuestion></GetQuestion>}
+            />
+          </>
         <br />
       </div>
     );
