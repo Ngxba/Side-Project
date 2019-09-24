@@ -25,7 +25,7 @@ export default class Quiz extends Component {
     rightAnswer: "",
     loading: false,
     pushStatus: "not",
-    allQuizQuestions: []
+    allQuizQuestions: [],
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -40,11 +40,11 @@ export default class Quiz extends Component {
   };
 
   deleteAnswer = () => {
-    this.state.Answers.pop()
+    this.state.Answers.pop();
     this.setState({
-      Answers : this.state.Answers
-    })
-  }
+      Answers: this.state.Answers
+    });
+  };
 
   toggleLoading = () => {
     this.setState({
@@ -103,6 +103,12 @@ export default class Quiz extends Component {
     });
   };
 
+  rightAnswerOnChange = (value) =>{
+    this.setState({
+      rightAnswer : value
+    })
+  }
+
   render() {
     return (
       <div>
@@ -136,6 +142,7 @@ export default class Quiz extends Component {
                       QuizQuestionContent: event.target.value
                     });
                   }}
+                  required={true}
                 />
                 <hr />
                 <CardText>
@@ -153,7 +160,7 @@ export default class Quiz extends Component {
                 <Button
                   outline
                   color="secondary"
-                  style={{marginRight : 5}}
+                  style={{ marginRight: 5 }}
                   className="float-right"
                   type="button"
                   onClick={this.addAnwser}
@@ -162,7 +169,7 @@ export default class Quiz extends Component {
                 </Button>
                 <Button
                   outline
-                  style={{marginRight : 5}}
+                  style={{ marginRight: 5 }}
                   color="secondary"
                   className="float-right"
                   type="button"
@@ -173,17 +180,20 @@ export default class Quiz extends Component {
                 <br />
                 <hr />
                 <Label>Câu trả lời đúng:</Label>
-                <Input
-                  type="textarea"
-                  name="text"
-                  onChange={event => {
-                    this.onChange({
-                      rightAnswer: event.target.value
-                    });
-                  }}
-                  value={this.state.rightAnswer}
-                />
-                <br />
+                <div style={{
+                  display : "flex"
+                , justifyContent : "space-around"
+                }}>
+                {this.state.Answers.map(v => (
+                  <span key={this.state.numberOfQuest + v.order}>
+                    <input  type="radio" name={this.state.numberOfQuest} 
+                    onChange={e => this.rightAnswerOnChange(v.value)}
+                    value={v.value} style={{marginRight : 10}} required/>
+                    <Label>{v.value}</Label>
+                  </span>
+                ))}
+                </div>
+                <br/>
                 {this.state.loading && (
                   <div style={{ textAlign: "center" }}>
                     <Spinner style={{ width: "3rem", height: "3rem" }} />
@@ -211,18 +221,19 @@ export default class Quiz extends Component {
 function Anwser(props) {
   const { order, onChangeValue, value } = props;
   let opacity = 1;
-  if(value === "" ){
-    opacity = 0.5
+  if (value === "") {
+    opacity = 0.5;
   }
   return (
     <>
-      <Label style = {{opacity : opacity}} >Câu trả lời {order}:</Label>
+      <Label style={{ opacity: opacity }}>Câu trả lời {order}:</Label>
       <Input
         type="textarea"
         name="text"
         onChange={e => onChangeValue(order, e.target.value)}
         value={value}
-        style = {{opacity : opacity}}
+        style={{ opacity: opacity }}
+        required={true}
       />
     </>
   );

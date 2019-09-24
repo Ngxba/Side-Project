@@ -100,6 +100,7 @@ export default class Essay extends Component {
                       essayQuestionContent: event.target.value
                     });
                   }}
+                  required = {true}
                 />
               </FormGroup>
               <hr />
@@ -120,6 +121,7 @@ export default class Essay extends Component {
                       modelEssayQuestionAnswer: event.target.value
                     });
                   }}
+                  required = {true}
                 />
                 <br />
                 <Button type="submit" className="float-right">
