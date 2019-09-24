@@ -10,7 +10,7 @@ import GetQuestion from "./Components/GetQuestion";
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: null,
+      isAuthen: true,
       userName: "",
       userEmail: ""
     }

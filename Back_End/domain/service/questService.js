@@ -42,6 +42,9 @@ const questService = {
     } else {
       throw new Error("QUESTION_ESSAY_EXISTED");
     }
+  },
+  delQuest: async (questIDs) => {
+    await Question.deleteMany({_id:{$in:questIDs}})
   }
 };
 

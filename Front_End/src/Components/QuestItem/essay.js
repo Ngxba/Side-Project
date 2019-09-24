@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import {Card,CardBody,CardSubtitle,CardTitle,CardText} from "reactstrap"
+import { Card, CardBody, CardSubtitle, CardTitle, CardText } from "reactstrap"
+import { CustomInput } from 'reactstrap'
 
 export default class Essay extends Component {
-    render() {
-        return (
-            <div>
-            <br/>
-                <Card>
+  render() {
+    return (
+      <div>
+        <br />
+        <Card>
           <CardBody>
             <CardTitle>
-              <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              <div className="d-inline-flex">
+                <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              </div>
+              <CustomInput type="checkbox" className="float-right" id={this.props.data._id} checked={this.props.selected} onChange={() => this.props.onSelect(this.props.data._id, "essay")} inline />
             </CardTitle>
             <hr />
             <CardSubtitle>
@@ -22,11 +26,11 @@ export default class Essay extends Component {
             </p>
             <hr />
             <CardText>Câu trả lời mẫu : </CardText>
-              <CardText>{this.props.data.modelEssayQuestionAnswer} </CardText> 
+            <CardText>{this.props.data.modelEssayQuestionAnswer} </CardText>
           </CardBody>
         </Card>
-        
-            </div>
-        )
-    }
+
+      </div>
+    )
+  }
 }

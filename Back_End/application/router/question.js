@@ -40,4 +40,12 @@ router.get("/", async (req, res) => {
   res.json(listQuest);
 })
 
+router.post("/delete", async (req, res) =>{
+  const {questIDs} = req.body
+  await questService.delQuest(questIDs)
+  res.json({
+    success: true
+  })
+})
+
 module.exports = router;

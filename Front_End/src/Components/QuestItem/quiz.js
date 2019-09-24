@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Card, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import {CustomInput} from 'reactstrap'
 
 
 export default class Quiz extends Component {
+
   render() {
     return (
       <div>
@@ -10,7 +12,10 @@ export default class Quiz extends Component {
         <Card>
           <CardBody>
             <CardTitle>
-              <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              <div className="d-inline-flex">
+                <h5>Câu hỏi số {this.props.numberOfQuest}</h5>{" "}
+              </div>
+              <CustomInput type="checkbox" className="float-right" id={this.props.data._id} checked={this.props.selected} onChange={()=>this.props.onSelect(this.props.data._id, "quiz")} inline />
             </CardTitle>
             <hr />
             <CardSubtitle>
