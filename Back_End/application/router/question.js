@@ -36,8 +36,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const result  = await questService.getQuest();
-  const listQuest = result.map(questModel => questModel );
-  res.json(listQuest);
+  res.json(result);
 })
 
 module.exports = router;

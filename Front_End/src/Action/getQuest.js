@@ -23,7 +23,6 @@ export const getRandomQuiz = async number => {
     chooseArr.map(index => {
         return chooseQuestion = [...chooseQuestion,res.data[index]]
     })
-    console.log(chooseQuestion)
     return chooseQuestion;
   } else {
     throw new Error("Cannot get question", res);
