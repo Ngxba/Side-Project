@@ -8,27 +8,39 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
+  Input
 } from "reactstrap";
 
 class ModalAskTeacher extends React.Component {
-    state = {
-        numberOfQuizQuest : "",
-        numberOfEssayQuest : ""
-    }
+  state = {
+    numberOfQuizQuest: "",
+    numberOfEssayQuest: "",
+    classCode: ""
+  };
 
   onChange = object => {
     this.setState(Object.assign(this.state, object));
   };
 
   onSubmit = () => {
-        this.props.onSubmit(this.state)
-        this.onToggle()
-        console.log(this.state)
+    this.onChange({ classCode: this.makeClassCode(5) });
+    this.props.onSubmit(this.state);
+    this.onToggle();
   };
 
   onToggle = () => {
     this.props.onToggle();
+  };
+  makeClassCode = length => {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return result;
   };
   render() {
     return (
@@ -37,7 +49,9 @@ class ModalAskTeacher extends React.Component {
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="quiz">Số câu hỏi trắc nghiệm (max : {this.props.numberOfQuizQuest})</Label>
+              <Label for="quiz">
+                Số câu hỏi trắc nghiệm (max : {this.props.numberOfQuizQuest})
+              </Label>
               <Input
                 type="text"
                 name="quiz"
@@ -48,7 +62,9 @@ class ModalAskTeacher extends React.Component {
                 value={this.state.numberOfQuizQuest}
                 placeholder="10"
               />
-              <Label for="essay">Số câu hỏi tự luận (max : {this.props.numberOfEssayQuest})</Label>
+              <Label for="essay">
+                Số câu hỏi tự luận (max : {this.props.numberOfEssayQuest})
+              </Label>
               <Input
                 type="text"
                 name="essay"
@@ -64,7 +80,12 @@ class ModalAskTeacher extends React.Component {
         </ModalBody>
         <ModalFooter>
           <Button
-            disabled={!(this.state.numberOfQuizQuest <= this.props.numberOfQuizQuest && this.state.numberOfEssayQuest <= this.props.numberOfEssayQuest)}
+            disabled={
+              !(
+                this.state.numberOfQuizQuest <= this.props.numberOfQuizQuest &&
+                this.state.numberOfEssayQuest <= this.props.numberOfEssayQuest
+              )
+            }
             color="primary"
             onClick={this.onSubmit}
           >
