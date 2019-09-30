@@ -3,6 +3,7 @@ import { getQuiz } from "../../Action/getQuest";
 import QuestItem from "../QuestItem";
 import ModalAskTeacher from "./modalAskTeacher";
 import {Container, Alert} from "reactstrap"
+import { createClass } from "../../Action/class";
 
 export default class MakeTest extends Component {
   state = {
@@ -40,7 +41,7 @@ export default class MakeTest extends Component {
       ModalAskTeacherVisible: !this.state.ModalAskTeacherVisible
     });
   };
-  onSubmit = data => {
+  onSubmit = async data => {
     let chooseQuizArr = [];
     let chooseQuizQuestion = [];
     while (chooseQuizArr.length < data.numberOfQuizQuest) {
@@ -79,6 +80,7 @@ export default class MakeTest extends Component {
       listOfEssayQuestChoose: chooseEssayQuestion,
       classCode : data.classCode
     });
+    const response =await createClass(data.classCode, chooseQuizQuestion, chooseEssayQuestion)
   };
 
   componentDidMount = () => {

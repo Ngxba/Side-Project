@@ -7,6 +7,7 @@ import { Route, withRouter } from "react-router-dom";
 import AddQuestion from "./Components/AddQuestion";
 import GetQuestion from "./Components/GetQuestion";
 import MakeTest from "./Components/MakeTest";
+import TakeExam from "./Components/TakeExam";
 
 class App extends React.Component {
   state = {
@@ -68,6 +69,9 @@ class App extends React.Component {
   getQuest = () => {
     this.props.history.push("/getallquestion");
   };
+  takeTest = () => {
+    this.props.history.push(`/taketest`)
+  }
   render() {
     return (
       <div>
@@ -81,6 +85,7 @@ class App extends React.Component {
           home={this.home}
           getQuest={this.getQuest}
           makeTest = {this.makeTest}
+          takeTest = {this.takeTest}
         ></NavBar>
         <br />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
@@ -112,6 +117,11 @@ class App extends React.Component {
               exact
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
+            />
+            <Route
+              exact
+              path="/taketest"
+              render={() => <TakeExam></TakeExam>}
             />
           </>
         <br />
