@@ -1,13 +1,14 @@
 var Class = require("../model/class");
 
 const classService = {
-  createClass: async (classCode, listOfQuizQuest, listOfEssayQuest) => {
+  createClass: async (classCode, listOfQuizQuest, listOfEssayQuest, authedUser) => {
     const result = await Class.findOne({ classCode: classCode });
     if (!result) {
       const newClass = Class({
         classCode : classCode,
         listOfQuizQuest: listOfQuizQuest, 
-        listOfEssayQuest : listOfEssayQuest
+        listOfEssayQuest : listOfEssayQuest,
+        authedUser : authedUser,
       });
       await newClass.save();
       return newClass;

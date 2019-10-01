@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const createClass = async (classCode, listOfQuizQuest, listOfEssayQuest) => {
+export const createClass = async (classCode, listOfQuizQuest, listOfEssayQuest ,authedUser) => {
     const res = await axios.post(`http://localhost:5000/class/create`, {
-        classCode, listOfQuizQuest, listOfEssayQuest
+        classCode, listOfQuizQuest, listOfEssayQuest, authedUser
     });
     if(res.status === 200) {
         return res.data
