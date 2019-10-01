@@ -115,12 +115,12 @@ export default class Essay extends Component {
                   name="text"
                   id="questionContent"
                   rows="5"
-                  value={this.state.modelEssayQuestionAnswer}
-                  onChange={event => {
-                    this.onChange({
-                      modelEssayQuestionAnswer: event.target.value
-                    });
-                  }}
+                  // value={this.state.modelEssayQuestionAnswer}
+                  // onChange={event => {
+                  //   this.onChange({
+                  //     modelEssayQuestionAnswer: event.target.value
+                  //   });
+                  // }}
                   required = {true}
                 />
                 <br />

@@ -143,6 +143,7 @@ export default class GetQuestion extends Component {
 
 
   render() {
+    console.log(this.state.numberOfEssayQuest)
     return (
       <div>
         {this.state.loading ? (

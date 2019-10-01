@@ -30,6 +30,7 @@ export default class Essay extends Component {
                 className="float-right"
                 color="primary"
                 style={{ marginRight: 5, borderRadius: 50 }}
+                onClick={this.props.onEdit}
               ><i className="fas fa-pen"></i>
               </Button>
               {(this.props.selected === true ||
