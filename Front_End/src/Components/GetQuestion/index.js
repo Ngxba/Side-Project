@@ -133,17 +133,17 @@ export default class GetQuestion extends Component {
     try {
       await delQuest(questIDs);
       this.setState({
-        selectedAll: false
+        selectedAll: false,
+        numberOfEssayQuest: this.state.numberOfEssayQuest.filter(item => !item.checked),
+        numberOfQuizQuest: this.state.numberOfQuizQuest.filter(item => !item.checked)
       });
     } catch (err) {
       console.log(err.message);
     }
-    this.fetchNewsFeed(500);
   };
 
 
   render() {
-    console.log(this.state.numberOfEssayQuest)
     return (
       <div>
         {this.state.loading ? (
