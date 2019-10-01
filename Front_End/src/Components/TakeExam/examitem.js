@@ -2,15 +2,18 @@ import React, { Component } from "react";
 import {Card,CardBody,CardSubtitle,CardTitle,CardText,Input} from "reactstrap"
 
 class ExamItem extends Component {
+  
   render() {
     return (
       <div> 
+      
         {this.props.data.model === "quiz" && (
           <Quiz
             data={this.props.data}
             numberOfQuest={this.props.numberOfQuizQuest}
           ></Quiz>
         )}
+        <hr/><hr/>
         {this.props.data.model === "essay" && (
           <Essay
             data={this.props.data}
@@ -22,6 +25,7 @@ class ExamItem extends Component {
     );
   }
 }
+
 
 
 function Quiz(props) {
@@ -78,13 +82,6 @@ function Essay(props) {
                   type="textarea"
                   name="text"
                   rows="5"
-                  // value={this.state.modelEssayQuestionAnswer}
-                  // onChange={event => {
-                  //   this.onChange({
-                  //     modelEssayQuestionAnswer: event.target.value
-                  //   });
-                  // }
-                  // }
                 />
           </CardBody>
         </Card>

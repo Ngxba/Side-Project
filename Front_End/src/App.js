@@ -8,14 +8,15 @@ import AddQuestion from "./Components/AddQuestion";
 import GetQuestion from "./Components/GetQuestion";
 import MakeTest from "./Components/MakeTest";
 import TakeExam from "./Components/TakeExam";
+import { Row, Container } from "reactstrap";
 
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: null,
+      isAuthen: true,
       userName: "",
       userEmail: "",
-      roll : "teacher"
+      roll: "teacher"
     }
   };
   onRegister = async register_data => {
@@ -63,7 +64,7 @@ class App extends React.Component {
   };
   makeTest = () => {
     this.props.history.push("/maketest");
-  }
+  };
   home = () => {
     this.props.history.push("/");
   };
@@ -71,8 +72,8 @@ class App extends React.Component {
     this.props.history.push("/getallquestion");
   };
   takeTest = () => {
-    this.props.history.push(`/taketest`)
-  }
+    this.props.history.push(`/taketest`);
+  };
   render() {
     return (
       <div>
@@ -85,31 +86,22 @@ class App extends React.Component {
           addQuest={this.addQuest}
           home={this.home}
           getQuest={this.getQuest}
-          makeTest = {this.makeTest}
-          takeTest = {this.takeTest}
+          makeTest={this.makeTest}
+          takeTest={this.takeTest}
         ></NavBar>
         <br />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
-        {
-          this.state.authenUser.isAuthen && 
+        {this.state.authenUser.isAuthen && (
           <>
-            <Route
-              path="/addquestion"
-              render={() => <AddQuestion></AddQuestion>}
-            />
-            
-            <Route
-              exact
-              path="/getallquestion"
-              render={() => <GetQuestion></GetQuestion>}
-            />
             <Route
               path="/addquestion"
               render={() => <AddQuestion></AddQuestion>}
             />
             <Route
               path="/maketest"
-              render={() => <MakeTest authedUser={this.state.authenUser}></MakeTest>}
+              render={() => (
+                <MakeTest authedUser={this.state.authenUser}></MakeTest>
+              )}
             />
             <Route
               exact
@@ -117,16 +109,50 @@ class App extends React.Component {
               render={() => <GetQuestion></GetQuestion>}
             />
           </>
-        }
+        )}
         <>
-            
-            <Route
-              exact
-              path="/taketest"
-              render={() => <TakeExam></TakeExam>}
-            />
-          </>
+          <Route exact path="/taketest" render={() => <TakeExam></TakeExam>} />
+        </>
         <br />
+        <footer className="footer footer-black footer-white">
+          <Container>
+            <Row>
+              <nav className="footer-nav">
+                <ul>
+                  <li>
+                    <a
+                      href="https://www.creative-tim.com?ref=pkr-footer"
+                      
+                    >
+                      Creative Tim
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="http://blog.creative-tim.com/?ref=pkr-footer"
+                      
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.creative-tim.com/license?ref=pkr-footer"
+                    >
+                      Licenses
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <div className="credits ml-auto">
+                <span className="copyright">
+                  © {new Date().getFullYear()}, made with{" "}
+                  <i className="fa fa-heart heart" /> by Lam and Thanh
+                </span>
+              </div>
+            </Row>
+          </Container>
+        </footer>
       </div>
     );
   }

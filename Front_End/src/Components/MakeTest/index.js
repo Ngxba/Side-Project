@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getQuiz } from "../../Action/getQuest";
 import QuestItem from "../QuestItem";
 import ModalAskTeacher from "./modalAskTeacher";
-import {Container, Alert} from "reactstrap"
+import { Container, Alert, Label, Input, Button } from "reactstrap";
 import { createClass } from "../../Action/class";
 
 export default class MakeTest extends Component {
@@ -13,8 +13,20 @@ export default class MakeTest extends Component {
     listOfEssayQuestChoose: [],
     listOfQuizQuest: [],
     listOfEssayQuest: [],
-    classCode : ""
+    classCode: "",
+    Student: [{ order: 0, value: "" }]
   };
+
+  onChangeStudent = (order, value) => {
+    this.setState(prev => {
+      const student = [...prev.Student];
+      student[order - 1].value = value;
+      return {
+        Student: student
+      };
+    });
+  };
+
   fetchNewsFeed = async () => {
     try {
       const response = await getQuiz();
@@ -78,9 +90,32 @@ export default class MakeTest extends Component {
     this.setState({
       listOfQuizQuestChoose: chooseQuizQuestion,
       listOfEssayQuestChoose: chooseEssayQuestion,
-      classCode : data.classCode
+      classCode: data.classCode
     });
-    await createClass(data.classCode, chooseQuizQuestion, chooseEssayQuestion, this.props.authedUser)
+    await createClass(
+      data.classCode,
+      chooseQuizQuestion,
+      chooseEssayQuestion,
+      this.props.authedUser
+    );
+  };
+  addAnwser = () => {
+    this.setState(prev => ({
+      Student: [
+        ...prev.Student,
+        {
+          order: prev.Student.length,
+          value: ""
+        }
+      ]
+    }));
+  };
+
+  deleteAnswer = () => {
+    this.state.Student.pop();
+    this.setState({
+      Student: this.state.Student
+    });
   };
 
   componentDidMount = () => {
@@ -92,7 +127,11 @@ export default class MakeTest extends Component {
     return (
       <div>
         <Container>
-          {this.state.classCode && <Alert color="success">Create quest pool success, your code : "{this.state.classCode}"</Alert>}
+          {this.state.classCode && (
+            <Alert color="success">
+              Create quest pool success, your code : "{this.state.classCode}"
+            </Alert>
+          )}
           <ModalAskTeacher
             visible={this.state.ModalAskTeacherVisible}
             onToggle={this.onToggle}
@@ -100,6 +139,34 @@ export default class MakeTest extends Component {
             numberOfQuizQuest={this.state.listOfQuizQuest.length}
             numberOfEssayQuest={this.state.listOfEssayQuest.length}
           ></ModalAskTeacher>
+          {this.state.Student.map(v => (
+            <Student
+              order={v.order + 1}
+              key={v.order}
+              value={v.value}
+              onChangeValue={this.onChangeStudent}
+            />
+          ))}
+          <br/>
+          <Button
+            outline
+            color="secondary"
+            style={{ marginRight: 5 }}
+            className="float-right"
+            type="button"
+            onClick={this.addAnwser}
+          >
+            <i className="fas fa-plus"></i>
+          </Button>
+          <Button
+            outline
+            style={{ marginRight: 5 }}
+            color="secondary"
+            className="float-right"
+            type="button"
+            onClick={this.deleteAnswer}
+          ><i className="fas fa-minus"></i></Button>
+          <br/>
           {this.state.listOfQuizQuestChoose.map((item, index) => {
             numberOfQuizQuest += 1;
             return (
@@ -110,7 +177,7 @@ export default class MakeTest extends Component {
               ></QuestItem>
             );
           })}
-          ------------------------------------------------------
+          <hr />
           {this.state.listOfEssayQuestChoose.map((item, index) => {
             numberOfEssayQuest += 1;
             return (
@@ -125,4 +192,25 @@ export default class MakeTest extends Component {
       </div>
     );
   }
+}
+
+function Student(props) {
+  const { order, onChangeValue, value } = props;
+  let opacity = 1;
+  if (value === "") {
+    opacity = 0.5;
+  }
+  return (
+    <>
+      <Label style={{ opacity: opacity }}>Học sinh {order}:</Label>
+      <Input
+        type="textarea"
+        name="text"
+        onChange={e => onChangeValue(order, e.target.value)}
+        value={value}
+        style={{ opacity: opacity }}
+        required={true}
+      />
+    </>
+  );
 }
