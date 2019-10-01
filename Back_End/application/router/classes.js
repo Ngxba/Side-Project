@@ -3,12 +3,13 @@ var router = express.Router();
 var classService = require("../../domain/service/classService");
 
 router.post("/create", async (req, res) => {
-  const { classCode, listOfQuizQuest, listOfEssayQuest } = req.body;
+  const { classCode, listOfQuizQuest, listOfEssayQuest,  authedUser} = req.body;
   try {
     const newClass = await classService.createClass(
       classCode,
       listOfQuizQuest,
-      listOfEssayQuest
+      listOfEssayQuest,
+      authedUser
     );
     res.json(newClass);
   } catch (err) {

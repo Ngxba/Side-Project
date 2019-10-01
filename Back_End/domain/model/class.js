@@ -10,16 +10,22 @@ var questionSchema = new Schema({
       value: String
     }
   ],
-  rightAnswer:String,
+  rightAnswer: String,
   essayQuestionContent: String,
   modelEssayQuestionAnswer: String
 });
 
+var authedUser = new Schema({
+  userName: String,
+  userEmail: String,
+  roll: String
+});
 var classSchema = new Schema({
   classCode: String,
   listOfQuizQuest: [questionSchema],
   listOfEssayQuest: [questionSchema],
-  listOfStudent : [String]
+  listOfStudent: [String],
+  authedUser: authedUser
 });
 
 const Class = mongoose.model("class", classSchema);

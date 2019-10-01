@@ -16,7 +16,7 @@ export default class Essay extends Component {
           <CardBody>
             <CardTitle>
               <h5 style={{ display: "inline-block" }}>
-                Câu hỏi số {this.props.numberOfQuest}
+                Câu hỏi tự luận số {this.props.numberOfQuest}
               </h5>
               {" "}<Button
                 outline

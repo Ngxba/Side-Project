@@ -22,7 +22,7 @@ class NavBar extends React.Component {
       modalLogin: false,
       registerSuccessful: "not",
       loginSuccessful: "not",
-      personalProfile: false,
+      personalProfile: false
     };
   }
 
@@ -50,8 +50,6 @@ class NavBar extends React.Component {
       personalProfile: !this.state.personalProfile
     });
   };
-  
-
 
   wantToRegisterOnLogin = () => {
     this.setModalLogin();
@@ -93,8 +91,6 @@ class NavBar extends React.Component {
     }
   };
 
-  
-
   onLogOut = () => {
     this.props.logOut();
     this.props.home();
@@ -118,26 +114,12 @@ class NavBar extends React.Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-              <NavItem>
+                <NavItem>
                   <NavLink href="#" onClick={this.props.takeTest}>
                     Take test
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.props.makeTest}>
-                      Make Test
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.props.getQuest}>
-                    See all Quest
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.props.addQuest}>
-                    Add Question
-                  </NavLink>
-                </NavItem>
+
                 {!this.props.isAuthen ? (
                   <>
                     <NavItem>
@@ -153,16 +135,21 @@ class NavBar extends React.Component {
                   </>
                 ) : (
                   <>
-                    {/* <NavItem>
+                    <NavItem>
+                      <NavLink href="#" onClick={this.props.makeTest}>
+                        Make Test
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
                       <NavLink href="#" onClick={this.props.getQuest}>
                         See all Quest
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink href="#" onClick={this.props.makeTest}>
-                        Make Test
+                      <NavLink href="#" onClick={this.props.addQuest}>
+                        Add Question
                       </NavLink>
-                    </NavItem> */}
+                    </NavItem>
                     <PesonalBar
                       logOut={this.onLogOut}
                       visible={this.state.personalProfile}
@@ -188,7 +175,6 @@ class NavBar extends React.Component {
           submit={this.onSubmitRegister}
           registerStatus={this.state.registerSuccessful}
         ></Register>
-        
       </div>
     );
   }

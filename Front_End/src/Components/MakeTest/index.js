@@ -80,7 +80,7 @@ export default class MakeTest extends Component {
       listOfEssayQuestChoose: chooseEssayQuestion,
       classCode : data.classCode
     });
-    const response =await createClass(data.classCode, chooseQuizQuestion, chooseEssayQuestion)
+    await createClass(data.classCode, chooseQuizQuestion, chooseEssayQuestion, this.props.authedUser)
   };
 
   componentDidMount = () => {

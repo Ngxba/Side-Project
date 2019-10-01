@@ -12,7 +12,7 @@ export default class Quiz extends Component {
   render() {
     return (
       <div><Card><CardBody><CardTitle><h5 style={{ display: "inline-block" }}>
-                Câu hỏi số {this.props.numberOfQuest}</h5>
+                Câu hỏi trắc nghiệm số {this.props.numberOfQuest}</h5>
               {" "}<Button
                 outline
                 className="float-right"
@@ -45,7 +45,7 @@ export default class Quiz extends Component {
             <CardSubtitle>
               <h6>
                 <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
-              </h6>     
+              </h6>
               <p>{this.props.data.QuizQuestionContent}</p>
             </CardSubtitle>
             <hr />
@@ -62,8 +62,8 @@ export default class Quiz extends Component {
             <CardText>
               Câu trả lời đúng : {this.props.data.rightAnswer} 
             </CardText>
-          </CardBody>      
-        </Card>       
+          </CardBody>
+        </Card>
       </div>
     );
   }

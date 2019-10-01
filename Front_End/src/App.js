@@ -14,7 +14,8 @@ class App extends React.Component {
     authenUser: {
       isAuthen: null,
       userName: "",
-      userEmail: ""
+      userEmail: "",
+      roll : "teacher"
     }
   };
   onRegister = async register_data => {
@@ -89,7 +90,7 @@ class App extends React.Component {
         ></NavBar>
         <br />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
-        {/* {
+        {
           this.state.authenUser.isAuthen && 
           <>
             <Route
@@ -102,22 +103,23 @@ class App extends React.Component {
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
             />
-          </>
-        } */}
-        <>
             <Route
               path="/addquestion"
               render={() => <AddQuestion></AddQuestion>}
             />
             <Route
               path="/maketest"
-              render={() => <MakeTest></MakeTest>}
+              render={() => <MakeTest authedUser={this.state.authenUser}></MakeTest>}
             />
             <Route
               exact
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
             />
+          </>
+        }
+        <>
+            
             <Route
               exact
               path="/taketest"
