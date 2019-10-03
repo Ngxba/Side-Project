@@ -15,20 +15,13 @@ var questionSchema = new Schema({
   modelEssayQuestionAnswer: String
 });
 
-var authedUser = new Schema({
-  userName: String,
-  userEmail: String,
-  roll: String
-});
 var classSchema = new Schema({
   classCode: String,
-  listOfQuizQuest: [questionSchema],
-  listOfEssayQuest: [questionSchema],
+  poolQuest: [questionSchema],
   listOfStudent: [String],
-  authedUser: authedUser
+  listOfTeacher: [String]
 });
 
+const NewClass = mongoose.model("newclass", classSchema);
 
-const Class = mongoose.model("class", classSchema);
-
-module.exports = Class;
+module.exports = NewClass;
