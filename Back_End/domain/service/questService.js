@@ -45,7 +45,16 @@ const questService = {
   },
   delQuest: async (questIDs) => {
     await Question.deleteMany({_id:{$in:questIDs}})
-  }
+  },
+    editEssay: async (questID, essayQuestionContent, modelEssayQuestionAnswer) => {
+        const quiz = await Question.findById(questID)
+        quiz.essayQuestionContent = essayQuestionContent
+        quiz.modelEssayQuestionAnswer = modelEssayQuestionAnswer
+        await quiz.save()
+    },
+    editQuiz: async () => {
+
+    }
 };
 
 module.exports = questService;

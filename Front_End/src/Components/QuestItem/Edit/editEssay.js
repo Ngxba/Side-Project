@@ -5,39 +5,39 @@ import {
     CardSubtitle,
     CardTitle,
     CardText,
-    CustomInput,
     Button,
     Input,
-    Form,
-    FormGroup
 } from "reactstrap";
+import { editEssayQuest } from "../../../Action/editQuest"
 
 export default class editEssay extends Component {
     preEssay = {
-        Answers:this.props.data.Answers,
-        checked:this.props.data.checked,
-        essayQuestionContent:this.props.data.essayQuestionContent,
-        model:this.props.data.model,
-        modelEssayQuestionAnswer:this.props.data.modelEssayQuestionAnswer,
-        _id:this.props.data._id
+        Answers: this.props.data.Answers,
+        checked: this.props.data.checked,
+        essayQuestionContent: this.props.data.essayQuestionContent,
+        model: this.props.data.model,
+        modelEssayQuestionAnswer: this.props.data.modelEssayQuestionAnswer,
+        _id: this.props.data._id
     }
-    state ={
-        essay:this.props.data
+    state = {
+        essay: this.props.data
     }
 
     onChange = object => {
         this.setState(Object.assign(this.state.essay, object));
-      };
+    };
 
-    onSubmit = event => {
-        event.preventDefault()
-
+    onSubmit = async () => {
+        await editEssayQuest(
+            this.state.essay._id,
+            this.state.essay.model,
+            this.state.essay.essayQuestionContent,
+            this.state.essay.modelEssayQuestionAnswer
+        )
     }
 
 
     render() {
-        console.log(this.props.data)
-        console.log(this.preEssay)
         return (
             <div>
                 <Card>
@@ -48,60 +48,54 @@ export default class editEssay extends Component {
                             </h5>
                         </CardTitle>
                         <hr />
-                        <Form onSubmit={this.onSubmit}>
-                            <FormGroup>
-                                <CardSubtitle>
-                                    <h6><em>Em hãy đọc câu hỏi sau đây và trả lời :</em></h6>
-                                    <Input
-                                        type="textarea"
-                                        name="text"
-                                        id="essayQuestion"
-                                        rows="3"
-                                        value={this.state.essay.essayQuestionContent}
-                                        onChange={event => {
-                                            this.onChange({
-                                                essayQuestionContent: event.target.value
-                                            });
-                                        }}
-                                        required={true}
-                                    />
-                                </CardSubtitle>
-                            </FormGroup>
-                            <hr />
-                            <CardText>Câu trả lời mẫu : </CardText>
+                        <CardSubtitle>
+                            <h6><em>Em hãy đọc câu hỏi sau đây và trả lời :</em></h6>
                             <Input
                                 type="textarea"
                                 name="text"
                                 id="essayQuestion"
                                 rows="3"
-                                value={this.state.essay.modelEssayQuestionAnswer}
+                                value={this.state.essay.essayQuestionContent}
                                 onChange={event => {
                                     this.onChange({
-                                        modelEssayQuestionAnswer: event.target.value
+                                        essayQuestionContent: event.target.value
                                     });
                                 }}
                                 required={true}
                             />
-                            <br/>
-                            {" "}<Button
-                                outline
-                                className="float-right"
-                                type="submit"
-                                color="success"
-                                style={{ marginRight: 5, borderRadius: 50 }}
-                                onClick={this.props.onEdit}
-                            ><i className="fas fa-check"></i>
-                            </Button>
-                            <Button
-                                outline
-                                className="float-right"
-                                color="danger"
-                                style={{ marginRight: 5, borderRadius: 50 }}
-                                onClick={()=>{this.props.onEdit();this.onChange(this.preEssay)}}
-                            ><i className="fas fa-times"></i>
-                            </Button>
-                        </Form>
-
+                        </CardSubtitle>
+                        <hr />
+                        <CardText>Câu trả lời mẫu : </CardText>
+                        <Input
+                            type="textarea"
+                            name="text"
+                            id="essayQuestion"
+                            rows="3"
+                            value={this.state.essay.modelEssayQuestionAnswer}
+                            onChange={event => {
+                                this.onChange({
+                                    modelEssayQuestionAnswer: event.target.value
+                                });
+                            }}
+                            required={true}
+                        />
+                        <br />
+                        {" "}<Button
+                            outline
+                            className="float-right"
+                            color="success"
+                            style={{ marginRight: 5, borderRadius: 50 }}
+                            onClick={() => { this.props.onEdit(); this.onSubmit() }}
+                        ><i className="fas fa-check"></i>
+                        </Button>
+                        <Button
+                            outline
+                            className="float-right"
+                            color="danger"
+                            style={{ marginRight: 5, borderRadius: 50 }}
+                            onClick={() => { this.props.onEdit(); this.onChange(this.preEssay) }}
+                        ><i className="fas fa-times"></i>
+                        </Button>
                     </CardBody>
                 </Card>
             </div>
