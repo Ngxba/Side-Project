@@ -22,15 +22,21 @@ const classService = {
   //     throw new Error("Class_EXISTED");
   //   }
   // },
-  // getClass: async classCode => {
-  //   console.log(classCode);
-  //   let result = await Class.findOne({ classCode: classCode });
-  //   if (result) {
-  //     return result;
-  //   } else {
-  //     throw new Error("error/class_not_found");
-  //   }
-  // },
+  getClass: async classCode => {
+    let result = await newClass.findOne({ classCode: classCode });
+    if (result) {
+      return result;
+    } else {
+      throw new Error("error/class_not_found");
+    }
+  },
+
+  getOwnedClass : async userEmail => {
+    let result = await newClass.find({ listOfStudent : { $contains : userEmail }
+    })
+    console.log(result)
+    return result
+  },
 
   createNewClass: async (classCode, listOfStudent, teacher) => {
     const result = await newClass.findOne({ classCode: classCode });

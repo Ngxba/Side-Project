@@ -12,11 +12,21 @@ export const createClass = async (classCode, listOfQuizQuest, listOfEssayQuest ,
 }
 
 export const getClass = async (classCode) => {
-    const res = await axios.post(`http://localhost:5000/class`, {classCode});
+    console.log(classCode)
+    const res = await axios.post(`http://localhost:5000/class?q=${classCode}`)
     if(res.status === 200) {
         return res.data
     } else {
-        throw new Error("Cannot take test", res)
+        throw new Error("Cannot get class", res)
+    }
+}
+
+export const getOwnedClass = async (roll, userEmail) => {
+    const res = await axios.post(`http://localhost:5000/class/getownedclasses?q=${userEmail}`)
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot get class", res)
     }
 }
 

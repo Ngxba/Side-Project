@@ -54,14 +54,18 @@ export default class CreateClass extends Component {
     });
   };
 
+  
+
   submit = async event => {
     event.preventDefault();
     
     try{
-        const response = await createNewClass(this.state.classCode, this.state.Student, this.state.teacher.userEmail)
+        await createNewClass(this.state.classCode, this.state.Student, this.state.teacher.userEmail)
         this.setState({
             pushStatus : true
         })
+        
+        setTimeout(()=>{this.props.getClass(this.state.classCode)},2000);
     } catch(er) {
         this.setState({
             pushStatus: false
@@ -75,10 +79,10 @@ export default class CreateClass extends Component {
         <Card>
           <CardBody>
             {this.state.pushStatus === true && (
-              <Alert color="success">Submit Question SUCCESS</Alert>
+              <Alert color="success">Create Class SUCCESS</Alert>
             )}
             {this.state.pushStatus === false && (
-              <Alert color="danger">Submit Question FALSE</Alert>
+              <Alert color="danger">Create Class FALSE</Alert>
             )}
             <h3>Tên giáo viên: {this.state.teacher.userName}</h3>
             <CardTitle>
@@ -139,6 +143,7 @@ export default class CreateClass extends Component {
                   <i className="fas fa-minus"></i>
                 </Button>
                 <br />
+                <br/>
                 <Button type="submit" className="float-right">
                   Submit
                 </Button>

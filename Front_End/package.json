@@ -8,6 +8,7 @@
     "bootstrap": "^4.3.1",
     "material-ui": "^0.20.2",
     "mdbreact": "^4.21.0",
+    "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",

@@ -10,6 +10,8 @@ import MakeTest from "./Components/MakeTest";
 import TakeExam from "./Components/TakeExam";
 import { Row, Container } from "reactstrap";
 import CreateClass from "./Components/CreateClass";
+import GetClass from "./Components/GetClass";
+import GetAllClass from "./Components/GetAllClass";
 
 class App extends React.Component {
   state = {
@@ -78,6 +80,12 @@ class App extends React.Component {
   createClass = () => {
     this.props.history.push(`/createclass`);
   };
+  getClass = (classCode) => {
+    this.props.history.push(`/class/get?q=${classCode}`)
+  }
+  seeOwnedClass = () => {
+    this.props.history.push(`/class/getallclasses?q=${this.state.authenUser.roll}&&d=${this.state.authenUser.userEmail}`)
+  }
   render() {
     return (
       <div>
@@ -93,15 +101,18 @@ class App extends React.Component {
           makeTest={this.makeTest}
           takeTest={this.takeTest}
           createClass = {this.createClass}
+          seeOwnedClass = {this.seeOwnedClass}
         ></NavBar>
         <br />
         <Route
               path="/createclass"
               render={() => (
-                <CreateClass authedUser={this.state.authenUser}></CreateClass>
+                <CreateClass authedUser={this.state.authenUser} getClass={this.getClass}></CreateClass>
               )}
             />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
+        <Route path="/class/get" render={() => <GetClass></GetClass>}/>
+        <Route path="/class/getallclasses" render={() => <GetAllClass></GetAllClass>}/>
         {this.state.authenUser.isAuthen && (
           <>
             <Route
