@@ -39,7 +39,7 @@ router.post("/getownedclasses", async (req,res) => {
   const userEmail = req.query.q
   try {
     const ownedClasses = await classService.getOwnedClass(userEmail)
-    // res.json(ownedClasses)
+    res.json(ownedClasses)
     console.log(ownedClasses)
   }
   catch(err){
