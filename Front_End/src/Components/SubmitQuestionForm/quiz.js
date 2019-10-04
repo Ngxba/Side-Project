@@ -149,7 +149,7 @@ export default class Quiz extends Component {
                   <strong>Các câu trả lời</strong>
                 </CardText>
                 {this.state.Answers.map(v => (
-                  <Anwser
+                  <Answer
                     order={v.order + 1}
                     key={v.order}
                     value={v.value}
@@ -218,7 +218,7 @@ export default class Quiz extends Component {
   }
 }
 
-function Anwser(props) {
+export function Answer(props) {
   const { order, onChangeValue, value } = props;
   let opacity = 1;
   if (value === "") {

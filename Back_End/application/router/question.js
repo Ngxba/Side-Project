@@ -49,18 +49,33 @@ router.post("/delete", async (req, res) =>{
 })
 
 router.post("/edit", async (req, res) =>{
-    const {questID, essayQuestionContent, modelEssayQuestionAnswer} = req.body
-    try{
-        await questService.editEssay(questID, essayQuestionContent, modelEssayQuestionAnswer)
-        res.json({
-            success: true
-        })
-    } catch (err) {
-        res.status(400)
-        res.json({
-            err: err.message
-        })
+    const {questID, model, essayQuestionContent, modelEssayQuestionAnswer, QuizQuestionContent, Answers, rightAnswer} = req.body
+    if (model === "essay") {
+        try{
+            await questService.editEssay(questID, model, essayQuestionContent, modelEssayQuestionAnswer)
+            res.json({
+                success: true
+            })
+        } catch (err) {
+            res.status(400)
+            res.json({
+                err: err.message
+            })
+        }
+    } else if (model === "quiz") {
+        try {
+            await questService.editQuiz(questID, model, QuizQuestionContent, Answers, rightAnswer)
+            res.json({
+                success: true
+            })
+        } catch (err) {
+            res.status(400)
+            res.json({
+                err: err.message
+            })
+        }
     }
+    
 })
     
 module.exports = router;

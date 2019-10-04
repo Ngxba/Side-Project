@@ -46,14 +46,34 @@ const questService = {
   delQuest: async (questIDs) => {
     await Question.deleteMany({_id:{$in:questIDs}})
   },
-    editEssay: async (questID, essayQuestionContent, modelEssayQuestionAnswer) => {
-        const quiz = await Question.findById(questID)
-        quiz.essayQuestionContent = essayQuestionContent
-        quiz.modelEssayQuestionAnswer = modelEssayQuestionAnswer
-        await quiz.save()
+    editEssay: async (questID, model, essayQuestionContent, modelEssayQuestionAnswer) => {
+        let result = await Question.findOne({
+            model,
+            essayQuestionContent
+        })
+        if (!result || result._id === questID) {
+            const essay = await Question.findById(questID)
+            essay.essayQuestionContent = essayQuestionContent
+            essay.modelEssayQuestionAnswer = modelEssayQuestionAnswer
+            await essay.save()
+        } else {
+            throw new Error("QUESTION_ESSAY_EXISTED");
+        }
     },
-    editQuiz: async () => {
-
+    editQuiz: async (questID, model, QuizQuestionContent, Answers, rightAnswer) => {
+        let result = await Question.findOne({
+            model,
+            QuizQuestionContent
+        })
+        if (!result || result._id === questID) {
+            const quiz = await Question.findById(questID)
+            quiz.QuizQuestionContent = QuizQuestionContent
+            quiz.Answers = Answers
+            quiz.rightAnswer = rightAnswer
+            await quiz.save()
+        } else {
+            throw new Error("Question_QUIZ_EXISTED")
+        }
     }
 };
 
