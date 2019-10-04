@@ -69,7 +69,7 @@ export default class editEssay extends Component {
                         )}
                         <CardTitle>
                             <h5 style={{ display: "inline-block" }}>
-                                Câu hỏi số {this.props.numberOfQuest}
+                                Câu hỏi tự luận số {this.props.numberOfQuest}
                             </h5>
                         </CardTitle>
                         <hr />
