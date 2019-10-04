@@ -51,7 +51,7 @@ const questService = {
             model,
             essayQuestionContent
         })
-        if (!result || result._id === questID) {
+        if (result === null || result._id.toString() === questID) {
             const essay = await Question.findById(questID)
             essay.essayQuestionContent = essayQuestionContent
             essay.modelEssayQuestionAnswer = modelEssayQuestionAnswer
@@ -65,7 +65,7 @@ const questService = {
             model,
             QuizQuestionContent
         })
-        if (!result || result._id === questID) {
+        if (result === null || result._id.toString() === questID) {
             const quiz = await Question.findById(questID)
             quiz.QuizQuestionContent = QuizQuestionContent
             quiz.Answers = Answers
