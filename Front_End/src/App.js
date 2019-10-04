@@ -112,7 +112,7 @@ class App extends React.Component {
             />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
         <Route path="/class/get" render={() => <GetClass></GetClass>}/>
-        <Route path="/class/getallclasses" render={() => <GetAllClass></GetAllClass>}/>
+        <Route path="/class/getallclasses" render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}/>
         {this.state.authenUser.isAuthen && (
           <>
             <Route

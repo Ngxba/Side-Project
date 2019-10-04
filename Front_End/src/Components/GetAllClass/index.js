@@ -7,27 +7,27 @@ import {
   //   CardTitle,
   //   CardSubtitle,
   Button,
-  Media
+  Media,
+  Container
 } from "reactstrap";
-import {withRouter} from "react-router-dom"
-import queryString from "query-string"
-import {getOwnedClass} from "../../Action/class"
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
+import { getOwnedClass } from "../../Action/class";
 
 class GetAllClass extends React.Component {
+  state = {
+    listOwnedClass: []
+  };
   fetchClassResult = async () => {
     {
       const rollOfUser = queryString.parse(this.props.location.search).q; //roll of teacher
-      const emailOfUser = queryString.parse(this.props.location.search).d
-      // console.log(emailOfUser)
+      const emailOfUser = queryString.parse(this.props.location.search).d;
       try {
-        const response = await getOwnedClass(rollOfUser,emailOfUser);
+        const response = await getOwnedClass(rollOfUser, emailOfUser);
         console.log(response);
-        // this.setState({
-        //   classCode: response.classCode,
-        //   listOfTeacher: response.listOfTeacher,
-        //   listOfStudent: response.listOfStudent,
-        //   QuestPool: response.poolQuest
-        // });
+        this.setState({
+          listOwnedClass: response
+        });
       } catch (err) {
         console.log("get class err");
       }
@@ -38,15 +38,23 @@ class GetAllClass extends React.Component {
   }
   render() {
     return (
-      <div>
-        <ClassForm></ClassForm>
-      </div>
+      <Container>
+        {this.state.listOwnedClass.map((item, index) => {
+          return <ClassForm
+            key = {index}
+            classCode={item.classCode}
+            teacher={item.listOfTeacher[0]}
+            totalStudentsNumber={item.listOfStudent.length}
+            getClass = {this.props.getClass}
+          ></ClassForm>;
+        })}
+      </Container>
     );
   }
 }
 
 function ClassForm(props) {
-  const { classCode, teacher } = props;
+  const { classCode, teacher, totalStudentsNumber, getClass } = props;
   return (
     <div>
       <Card>
@@ -56,14 +64,15 @@ function ClassForm(props) {
               <i className="fas fa-user fa-5x"></i>
             </Media>
             <Media body>
-              <Media heading>Class : "AAAA"</Media>
+              <Media heading>Class : {classCode}</Media>
               Môn học : <br />
-              Số lượng học sinh : <br />
-              Giảng viên chính : <br />
+              Số lượng học sinh : {totalStudentsNumber} <br />
+              Giảng viên chính : {teacher}
+              <br />
             </Media>
           </Media>
           <br />
-          <Button>Button</Button>
+          <Button onClick={() => getClass(classCode)}>See Class</Button>
         </CardBody>
       </Card>
     </div>

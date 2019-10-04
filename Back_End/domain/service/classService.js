@@ -33,8 +33,11 @@ const classService = {
 
   getOwnedClass : async userEmail => {
     let result = await newClass.find({ listOfTeacher : userEmail })
-    console.log(result)
-    return result
+    if (result) {
+      return result;
+    } else {
+      throw new Error("error/class_not_found");
+    }
   },
 
   createNewClass: async (classCode, listOfStudent, teacher) => {
