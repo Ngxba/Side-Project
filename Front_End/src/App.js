@@ -9,13 +9,14 @@ import GetQuestion from "./Components/GetQuestion";
 import MakeTest from "./Components/MakeTest";
 import TakeExam from "./Components/TakeExam";
 import { Row, Container } from "reactstrap";
+import CreateClass from "./Components/CreateClass";
 
 class App extends React.Component {
   state = {
     authenUser: {
       isAuthen: true,
-      userName: "",
-      userEmail: "",
+      userName: "Tung Lam Nguyen Ba",
+      userEmail: "tunglam.ngxba@gmail.com",
       roll: "teacher"
     }
   };
@@ -74,6 +75,9 @@ class App extends React.Component {
   takeTest = () => {
     this.props.history.push(`/taketest`);
   };
+  createClass = () => {
+    this.props.history.push(`/createclass`);
+  };
   render() {
     return (
       <div>
@@ -88,8 +92,15 @@ class App extends React.Component {
           getQuest={this.getQuest}
           makeTest={this.makeTest}
           takeTest={this.takeTest}
+          createClass = {this.createClass}
         ></NavBar>
         <br />
+        <Route
+              path="/createclass"
+              render={() => (
+                <CreateClass authedUser={this.state.authenUser}></CreateClass>
+              )}
+            />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
         {this.state.authenUser.isAuthen && (
           <>

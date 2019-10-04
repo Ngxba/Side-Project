@@ -119,6 +119,11 @@ class NavBar extends React.Component {
                     Take test
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink href="#" onClick={this.props.createClass}>
+                    CREATE A CLASS
+                  </NavLink>
+                </NavItem>
 
                 {!this.props.isAuthen ? (
                   <>

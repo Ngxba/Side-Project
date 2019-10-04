@@ -15,6 +15,7 @@ var questionSchema = new Schema({
   modelEssayQuestionAnswer: String
 });
 
+
 var classSchema = new Schema({
   classCode: String,
   poolQuest: [questionSchema],
@@ -22,6 +23,6 @@ var classSchema = new Schema({
   listOfTeacher: [String]
 });
 
-const NewClass = mongoose.model("newclass", classSchema);
+const Class = mongoose.model("newclass", classSchema);
 
-module.exports = NewClass;
+module.exports = Class;

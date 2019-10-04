@@ -40,7 +40,6 @@ router.post("/createnewclass", async (req,res)=>{
     const newClass = await classService.createNewClass(classCode,listOfStudent,teacher);
     res.json(newClass)
   } catch(err) {
-    console.log("somethinwrong")
     res.status(400);
     res.json({
       err : err.message

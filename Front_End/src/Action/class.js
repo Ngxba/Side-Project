@@ -19,3 +19,16 @@ export const getClass = async (classCode) => {
         throw new Error("Cannot take test", res)
     }
 }
+
+export const createNewClass = async (classCode, listOfGivenStudent, teacher) => {
+    const listOfStudent = []
+    listOfGivenStudent.map(student => listOfStudent.push(student.value))
+    const res = await axios.post(`http://localhost:5000/class/createnewclass`, {
+        classCode, listOfStudent, teacher
+    });
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot create class", res)
+    }
+}
