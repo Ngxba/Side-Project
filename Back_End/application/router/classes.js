@@ -34,4 +34,17 @@ router.post("/", async (req,res) => {
   }
 })
 
+router.post("/createnewclass", async (req,res)=>{
+  const {classCode, listOfStudent, teacher} = req.body;
+  try {
+    const newClass = await classService.createNewClass(classCode,listOfStudent,teacher);
+    res.json(newClass)
+  } catch(err) {
+    res.status(400);
+    res.json({
+      err : err.message
+    })
+  }
+})
+
 module.exports = router;
