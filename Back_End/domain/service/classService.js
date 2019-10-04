@@ -32,7 +32,7 @@ const classService = {
   },
 
   getOwnedClass : async userEmail => {
-    let result = await newClass.find({ listOfStudent : userEmail })
+    let result = await newClass.find({ listOfTeacher : userEmail })
     console.log(result)
     return result
   },
