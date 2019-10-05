@@ -22,11 +22,13 @@ export const addQuiz = async (
 };
 
 export const addEssayQuest = async (
+  type,
   model,
   essayQuestionContent,
   modelEssayQuestionAnswer
 ) => {
   const res = await axios.post(`http://localhost:5000/question`, {
+    type,
     model,
     essayQuestionContent,
     modelEssayQuestionAnswer
