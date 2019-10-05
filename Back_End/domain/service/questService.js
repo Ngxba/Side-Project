@@ -1,17 +1,18 @@
 var Question = require("../model/question");
-var newClass = require("../model/newClass");
 
 const questService = {
   getQuest: () => {
     return Question.find({});
   },
-  pushQuiz: async (model, QuizQuestionContent, Answers, rightAnswer) => {
+  pushQuiz: async (type, model, QuizQuestionContent, Answers, rightAnswer) => {
     const result = await Question.findOne({
+      type : type,
       model: model,
       QuizQuestionContent: QuizQuestionContent
     });
     if (!result) {
       const newQuest = Question({
+        type,
         model,
         QuizQuestionContent,
         Answers,
@@ -24,16 +25,19 @@ const questService = {
     }
   },
   pushEssayQuest: async (
+    type,
     model,
     essayQuestionContent,
     modelEssayQuestionAnswer
   ) => {
     let result = await Question.findOne({
+      type : type,
       model: model,
       essayQuestionContent: essayQuestionContent
     });
     if (!result) {
       const newQuest = Question({
+        type,
         model,
         essayQuestionContent,
         modelEssayQuestionAnswer

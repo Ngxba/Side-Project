@@ -1,12 +1,14 @@
 import axios from "axios";
 
 export const addQuiz = async (
+  type,
   model,
   QuizQuestionContent,
   Answers,
   rightAnswer
 ) => {
   const res = await axios.post(`http://localhost:5000/question`, {
+    type,
     model,
     QuizQuestionContent,
     Answers,

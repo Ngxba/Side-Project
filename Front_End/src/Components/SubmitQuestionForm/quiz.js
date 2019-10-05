@@ -26,7 +26,9 @@ export default class Quiz extends Component {
     loading: false,
     pushStatus: "not",
     allQuizQuestions: [],
-    classCode: ""
+    classCode: "",
+    type : "", 
+    _id : ""
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -65,9 +67,13 @@ export default class Quiz extends Component {
 
   submit = async event => {
     event.preventDefault();
-    const { model, QuizQuestionContent, Answers, rightAnswer } = this.state;
+    const {type, model, QuizQuestionContent, Answers, rightAnswer } = this.state;
+    console.log(this.state)
     try {
-      await addQuiz(model, QuizQuestionContent, Answers, rightAnswer);
+      const res = await addQuiz(type, model, QuizQuestionContent, Answers, rightAnswer);
+      this.setState({
+        _id : res._id
+      })
       this.setState(prevState => ({
         model: "quiz",
         numberOfQuest: this.state.numberOfQuest + 1,
@@ -75,7 +81,9 @@ export default class Quiz extends Component {
         Answers: [{ order: 0, value: "" }],
         rightAnswer: "",
         pushStatus: true,
-        allQuizQuestions: [...prevState.allQuizQuestions, this.state]
+        _id : "",
+        allQuizQuestions: [...prevState.allQuizQuestions, this.state],
+        
       }));
       this.props.sendQuizdata(this.state.allQuizQuestions);
       setTimeout(() => {
@@ -99,6 +107,17 @@ export default class Quiz extends Component {
     this.setState({
       classCode: this.props.classCode
     });
+    if(this.props.classCode){
+      this.setState({
+        type : this.props.classCode
+      })
+      
+    } else {
+      this.setState({
+        type : "SECRET_KEYCLASS_12345@gmz@123@000@721"
+      })
+      
+    }
   }
 
   onChange = object => {

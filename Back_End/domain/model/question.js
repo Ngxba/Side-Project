@@ -2,6 +2,7 @@ const mongoose = require("../../infrastructure/db");
 var Schema = mongoose.Schema;
 
 var questionSchema = new Schema({
+  type : String,
   model: String,
   QuizQuestionContent: String,
   Answers: [
