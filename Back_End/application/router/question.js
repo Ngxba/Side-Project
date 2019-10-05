@@ -3,10 +3,12 @@ var router = express.Router();
 var questService = require("../../domain/service/questService");
 router.post("/", async (req, res) => {
   const model = req.body.model;
+const type = req.body.type
   if (model === "quiz") {
     const { QuizQuestionContent, Answers, rightAnswer } = req.body;
     try {
       const quiz = await questService.pushQuiz(
+        type,
         model,
         QuizQuestionContent,
         Answers,
@@ -23,7 +25,7 @@ router.post("/", async (req, res) => {
    else if(model === "essay"){
       const {essayQuestionContent, modelEssayQuestionAnswer} = req.body;
       try {
-          const quiz = await questService.pushEssayQuest(model,essayQuestionContent, modelEssayQuestionAnswer) ;
+          const quiz = await questService.pushEssayQuest(type,model,essayQuestionContent, modelEssayQuestionAnswer) ;
           res.json(quiz);
         } catch (err) {
           res.status(400);

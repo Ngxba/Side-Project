@@ -21,7 +21,8 @@ export default class Essay extends Component {
     essayQuestionContent: "",
     modelEssayQuestionAnswer: "",
     pushStatus: "not",
-    allEssayQuestions : []
+    allEssayQuestions : [],
+    _id : ""
   };
 
   onChange = object => {
@@ -36,17 +37,21 @@ export default class Essay extends Component {
       modelEssayQuestionAnswer
     } = this.state;
     try {
-      await addEssayQuest(
+      const res = await addEssayQuest(
         model,
         essayQuestionContent,
         modelEssayQuestionAnswer
       );
+      this.setState({
+        _id : res._id
+      })
       this.setState(prevState => ({
         numberOfQuest: this.state.numberOfQuest + 1,
         model: "essay",
         essayQuestionContent: "",
         modelEssayQuestionAnswer: "",
         pushStatus: true,
+        _id : "",
         allEssayQuestions : [...prevState.allEssayQuestions,this.state]
       }));
       this.props.sendEssayData(this.state.allEssayQuestions)

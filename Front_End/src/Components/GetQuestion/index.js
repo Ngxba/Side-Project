@@ -45,11 +45,11 @@ export default class GetQuestion extends Component {
       }
       var numberOfQuizQuest = this.state.listQuest.filter(function(quest) {
         quest.checked = false;
-        return quest.model === "quiz";
+        return quest.model === "quiz" && quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721";
       });
       var numberOfEssayQuest = this.state.listQuest.filter(function(quest) {
         quest.checked = false;
-        return quest.model === "essay";
+        return quest.model === "essay" && quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721";
       });
       this.setState({
         numberOfQuizQuest: numberOfQuizQuest,
