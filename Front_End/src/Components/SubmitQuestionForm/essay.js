@@ -22,7 +22,8 @@ export default class Essay extends Component {
     modelEssayQuestionAnswer: "",
     pushStatus: "not",
     allEssayQuestions : [],
-    _id : ""
+    _id : "",
+    type : ""
   };
 
   onChange = object => {
@@ -32,12 +33,14 @@ export default class Essay extends Component {
   submit = async event => {
     event.preventDefault();
     const {
+      type,
       model,
       essayQuestionContent,
       modelEssayQuestionAnswer
     } = this.state;
     try {
       const res = await addEssayQuest(
+        type,
         model,
         essayQuestionContent,
         modelEssayQuestionAnswer
@@ -72,6 +75,22 @@ export default class Essay extends Component {
       }, 3000);
     }
   };
+  componentDidMount() {
+    this.setState({
+      classCode: this.props.classCode
+    });
+    if(this.props.classCode){
+      this.setState({
+        type : this.props.classCode
+      })
+      
+    } else {
+      this.setState({
+        type : "SECRET_KEYCLASS_12345@gmz@123@000@721"
+      })
+      
+    }
+  }
   render() {
     return (
       <div>
