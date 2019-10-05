@@ -124,7 +124,7 @@ export default class CreateClass extends Component {
                 <br />
                 <Button
                   outline
-                  color="secondary"
+                  color="primary"
                   style={{ marginRight: 5 }}
                   className="float-right"
                   type="button"
@@ -135,13 +135,14 @@ export default class CreateClass extends Component {
                 <Button
                   outline
                   style={{ marginRight: 5 }}
-                  color="secondary"
+                  color="primary"
                   className="float-right"
                   type="button"
                   onClick={this.deleteStudent}
                 >
                   <i className="fas fa-minus"></i>
                 </Button>
+                <br/>
                 <br />
                 <br/>
                 <Button type="submit" className="float-right">

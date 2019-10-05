@@ -150,7 +150,7 @@ export default class MakeTest extends Component {
           <br/>
           <Button
             outline
-            color="secondary"
+            color="primary"
             style={{ marginRight: 5 }}
             className="float-right"
             type="button"
@@ -161,11 +161,12 @@ export default class MakeTest extends Component {
           <Button
             outline
             style={{ marginRight: 5 }}
-            color="secondary"
+            color="primary"
             className="float-right"
             type="button"
             onClick={this.deleteAnswer}
           ><i className="fas fa-minus"></i></Button>
+          <br/>
           <br/>
           {this.state.listOfQuizQuestChoose.map((item, index) => {
             numberOfQuizQuest += 1;

@@ -5,9 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 // styles
-// import "../src/assets/css/bootstrap.min.css"
-// import "../src/assets/css/paper-kit.css";
-// import "../src/assets/demo/demo.css";
+import "../src/assets/css/bootstrap.min.css"
+import "../src/assets/css/paper-kit.css";
+import "../src/assets/demo/demo.css";
 
 
 ReactDOM.render(<BrowserRouter>

@@ -15,6 +15,7 @@ class PesonalBar extends React.Component {
           <DropdownItem disabled>{this.props.userInfo.userName}</DropdownItem>
           <DropdownItem onClick={this.props.seeOwnedClass}>See my class</DropdownItem>
           <DropdownItem divider />
+          <DropdownItem >See my profile</DropdownItem>
           <DropdownItem onClick={this.props.logOut}>Log out</DropdownItem>
         </DropdownMenu>
       </ButtonDropdown>

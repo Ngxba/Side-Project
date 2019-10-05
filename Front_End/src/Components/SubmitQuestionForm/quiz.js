@@ -159,7 +159,7 @@ export default class Quiz extends Component {
                 <br />
                 <Button
                   outline
-                  color="secondary"
+                  color="primary"
                   style={{ marginRight: 5 }}
                   className="float-right"
                   type="button"
@@ -170,13 +170,14 @@ export default class Quiz extends Component {
                 <Button
                   outline
                   style={{ marginRight: 5 }}
-                  color="secondary"
+                  color="primary"
                   className="float-right"
                   type="button"
                   onClick={this.deleteAnswer}
                 >
                   <i className="fas fa-minus"></i>
                 </Button>
+                <br/>
                 <br />
                 <hr />
                 <Label>Câu trả lời đúng:</Label>

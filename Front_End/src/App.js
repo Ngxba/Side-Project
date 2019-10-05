@@ -12,6 +12,8 @@ import { Row, Container } from "reactstrap";
 import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
+import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
+import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js"
 
 class App extends React.Component {
   state = {
@@ -86,6 +88,9 @@ class App extends React.Component {
   seeOwnedClass = () => {
     this.props.history.push(`/class/getallclasses?q=${this.state.authenUser.roll}&&d=${this.state.authenUser.userEmail}`)
   }
+  TESTUI = () => {
+    this.props.history.push(`/TESTUI`)
+  }
   render() {
     return (
       <div>
@@ -102,6 +107,7 @@ class App extends React.Component {
           takeTest={this.takeTest}
           createClass = {this.createClass}
           seeOwnedClass = {this.seeOwnedClass}
+          TESTUI = {this.TESTUI}
         ></NavBar>
         <br />
         <Route
@@ -112,6 +118,7 @@ class App extends React.Component {
             />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
         <Route path="/class/get" render={() => <GetClass></GetClass>}/>
+        <Route path="/TESTUI" render={() => <ProfilePage></ProfilePage>}/>
         <Route path="/class/getallclasses" render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}/>
         {this.state.authenUser.isAuthen && (
           <>

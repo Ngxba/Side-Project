@@ -99,7 +99,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <Navbar color="dark" light expand="md">
           <Container>
             <NavbarBrand href="#" onClick={this.props.home}>
               <img
@@ -117,6 +117,11 @@ class NavBar extends React.Component {
                 <NavItem>
                   <NavLink href="#" onClick={this.props.takeTest}>
                     Take test
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="#" onClick={this.props.TESTUI}>
+                    TESTING UI
                   </NavLink>
                 </NavItem>
                 <NavItem>
