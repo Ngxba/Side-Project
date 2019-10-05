@@ -3,7 +3,7 @@ import { getQuiz } from "../../Action/getQuest";
 import QuestItem from "../QuestItem";
 import ModalAskTeacher from "./modalAskTeacher";
 import { Container, Alert } from "reactstrap";
-import { createClass } from "../../Action/class";
+import { createTest } from "../../Action/class";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 
@@ -88,12 +88,12 @@ class MakeTest extends Component {
       listOfEssayQuestChoose: chooseEssayQuestion,
       testCode: data.testCode,
     });
-    // await createClass(
-    //   data.classCode,
-    //   chooseQuizQuestion,
-    //   chooseEssayQuestion,
-    //   this.props.authedUser
-    // );
+    await createTest(
+      data.classCode,
+      chooseQuizQuestion,
+      chooseEssayQuestion,
+      this.props.authedUser
+    );
   };
 
 

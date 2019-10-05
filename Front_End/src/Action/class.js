@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createClass = async (classCode, listOfQuizQuest, listOfEssayQuest ,authedUser) => {
+export const createTest = async (classCode, listOfQuizQuest, listOfEssayQuest ,authedUser) => {
     const res = await axios.post(`http://localhost:5000/class/create`, {
         classCode, listOfQuizQuest, listOfEssayQuest, authedUser
     });
