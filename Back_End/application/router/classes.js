@@ -1,17 +1,18 @@
 var express = require("express");
 var router = express.Router();
 var classService = require("../../domain/service/classService");
+var testService = require("../../domain/service/testService")
 
-router.post("/create", async (req, res) => {
+router.post("/createTest", async (req, res) => {
   const { classCode, listOfQuizQuest, listOfEssayQuest,  authedUser} = req.body;
   try {
-    const newClass = await classService.createClass(
+    const newTest = await testService.createTest(
       classCode,
       listOfQuizQuest,
       listOfEssayQuest,
       authedUser
     );
-    res.json(newClass);
+    res.json(newTest);
   } catch (err) {
     res.status(400);
     res.json({

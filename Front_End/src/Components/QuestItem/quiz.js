@@ -48,7 +48,7 @@ export default class Quiz extends Component {
           <h6>
             <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
           </h6>
-          <p>{this.props.data.QuizQuestionContent}</p>
+          <p style={{whiteSpace: "pre"}}>{this.props.data.QuizQuestionContent}</p>
         </CardSubtitle>
         <hr />
         <CardText>Các đáp án: </CardText>

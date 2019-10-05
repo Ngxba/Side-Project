@@ -10,7 +10,6 @@ var testSchema = new Schema({
   classCode: String,
   listOfQuizQuest: [String],
   listOfEssayQuest: [String],
-  listOfStudent: [String],
   authedUser: authedUser
 });
 

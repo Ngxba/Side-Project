@@ -22,6 +22,7 @@ class MakeTest extends Component {
 
   fetchQuestPool = async () => {
     const query = queryString.parse(this.props.location.search).q; //class code
+    console.log(query)
     try {
       const response = await getQuiz();
       this.setState({
@@ -88,8 +89,9 @@ class MakeTest extends Component {
       listOfEssayQuestChoose: chooseEssayQuestion,
       testCode: data.testCode,
     });
+    console.log(this.state.classCode)
     await createTest(
-      data.classCode,
+      this.state.classCode,
       chooseQuizQuestion,
       chooseEssayQuestion,
       this.props.authedUser
