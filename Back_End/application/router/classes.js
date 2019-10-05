@@ -22,7 +22,6 @@ router.post("/create", async (req, res) => {
 
 router.post("/", async (req,res) => {
   const classCode = req.query.q
-  console.log(classCode)
   try {
     const takenClass = await classService.getClass(classCode)
     res.json(takenClass)
@@ -40,7 +39,7 @@ router.post("/getownedclasses", async (req,res) => {
   try {
     const ownedClasses = await classService.getOwnedClass(userEmail)
     res.json(ownedClasses)
-    console.log(ownedClasses)
+
   }
   catch(err){
     res.status(400);

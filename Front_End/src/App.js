@@ -120,6 +120,12 @@ class App extends React.Component {
         <Route path="/class/get" render={() => <GetClass></GetClass>}/>
         <Route path="/TESTUI" render={() => <ProfilePage></ProfilePage>}/>
         <Route path="/class/getallclasses" render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}/>
+        <Route
+              path="/class/maketest"
+              render={() => {
+                return <MakeTest authedUser={this.state.authenUser}></MakeTest>
+              }}
+            />
         {this.state.authenUser.isAuthen && (
           <>
             <Route
@@ -127,10 +133,15 @@ class App extends React.Component {
               render={() => <AddQuestion></AddQuestion>}
             />
             <Route
+              path="/class/addquestion"
+              render={() => <AddQuestion></AddQuestion>}
+            />
+            <Route
               path="/maketest"
-              render={() => (
-                <MakeTest authedUser={this.state.authenUser}></MakeTest>
-              )}
+              render={() => {
+                console.log("aaa")
+                return <MakeTest authedUser={this.state.authenUser}></MakeTest>
+              }}
             />
             <Route
               exact

@@ -26,6 +26,7 @@ export default class Quiz extends Component {
     loading: false,
     pushStatus: "not",
     allQuizQuestions: [],
+    classCode: ""
   };
   addAnwser = () => {
     this.setState(prev => ({
@@ -94,6 +95,12 @@ export default class Quiz extends Component {
     }
   };
 
+  componentDidMount() {
+    this.setState({
+      classCode: this.props.classCode
+    });
+  }
+
   onChange = object => {
     this.setState(Object.assign(this.state, object));
   };
@@ -103,11 +110,11 @@ export default class Quiz extends Component {
     });
   };
 
-  rightAnswerOnChange = (value) =>{
+  rightAnswerOnChange = value => {
     this.setState({
-      rightAnswer : value
-    })
-  }
+      rightAnswer: value
+    });
+  };
 
   render() {
     return (
@@ -177,24 +184,31 @@ export default class Quiz extends Component {
                 >
                   <i className="fas fa-minus"></i>
                 </Button>
-                <br/>
+                <br />
                 <br />
                 <hr />
                 <Label>Câu trả lời đúng:</Label>
-                <div style={{
-                  display : "flex"
-                , justifyContent : "space-around"
-                }}>
-                {this.state.Answers.map(v => (
-                  <span key={this.state.numberOfQuest + v.order}>
-                    <input  type="radio" name={this.state.numberOfQuest} 
-                    onChange={e => this.rightAnswerOnChange(v.value)}
-                    value={v.value} style={{marginRight : 10}} required/>
-                    <Label>{v.value}</Label>
-                  </span>
-                ))}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around"
+                  }}
+                >
+                  {this.state.Answers.map(v => (
+                    <span key={this.state.numberOfQuest + v.order}>
+                      <input
+                        type="radio"
+                        name={this.state.numberOfQuest}
+                        onChange={e => this.rightAnswerOnChange(v.value)}
+                        value={v.value}
+                        style={{ marginRight: 10 }}
+                        required
+                      />
+                      <Label>{v.value}</Label>
+                    </span>
+                  ))}
                 </div>
-                <br/>
+                <br />
                 {this.state.loading && (
                   <div style={{ textAlign: "center" }}>
                     <Spinner style={{ width: "3rem", height: "3rem" }} />

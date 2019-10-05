@@ -15,7 +15,7 @@ class ModalAskTeacher extends React.Component {
   state = {
     numberOfQuizQuest: "",
     numberOfEssayQuest: "",
-    classCode: ""
+    testCode: ""
   };
 
   onChange = object => {
@@ -23,7 +23,7 @@ class ModalAskTeacher extends React.Component {
   };
 
   onSubmit = () => {
-    this.onChange({ classCode: this.makeClassCode(5) });
+    this.onChange({ testCode: this.makeTestCode(5) });
     this.props.onSubmit(this.state);
     this.onToggle();
   };
@@ -31,7 +31,7 @@ class ModalAskTeacher extends React.Component {
   onToggle = () => {
     this.props.onToggle();
   };
-  makeClassCode = length => {
+  makeTestCode = length => {
     var result = "";
     var characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -79,6 +79,10 @@ class ModalAskTeacher extends React.Component {
           </Form>
         </ModalBody>
         <ModalFooter>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
           <Button
             disabled={
               !(
@@ -91,7 +95,7 @@ class ModalAskTeacher extends React.Component {
           >
             Submit
           </Button>{" "}
-          <Button color="secondary" onClick={this.onToggle}>
+          <Button color="secondary" onClick={this.onToggle} style={{marginRight : "10px"}}>
             Cancel
           </Button>
         </ModalFooter>

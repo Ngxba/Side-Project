@@ -27,12 +27,6 @@ class SubmitQuestionForm extends React.Component {
     }
   };
 
-  submitEssayQuestion = async () => {
-    const result = await this.props.submitEssayQuestion;
-    console.log(result);
-    return result;
-  };
-
   render() {
     return (
       <div>
@@ -73,6 +67,7 @@ class SubmitQuestionForm extends React.Component {
             <Row>
               <Col sm="12" className="ml-auto mr-auto text-center" md="6">
                 <Quiz
+                  classCode={this.props.classCode}
                   sendQuizdata={data => {
                     this.setState({
                       quizData: data
@@ -86,6 +81,7 @@ class SubmitQuestionForm extends React.Component {
             <Row>
               <Col sm="12" className="ml-auto mr-auto text-center" md="6">
                 <Essay
+                  classCode={this.props.classCode}
                   sendEssayData={data => {
                     this.setState({
                       essayData: data

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Container, Button, Spinner } from "reactstrap";
-// import QuestionFrom from "../QuestionForm"
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 import SubmitQuestionForm from "../SubmitQuestionForm";
 
-export default class AddQuestion extends Component {
+class AddQuestion extends Component {
   state = {
     loading: false,
-    ModalComplePushQuestion : false
+    ModalComplePushQuestion : false,
+    classCode : ""
   };
 
   toggleLoading = () => {
@@ -16,6 +18,10 @@ export default class AddQuestion extends Component {
   };
 
   componentDidMount() {
+    const query = queryString.parse(this.props.location.search).q; //class code
+    this.setState({
+      classCode : query
+    })
     this.toggleLoading();
     setTimeout(this.toggleLoading, 1000);
   }
@@ -26,6 +32,7 @@ export default class AddQuestion extends Component {
     })
   }
   render() {
+    console.log(this.state.classCode)
     return (
       <Container>
         {this.state.loading ? (
@@ -34,7 +41,7 @@ export default class AddQuestion extends Component {
           </div>
         ) : (
           <>
-            <SubmitQuestionForm ModalComplePushQuestion ={this.state.ModalComplePushQuestion} onToggle = {this.ToggleModalComplePushQuestion}></SubmitQuestionForm>
+            <SubmitQuestionForm classCode={this.state.classCode}  ModalComplePushQuestion ={this.state.ModalComplePushQuestion} onToggle = {this.ToggleModalComplePushQuestion}></SubmitQuestionForm>
             <br />
             <div style={{ textAlign: "center" }}>
               <Button color="danger" onClick={this.ToggleModalComplePushQuestion}>Hoàn Thành</Button>
@@ -45,3 +52,5 @@ export default class AddQuestion extends Component {
     );
   }
 }
+
+export default withRouter(AddQuestion);

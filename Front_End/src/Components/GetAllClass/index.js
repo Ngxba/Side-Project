@@ -24,7 +24,6 @@ class GetAllClass extends React.Component {
       const emailOfUser = queryString.parse(this.props.location.search).d;
       try {
         const response = await getOwnedClass(rollOfUser, emailOfUser);
-        console.log(response);
         this.setState({
           listOwnedClass: response
         });

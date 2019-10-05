@@ -36,6 +36,13 @@ class GetClass extends Component {
     }
   }
 
+  makeTest = () => {
+      this.props.history.push(`/class/maketest?q=${this.state.classCode}`)
+  }
+
+  addQuestInPool = () => {
+    this.props.history.push(`/class/addquestion?q=${this.state.classCode}`);
+  }
   render() {
     return (
       <Container>
@@ -63,11 +70,11 @@ class GetClass extends Component {
             <br/>
             <Row style={{textAlign : "center"}}>
                 <Col><Button className= "Button">GET QUESTPOOL</Button></Col>
-                <Col><Button className= "Button" onClick={()=>{this.props.makeTest(this.state.classCode)}}>TAKE TEST / MAKE TEST</Button></Col>
+                <Col><Button className= "Button" onClick={this.makeTest}>TAKE TEST / MAKE TEST</Button></Col>
             </Row>
             <br/>
             <Row style={{textAlign : "center"}}>
-                <Col><Button className= "Button">BUTTON 5</Button></Col>
+                <Col><Button className= "Button" onClick={this.addQuestInPool}>ADD QUEST IN QUESTPOOL</Button></Col>
                 <Col><Button className= "Button">BUTTON 6</Button></Col>
             </Row>
         </div>
