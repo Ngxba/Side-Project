@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import QuestItem from "../QuestItem";
 import { getQuiz } from "../../Action/getQuest";
+import { withRouter } from "react-router-dom";
+import queryString from "query-string";
 import { delQuest } from "../../Action/delQuest";
 import {
   Nav,
@@ -16,7 +18,7 @@ import {
   Button
 } from "reactstrap";
 import classnames from "classnames";
-export default class GetQuestion extends Component {
+class GetQuestion extends Component {
   state = {
     listQuest: [],
     loading: false,
@@ -24,7 +26,9 @@ export default class GetQuestion extends Component {
     numberOfEssayQuest: [],
     activeTab: "1",
     selectedQuest: [],
-    selectedAll: false
+    selectedAll: false,
+    type: "",
+
   };
   toggleLoading = () => {
     this.setState({
@@ -32,34 +36,75 @@ export default class GetQuestion extends Component {
     });
   };
 
-  fetchNewsFeed = async time => {
+  fetchQuestPool = async time => {
     this.toggleLoading();
-    setTimeout(async () => {
-      try {
-        const response = await getQuiz();
-        this.setState({
-          listQuest: response
+    const query = queryString.parse(this.props.location.search).q;
+    if(query){
+      setTimeout(async () => {
+        try {
+          const response = await getQuiz();
+          this.setState({
+            listQuest: response
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
+        var numberOfQuizQuest = this.state.listQuest.filter(function(quest) {
+          quest.checked = false;
+          return (
+            quest.model === "quiz" &&
+            quest.type === query
+          );
         });
-      } catch (err) {
-        console.log(err.message);
-      }
-      var numberOfQuizQuest = this.state.listQuest.filter(function(quest) {
-        quest.checked = false;
-        return quest.model === "quiz" && quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721";
-      });
-      var numberOfEssayQuest = this.state.listQuest.filter(function(quest) {
-        quest.checked = false;
-        return quest.model === "essay" && quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721";
-      });
-      this.setState({
-        numberOfQuizQuest: numberOfQuizQuest,
-        numberOfEssayQuest: numberOfEssayQuest
-      });
-      this.toggleLoading();
-    }, time);
+        var numberOfEssayQuest = this.state.listQuest.filter(function(quest) {
+          quest.checked = false;
+          return (
+            quest.model === "essay" &&
+            quest.type === query
+          );
+        });
+        this.setState({
+          numberOfQuizQuest: numberOfQuizQuest,
+          numberOfEssayQuest: numberOfEssayQuest
+        });
+        this.toggleLoading();
+      }, time);
+    }
+    else {
+      setTimeout(async () => {
+        try {
+          const response = await getQuiz();
+          this.setState({
+            listQuest: response
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
+        var numberOfQuizQuest = this.state.listQuest.filter(function(quest) {
+          quest.checked = false;
+          return (
+            quest.model === "quiz" &&
+            quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721"
+          );
+        });
+        var numberOfEssayQuest = this.state.listQuest.filter(function(quest) {
+          quest.checked = false;
+          return (
+            quest.model === "essay" &&
+            quest.type === "SECRET_KEYCLASS_12345@gmz@123@000@721"
+          );
+        });
+        this.setState({
+          numberOfQuizQuest: numberOfQuizQuest,
+          numberOfEssayQuest: numberOfEssayQuest
+        });
+        this.toggleLoading();
+      }, time);
+    }
+    
   };
   componentDidMount() {
-    this.fetchNewsFeed(1000);
+    this.fetchQuestPool(1000);
   }
 
   toggle = tab => {
@@ -134,14 +179,17 @@ export default class GetQuestion extends Component {
       await delQuest(questIDs);
       this.setState({
         selectedAll: false,
-        numberOfEssayQuest: this.state.numberOfEssayQuest.filter(item => !item.checked),
-        numberOfQuizQuest: this.state.numberOfQuizQuest.filter(item => !item.checked)
+        numberOfEssayQuest: this.state.numberOfEssayQuest.filter(
+          item => !item.checked
+        ),
+        numberOfQuizQuest: this.state.numberOfQuizQuest.filter(
+          item => !item.checked
+        )
       });
     } catch (err) {
       console.log(err.message);
     }
   };
-
 
   render() {
     return (
@@ -151,42 +199,47 @@ export default class GetQuestion extends Component {
             <Spinner style={{ width: "3rem", height: "3rem" }} />
           </div>
         ) : (
-            
           <Container>
-          <Nav tabs>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "1" })}
-              onClick={() => {
-                this.toggle("1");
-              }}
+          {queryString.parse(this.props.location.search).q && <h3 style={{ textAlign: "center" }}>Chú ý, đang xem các câu hỏi của bộ đề luyện tập Class: "{queryString.parse(this.props.location.search).q}"</h3>}
+            {!(queryString.parse(this.props.location.search).q) && <h3 style={{ textAlign: "center" }}>Chú ý, đang xem các câu hỏi của bộ đề thi</h3>}
+            <Nav tabs>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "1"
+                  })}
+                  onClick={() => {
+                    this.toggle("1");
+                  }}
+                >
+                  Câu hỏi trắc nghiệm
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "2"
+                  })}
+                  onClick={() => {
+                    this.toggle("2");
+                  }}
+                >
+                  Câu hỏi tự luận
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <Button
+              color="danger"
+              className="d-flex justify-content-end"
+              style={{ textAlign: "end" }}
+              onClick={this.onDeleteQuest}
             >
-              Câu hỏi trắc nghiệm
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === "2" })}
-              onClick={() => {
-                this.toggle("2");
-              }}
-            >
-              Câu hỏi tự luận
-            </NavLink>
-          </NavItem>
-        </Nav>
-        <Button
-                color="danger"
-                className="d-flex justify-content-end"
-                style={{ textAlign: "end" }}
-                onClick={this.onDeleteQuest}
-              >
-                XÓA
-              </Button>
+              XÓA
+            </Button>
 
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-          <CustomInput
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="1">
+                <CustomInput
                   type="checkbox"
                   id="chooseAllQuiz"
                   label="chooseall"
@@ -194,9 +247,9 @@ export default class GetQuestion extends Component {
                   onChange={() => this.onSelectAll("quiz")}
                   inline
                 />
-            <Row>
-              <Col sm="12">
-              {this.state.numberOfQuizQuest.map((post, index) => {
+                <Row>
+                  <Col sm="12">
+                    {this.state.numberOfQuizQuest.map((post, index) => {
                       return (
                         <QuestItem
                           key={post._id}
@@ -207,11 +260,11 @@ export default class GetQuestion extends Component {
                         ></QuestItem>
                       );
                     })}
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="2">
-          <CustomInput
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane tabId="2">
+                <CustomInput
                   type="checkbox"
                   className="d-flex justify-content-end"
                   id="chooseAllEssay"
@@ -220,9 +273,9 @@ export default class GetQuestion extends Component {
                   onChange={() => this.onSelectAll("essay")}
                   inline
                 />
-            <Row>
-              <Col sm="12">
-              {this.state.numberOfEssayQuest.map((post, index) => {
+                <Row>
+                  <Col sm="12">
+                    {this.state.numberOfEssayQuest.map((post, index) => {
                       return (
                         <QuestItem
                           key={post._id}
@@ -233,15 +286,15 @@ export default class GetQuestion extends Component {
                         ></QuestItem>
                       );
                     })}
-              </Col>
-            </Row>
-          </TabPane>
-        </TabContent>
-            
-            
+                  </Col>
+                </Row>
+              </TabPane>
+            </TabContent>
           </Container>
         )}
       </div>
     );
   }
 }
+
+export default withRouter(GetQuestion);

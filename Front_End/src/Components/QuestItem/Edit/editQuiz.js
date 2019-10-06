@@ -136,7 +136,7 @@ export default class editQuiz extends Component {
                                 <br />
                                 <Button
                                     outline
-                                    color="secondary"
+                                    color="primary"
                                     style={{ marginRight: 5 }}
                                     className="float-right"
                                     type="button"
@@ -147,7 +147,7 @@ export default class editQuiz extends Component {
                                 <Button
                                     outline
                                     style={{ marginRight: 5 }}
-                                    color="secondary"
+                                    color="primary"
                                     className="float-right"
                                     type="button"
                                     onClick={this.deleteAnswer}

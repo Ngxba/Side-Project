@@ -12,7 +12,7 @@ import { Row, Container } from "reactstrap";
 import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
-import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
+// import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
 import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js"
 
 class App extends React.Component {
@@ -74,7 +74,7 @@ class App extends React.Component {
     this.props.history.push("/");
   };
   getQuest = () => {
-    this.props.history.push("/getallquestion");
+    this.props.history.push(`/getallquestion`);
   };
   takeTest = () => {
     this.props.history.push(`/taketest`);
@@ -126,6 +126,11 @@ class App extends React.Component {
                 return <MakeTest authedUser={this.state.authenUser}></MakeTest>
               }}
             />
+          <Route
+              exact
+              path="/class/getallquestion"
+              render={() => <GetQuestion></GetQuestion>}
+            />
         {this.state.authenUser.isAuthen && (
           <>
             <Route
@@ -161,15 +166,14 @@ class App extends React.Component {
                 <ul>
                   <li>
                     <a
-                      href="https://www.creative-tim.com?ref=pkr-footer"
-                      
+                      href="#love"
                     >
-                      Creative Tim
+                      Created by love
                     </a>
                   </li>
                   <li>
                     <a
-                      href="http://blog.creative-tim.com/?ref=pkr-footer"
+                      href="#blog"
                       
                     >
                       Blog
@@ -177,7 +181,7 @@ class App extends React.Component {
                   </li>
                   <li>
                     <a
-                      href="https://www.creative-tim.com/license?ref=pkr-footer"
+                      href="#licenses"
                     >
                       Licenses
                     </a>

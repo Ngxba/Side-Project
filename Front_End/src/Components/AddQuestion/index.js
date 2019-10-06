@@ -32,7 +32,6 @@ class AddQuestion extends Component {
     })
   }
   render() {
-    console.log(this.state.classCode)
     return (
       <Container>
         {this.state.loading ? (
@@ -41,6 +40,8 @@ class AddQuestion extends Component {
           </div>
         ) : (
           <>
+            {queryString.parse(this.props.location.search).q && <h3 style={{ textAlign: "center" }}>Chú ý, đang thêm câu hỏi vào bộ đề luyện tập của Class: "{queryString.parse(this.props.location.search).q}"</h3>}
+            {!(queryString.parse(this.props.location.search).q) && <h3 style={{ textAlign: "center" }}>Chú ý, đang thêm câu hỏi vào bộ đề thi</h3>}
             <SubmitQuestionForm classCode={this.state.classCode}  ModalComplePushQuestion ={this.state.ModalComplePushQuestion} onToggle = {this.ToggleModalComplePushQuestion}></SubmitQuestionForm>
             <br />
             <div style={{ textAlign: "center" }}>

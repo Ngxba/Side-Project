@@ -43,6 +43,10 @@ class GetClass extends Component {
   addQuestInPool = () => {
     this.props.history.push(`/class/addquestion?q=${this.state.classCode}`);
   }
+
+  getQuestPool = () => {
+    this.props.history.push(`/class/getallquestion?q=${this.state.classCode}`);
+  }
   render() {
     return (
       <Container>
@@ -69,7 +73,7 @@ class GetClass extends Component {
             </Row>
             <br/>
             <Row style={{textAlign : "center"}}>
-                <Col><Button className= "Button">GET QUESTPOOL</Button></Col>
+                <Col><Button className= "Button" onClick={this.getQuestPool}>GET QUESTPOOL</Button></Col>
                 <Col><Button className= "Button" onClick={this.makeTest}>TAKE TEST / MAKE TEST</Button></Col>
             </Row>
             <br/>
