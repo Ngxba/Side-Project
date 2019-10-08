@@ -1,31 +1,65 @@
 import React, { Component } from 'react'
 import queryString from "query-string"
 import { withRouter } from "react-router-dom"
-import { getTest } from "../../Action/class"
+import { getTest, deleteTest } from "../../Action/class"
 import {
-    Card,
+    // Card,
     //   CardImg,
     //   CardText,
-    CardBody,
-    CardHeader,
-    CardTitle,
+    // CardBody,
+    // CardHeader,
+    // CardTitle,
     //   CardSubtitle,
     Button,
-    Media,
+    // Media,
     Container,
-    Table
+    Table,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
 } from "reactstrap";
 import { getListQuest } from "../../Action/getQuest"
+import QuestItem from "../QuestItem"
 
 class GetAllTest extends Component {
 
     state = {
-        listTest: []
+        listTest: [],
+        listQuest: [],
+        modalListQuest: false,
+        testNum: 0
     }
 
-    onClick = async (listOfQuizQuest, listOfEssayQuest) => {
+    onDeleteTest = async (testID) => {
+        await deleteTest(testID)
+        // var quests= this.state.listQuest
+        // quests.filter(item => item._id !== testID)
+        this.setState({
+            listTest: this.state.listTest.filter(item => item._id !== testID)
+        })
+    }
+
+    toggleModalListQuest = () => {
+        this.setState({
+            modalListQuest: !this.state.modalListQuest
+        })
+    }
+
+    onGetListQuest = async (listOfQuizQuest, listOfEssayQuest, testNum) => {
         const res = await getListQuest(listOfQuizQuest, listOfEssayQuest)
-        console.log(res)
+        this.setState({
+            listQuest: res,
+            testNum: testNum
+        })
+        this.toggleModalListQuest()
+    }
+
+    onDeleteListQuest = () => {
+        this.setState({
+            listQuest: []
+        })
+        this.toggleModalListQuest()
     }
 
     fetchAllTest = async () => {
@@ -45,7 +79,6 @@ class GetAllTest extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <Container>
                 <h3 style={{ textAlign: "center" }}>
@@ -53,7 +86,7 @@ class GetAllTest extends Component {
                 </h3>
                 <br />
                 <hr />
-                <Table bordered>
+                <Table bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -69,21 +102,35 @@ class GetAllTest extends Component {
                                 <td>{item.title}</td>
                                 <td>{item.authedUser.userName}</td>
                                 <td>
-                                    
+                                    <Button
+                                        className="float-left"
+                                        color="dark"
+                                        style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.onGetListQuest(item.listOfQuizQuest, item.listOfEssayQuest, index)}
+                                    ><i className="fas fa-pencil-alt"></i>
+                                    </Button>
                                     <Button
                                         outline
                                         className="float-left"
                                         color="danger"
                                         style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.onDeleteTest(item._id)}
                                     ><i className="fas fa-trash"></i>
                                     </Button>
                                 </td>
                             </tr>
                         })}
-
                     </tbody>
+                    <ModalListQuest
+                        testNum={this.state.testNum}
+                        isOpen={this.state.modalListQuest}
+                        onToggle={this.toggleModalListQuest}
+                        onCancel={this.onDeleteListQuest}
+                        listQuest={this.state.listQuest}
+                    />
                 </Table>
-                                
+
+
                 {/* {this.state.listTest.map((item, index) => {
                     return <TestForm
                         key={index}
@@ -99,24 +146,46 @@ class GetAllTest extends Component {
 
 export default withRouter(GetAllTest)
 
-function TestForm(props) {
-    const { data, onClick } = props
+function ModalListQuest(props) {
+    const { isOpen, onToggle, onCancel, listQuest, testNum } = props
 
     return (
-        <Card>
-            <CardHeader tag="h3" >
-                <CardTitle className="d-inline-block">{data.title}</CardTitle>
-                <Button
-                    outline
-                    // style={{ backgroundColor:  }}
-                    className="float-right"
-                    color="danger"
-                    style={{ marginRight: 5, borderRadius: 50 }}
-                    onClick={() => onClick(data.listOfQuizQuest, data.listOfEssayQuest)}
-                ><i className="fas fa-trash"></i>
-                </Button>
-            </CardHeader>
-            <CardBody>{data.description}</CardBody>
-        </Card>
+        <Modal isOpen={isOpen} toggle={onCancel} >
+            <ModalHeader toggle={onCancel}>ĐỀ THI SỐ: {testNum + 1}</ModalHeader>
+            <ModalBody>
+                {listQuest[0] && <>
+                    <h3 style={{ textAlign: "center" }}>
+                        Câu hỏi Trắc nghiệm:
+                    </h3>
+                    <br />
+                    <hr />
+                    {listQuest[0].map((item, index) => {
+                        return <QuestItem
+                            key={index}
+                            data={item}
+                            numberOfQuizQuest={index + 1}
+                        />
+                    })}
+                </>}
+                {listQuest[1] && <>
+                    <h3 style={{ textAlign: "center" }}>
+                        Câu hỏi Tự luận:
+                    </h3>
+                    <br />
+                    <hr />
+                    {listQuest[1] && listQuest[1].map((item, index) => {
+                        return <QuestItem
+                            key={index}
+                            data={item}
+                            numberOfQuizQuest={index + 1}
+                        />
+                    })}
+                </>}
+            </ModalBody>
+            <ModalFooter>
+                <Button color="primary" onClick={onToggle}>Save</Button>{' '}
+                <Button color="secondary" onClick={onCancel}>Cancel</Button>
+            </ModalFooter>
+        </Modal>
     )
 }

@@ -36,6 +36,21 @@ router.get("/getTest", async (req, res) => {
   }
 })
 
+router.post("/deleteTest", async (req, res) => {
+  const {testID} = req.body
+  try {
+    await testService.deleteTest(testID)
+    res.json({
+      success: true
+    })
+  } catch (err) {
+    res.status(400)
+    res.json({
+      err: err.message
+    })
+  }
+})
+
 router.post("/", async (req,res) => {
   const classCode = req.query.q
   try {

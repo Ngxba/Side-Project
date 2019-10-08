@@ -32,6 +32,9 @@ const testService = {
         } else {
             throw new Error("no test found")
         }
+    },
+    deleteTest: async (testID) => {
+        await Test.deleteOne({ _id: testID})
     }
 }
 
