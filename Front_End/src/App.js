@@ -13,7 +13,7 @@ import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
-import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js"
+import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
 
 class App extends React.Component {
   state = {
@@ -21,7 +21,13 @@ class App extends React.Component {
       isAuthen: true,
       userName: "Tung Lam Nguyen Ba",
       userEmail: "tunglam.ngxba@gmail.com",
-      roll: "teacher"
+      roll: "Teacher",
+      address: "",
+      officeAddress: "",
+      city: "",
+      state: "",
+      zip: "",
+      userID: ""
     }
   };
   onRegister = async register_data => {
@@ -34,7 +40,8 @@ class App extends React.Component {
       city: register_data.city,
       state: register_data.state,
       zip: register_data.zip,
-      agree: register_data.agree
+      agree: register_data.agree,
+      roll : register_data.roll
     });
   };
 
@@ -43,7 +50,14 @@ class App extends React.Component {
       authenUser: {
         isAuthen: null,
         userName: "",
-        userEmail: ""
+        userEmail: "",
+        roll: "",
+        address: "",
+        officeAddress: "",
+        city: "",
+        state: "",
+        zip: "",
+        userID: ""
       }
     });
   };
@@ -58,7 +72,14 @@ class App extends React.Component {
         authenUser: {
           isAuthen: true,
           userName: response.data.name,
-          userEmail: response.data.email
+          userEmail: response.data.email,
+          address: response.data.address1,
+          officeAddress: response.data.address2,
+          city: response.data.city,
+          state: response.data.state,
+          zip: response.data.zip,
+          userID: response.data._id,
+          roll: response.data.roll
         }
       });
     }
@@ -82,15 +103,17 @@ class App extends React.Component {
   createClass = () => {
     this.props.history.push(`/createclass`);
   };
-  getClass = (classCode) => {
-    this.props.history.push(`/class/get?q=${classCode}`)
-  }
+  getClass = classCode => {
+    this.props.history.push(`/class/get?q=${classCode}`);
+  };
   seeOwnedClass = () => {
-    this.props.history.push(`/class/getallclasses?q=${this.state.authenUser.roll}&&d=${this.state.authenUser.userEmail}`)
-  }
+    this.props.history.push(
+      `/class/getallclasses?q=${this.state.authenUser.roll}&&d=${this.state.authenUser.userEmail}`
+    );
+  };
   TESTUI = () => {
-    this.props.history.push(`/TESTUI`)
-  }
+    this.props.history.push(`/TESTUI`);
+  };
   render() {
     return (
       <div>
@@ -105,32 +128,43 @@ class App extends React.Component {
           getQuest={this.getQuest}
           makeTest={this.makeTest}
           takeTest={this.takeTest}
-          createClass = {this.createClass}
-          seeOwnedClass = {this.seeOwnedClass}
-          TESTUI = {this.TESTUI}
+          createClass={this.createClass}
+          seeOwnedClass={this.seeOwnedClass}
+          TESTUI={this.TESTUI}
         ></NavBar>
         <br />
         <Route
-              path="/createclass"
-              render={() => (
-                <CreateClass authedUser={this.state.authenUser} getClass={this.getClass}></CreateClass>
-              )}
-            />
+          path="/createclass"
+          render={() => (
+            <CreateClass
+              authedUser={this.state.authenUser}
+              getClass={this.getClass}
+            ></CreateClass>
+          )}
+        />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
-        <Route path="/class/get" render={() => <GetClass></GetClass>}/>
-        <Route path="/TESTUI" render={() => <ProfilePage></ProfilePage>}/>
-        <Route path="/class/getallclasses" render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}/>
+        <Route path="/class/get" render={() => <GetClass></GetClass>} />
         <Route
-              path="/class/maketest"
-              render={() => {
-                return <MakeTest authedUser={this.state.authenUser}></MakeTest>
-              }}
-            />
-          <Route
-              exact
-              path="/class/getallquestion"
-              render={() => <GetQuestion></GetQuestion>}
-            />
+          path="/TESTUI"
+          render={() => (
+            <ProfilePage authenUser={this.state.authenUser}></ProfilePage>
+          )}
+        />
+        <Route
+          path="/class/getallclasses"
+          render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}
+        />
+        <Route
+          path="/class/maketest"
+          render={() => {
+            return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
+          }}
+        />
+        <Route
+          exact
+          path="/class/getallquestion"
+          render={() => <GetQuestion></GetQuestion>}
+        />
         {this.state.authenUser.isAuthen && (
           <>
             <Route
@@ -144,8 +178,8 @@ class App extends React.Component {
             <Route
               path="/maketest"
               render={() => {
-                console.log("aaa")
-                return <MakeTest authedUser={this.state.authenUser}></MakeTest>
+                console.log("aaa");
+                return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
               }}
             />
             <Route
@@ -165,26 +199,13 @@ class App extends React.Component {
               <nav className="footer-nav">
                 <ul>
                   <li>
-                    <a
-                      href="#love"
-                    >
-                      Created by love
-                    </a>
+                    <a href="#love">Created by love</a>
                   </li>
                   <li>
-                    <a
-                      href="#blog"
-                      
-                    >
-                      Blog
-                    </a>
+                    <a href="#blog">Blog</a>
                   </li>
                   <li>
-                    <a
-                      href="#licenses"
-                    >
-                      Licenses
-                    </a>
+                    <a href="#licenses">Licenses</a>
                   </li>
                 </ul>
               </nav>

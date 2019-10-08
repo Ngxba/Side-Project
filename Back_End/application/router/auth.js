@@ -25,7 +25,8 @@ router.post("/register", async (req, res) => {
     city,
     state,
     zip,
-    agree
+    agree,
+    roll
   } = req.body;
   try {
     const user = await authService.signUp(
@@ -37,7 +38,8 @@ router.post("/register", async (req, res) => {
       city,
       state,
       zip,
-      agree
+      agree,
+      roll
     );
     res.json(user);
   } catch (err) {

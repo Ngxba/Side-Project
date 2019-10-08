@@ -10,7 +10,8 @@ const authService = {
     city,
     state,
     zip,
-    agree
+    agree,
+    roll
   ) => {
     const result = await User.findOne({ email: email });
     if (!result && agree) {
@@ -23,6 +24,7 @@ const authService = {
         city: city,
         state: state,
         zip: zip,
+        roll : roll
       });
       await newUser.save();
       return newUser;
