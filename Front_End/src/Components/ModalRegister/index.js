@@ -28,7 +28,8 @@ class Register extends React.Component {
       state: "",
       zip: "",
       agree: false,
-      loading: false
+      loading: false,
+      roll: "Teacher"
     };
   }
 
@@ -61,7 +62,8 @@ class Register extends React.Component {
       city: "",
       state: "",
       zip: "",
-      agree: false
+      agree: false,
+      roll: ""
     });
   };
   onToggle = () => {
@@ -129,6 +131,16 @@ class Register extends React.Component {
                 }}
                 placeholder="Your Name"
               />
+            </FormGroup>
+            <FormGroup>
+              <Label for="Roll">Roll</Label>
+              <Input name="roll" type="select" onChange={event => {
+                  this.onChange({ roll: event.target.value });
+                }}
+                 >
+                <option value="Teacher">Teacher</option>
+                <option value="Student">Student</option>
+              </Input>
             </FormGroup>
             <FormGroup>
               <Label for="Address">Address</Label>

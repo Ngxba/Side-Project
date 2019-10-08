@@ -166,6 +166,7 @@ class NavBar extends React.Component {
                       onToggle={this.setPersonalProfile}
                       userInfo={this.props.userInfo}
                       seeOwnedClass = {this.props.seeOwnedClass}
+                      seeMyProfile = {this.props.TESTUI}
                     />
                   </>
                 )}

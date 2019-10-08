@@ -55,8 +55,8 @@ class GetClass extends Component {
   render() {
     return (
       <Container>
-        <h2>
-          Wellcome to class "{queryString.parse(this.props.location.search).q}":
+        <h2 style ={{textAlign : "center"}}>
+          Wellcome to class: "{queryString.parse(this.props.location.search).q}"
         </h2>
         Teacher
         <ul>
