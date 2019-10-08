@@ -92,6 +92,8 @@ class MakeTest extends Component {
     console.log(this.state.classCode)
     await createTest(
       this.state.classCode,
+      data.title,
+      data.description,
       chooseQuizQuestion,
       chooseEssayQuestion,
       this.props.authedUser
@@ -103,7 +105,7 @@ class MakeTest extends Component {
     this.fetchQuestPool();
   };
   render() {
-    console.log(this.state)
+    console.log(this.props.authedUser)
     let numberOfQuizQuest = 0;
     let numberOfEssayQuest = 0;
     return (

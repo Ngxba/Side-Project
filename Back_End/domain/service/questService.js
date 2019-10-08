@@ -91,6 +91,17 @@ const questService = {
       throw new Error("Question_QUIZ_EXISTED");
     }
   },
+  getListQuest: async (listOfQuizQuest, listOfEssayQuest) => {
+    const quiz = await Question.find({ _id: {$in: listOfQuizQuest}})
+    const essay = await Question.find({ _id: {$in: listOfEssayQuest}})
+    if (quiz && essay) {
+      const listQuiz = quiz.map(quiz => quiz)
+      const listEssay = essay.map(essay => essay)
+      return [listQuiz, listEssay]
+    } else {
+      throw new Error("NO QUESTION FOUND")
+    }
+  }
 };
 
 module.exports = questService;

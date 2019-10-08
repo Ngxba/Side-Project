@@ -8,6 +8,8 @@ var authedUser = new Schema({
 });
 var testSchema = new Schema({
   classCode: String,
+  title: String,
+  description: String,
   listOfQuizQuest: [String],
   listOfEssayQuest: [String],
   authedUser: authedUser

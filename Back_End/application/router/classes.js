@@ -4,10 +4,12 @@ var classService = require("../../domain/service/classService");
 var testService = require("../../domain/service/testService")
 
 router.post("/createTest", async (req, res) => {
-  const { classCode, listOfQuizQuest, listOfEssayQuest,  authedUser} = req.body;
+  const { classCode, title, description, listOfQuizQuest, listOfEssayQuest,  authedUser} = req.body;
   try {
     const newTest = await testService.createTest(
       classCode,
+      title,
+      description,
       listOfQuizQuest,
       listOfEssayQuest,
       authedUser
@@ -20,6 +22,19 @@ router.post("/createTest", async (req, res) => {
     });
   }
 });
+
+router.get("/getTest", async (req, res) => {
+  const classCode = req.query.q
+  try {
+    const testList = await testService.getTest(classCode)
+    res.json(testList)
+  } catch (err) {
+    res.status(400)
+    res.json({
+      err: err.message
+    })
+  }
+})
 
 router.post("/", async (req,res) => {
   const classCode = req.query.q

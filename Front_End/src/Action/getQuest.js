@@ -28,3 +28,13 @@ export const getRandomQuiz = async number => {
     throw new Error("Cannot get question", res);
   }
 };
+
+export const getListQuest = async (listOfQuizQuest, listOfEssayQuest) => {
+  const res = await axios.post(`http://localhost:5000/question/getlistquest`, {
+    listOfQuizQuest, listOfEssayQuest});
+  if (res.status === 200) {
+    return res.data;
+  } else {
+    throw new Error("Cannot get question", res);
+  }
+};
