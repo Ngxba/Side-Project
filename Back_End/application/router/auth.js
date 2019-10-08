@@ -15,6 +15,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/getuser", async (req,res) => {
+  const {email, roll} = req.body;
+  try {
+    const user = await authService.findUser(email, roll)
+    res.json(user);
+  } catch (err) {
+    res.status(400);
+    res.json({
+      account: err.message
+    });
+  }
+})
+
 router.post("/register", async (req, res) => {
   const {
     email,

@@ -109,8 +109,11 @@ class Login extends React.Component {
                 }}
                 checked={this.state.remember_me}
               />
-              <Label for="Check" check>
-                Remember me
+               <Label check>
+                <Input defaultValue="true" type="checkbox" checked={this.state.agree}  onChange={event => {
+                      this.onChange({ remember_me: !this.state.remember_me});
+                    }} />
+                <span className="form-check-sign" />Remember me{" "}
               </Label>
             </FormGroup>
           </Form>
@@ -128,6 +131,9 @@ class Login extends React.Component {
           )}
         </ModalBody>
         <ModalFooter>
+        <br/>
+        <br/>
+        <br/>
           <Button
             disabled={this.state.loading}
             color="primary"
@@ -135,9 +141,10 @@ class Login extends React.Component {
           >
             Login
           </Button>{" "}
-          <Button color="secondary" onClick={this.onToggle}>
+          <Button style={{marginRight : "1em"}} color="secondary" onClick={this.onToggle}>
             Cancel
           </Button>
+          <br/>
         </ModalFooter>
       </Modal>
     );

@@ -37,10 +37,16 @@ router.post("/", async (req,res) => {
 
 router.post("/getownedclasses", async (req,res) => {
   const userEmail = req.query.q
+  const userRoll = req.body.roll
   try {
-    const ownedClasses = await classService.getOwnedClass(userEmail)
-    res.json(ownedClasses)
-
+    if(userRoll === "Teacher"){
+      const ownedClasses = await classService.getOwnedClass(userEmail)
+      res.json(ownedClasses)
+    }
+    else if(userRoll === "Student"){
+      const enrolledClass = await classService.getEnrolledClass(userEmail)
+      res.json(enrolledClass)
+    }
   }
   catch(err){
     res.status(400);

@@ -40,6 +40,15 @@ const classService = {
     }
   },
 
+  getEnrolledClass : async userEmail => {
+    let result = await newClass.find({ listOfStudent : userEmail })
+    if (result) {
+      return result;
+    } else {
+      throw new Error("error/class_not_found");
+    }
+  },
+
   createNewClass: async (classCode, listOfStudent, teacher) => {
     const result = await newClass.findOne({ classCode: classCode });
     console.log(newClass({classCode: classCode,

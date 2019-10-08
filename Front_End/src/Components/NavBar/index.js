@@ -124,12 +124,6 @@ class NavBar extends React.Component {
                     TESTING UI
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href="#" onClick={this.props.createClass}>
-                    CREATE A CLASS
-                  </NavLink>
-                </NavItem>
-
                 {!this.props.isAuthen ? (
                   <>
                     <NavItem>
@@ -160,13 +154,18 @@ class NavBar extends React.Component {
                         Add Question
                       </NavLink>
                     </NavItem>
+                    <NavItem>
+                      <NavLink href="#" onClick={this.props.createClass}>
+                        CREATE A CLASS
+                      </NavLink>
+                    </NavItem>
                     <PesonalBar
                       logOut={this.onLogOut}
                       visible={this.state.personalProfile}
                       onToggle={this.setPersonalProfile}
                       userInfo={this.props.userInfo}
-                      seeOwnedClass = {this.props.seeOwnedClass}
-                      seeMyProfile = {this.props.TESTUI}
+                      seeOwnedClass={this.props.seeOwnedClass}
+                      seeMyProfile={this.props.getProfilePage}
                     />
                   </>
                 )}

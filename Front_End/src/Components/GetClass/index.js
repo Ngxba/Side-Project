@@ -4,12 +4,15 @@ import queryString from "query-string";
 import { getClass } from "../../Action/class";
 import { Col, Row, Container, Button } from "reactstrap";
 import "./index.css";
+// import ProfilePage from "../ProfilePage";
 class GetClass extends Component {
   state = {
     classCode: "",
     listOfStudent: [],
     listOfTeacher: [],
-    QuestPool: []
+    QuestPool: [],
+    getStudent: false,
+    getTeacher: false
   };
   async componentDidMount() {
     this.fetchClassResult();
@@ -37,54 +40,126 @@ class GetClass extends Component {
   }
 
   makeTest = () => {
-      this.props.history.push(`/class/maketest?q=${this.state.classCode}`)
-  }
+    this.props.history.push(`/class/maketest?q=${this.state.classCode}`);
+  };
 
   addQuestInPool = () => {
     this.props.history.push(`/class/addquestion?q=${this.state.classCode}`);
-  }
+  };
 
   getQuestPool = () => {
     this.props.history.push(`/class/getallquestion?q=${this.state.classCode}`);
-  }
+  };
+  getAllUserInClass = (data, roll) => {
+    if (roll === "Teacher") {
+      this.setState({
+        getTeacher: true
+      });
+    } else if (roll === "Student") {
+      this.setState({
+        getStudent: true
+      });
+    }
+  };
+  setStateToOrigin = () => {
+    this.setState({
+      getStudent: false,
+      getTeacher: false
+    });
+  };
   render() {
     return (
       <Container>
-        <h2 style ={{textAlign : "center"}}>
+        <h2 style={{ textAlign: "center" }}>
           Wellcome to class: "{queryString.parse(this.props.location.search).q}"
         </h2>
-        Teacher
-        <ul>
-          {this.state.listOfTeacher.map(teacher => (
-            <li>{teacher}</li>
-          ))}
-        </ul>
-        Student
-        <ul>
-          {this.state.listOfStudent.map(student => (
-            <li>{student}</li>
-          ))}
-        </ul>
+        Main Teacher : {this.state.listOfTeacher[0]}
         <hr />
-        <div>
-            <Row style={{textAlign : "center"}}>
-                <Col><Button className= "Button">GET TEACHER</Button></Col>
-                <Col><Button className= "Button">GET STUDENT</Button></Col>
+        {!this.state.getStudent && !this.state.getTeacher && (
+          <div>
+            <Row style={{ textAlign: "center" }}>
+              <Col>
+                <Button
+                  className="Button"
+                  onClick={() =>
+                    this.getAllUserInClass(this.state.listOfTeacher, "Teacher")
+                  }
+                >
+                  GET ALL TEACHER
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  className="Button"
+                  onClick={() =>
+                    this.getAllUserInClass(this.state.listOfStudent, "Student")
+                  }
+                >
+                  GET STUDENT
+                </Button>
+              </Col>
             </Row>
-            <br/>
-            <Row style={{textAlign : "center"}}>
-                <Col><Button className= "Button" onClick={this.getQuestPool}>GET QUESTPOOL</Button></Col>
-                <Col><Button className= "Button" onClick={this.makeTest}>TAKE TEST / MAKE TEST</Button></Col>
+            <br />
+            <Row style={{ textAlign: "center" }}>
+              <Col>
+                <Button className="Button" onClick={this.getQuestPool}>
+                  GET QUESTPOOL
+                </Button>
+              </Col>
+              <Col>
+                <Button className="Button" onClick={this.makeTest}>
+                  TAKE TEST / MAKE TEST
+                </Button>
+              </Col>
             </Row>
-            <br/>
-            <Row style={{textAlign : "center"}}>
-                <Col><Button className= "Button" onClick={this.addQuestInPool}>ADD QUEST IN QUESTPOOL</Button></Col>
-                <Col><Button className= "Button">BUTTON 6</Button></Col>
+            <br />
+            <Row style={{ textAlign: "center" }}>
+              <Col>
+                <Button className="Button" onClick={this.addQuestInPool}>
+                  ADD QUEST IN QUESTPOOL
+                </Button>
+              </Col>
+              <Col>
+                <Button className="Button">BUTTON 6</Button>
+              </Col>
             </Row>
-        </div>
+          </div>
+        )}
+        {this.state.getTeacher && (
+          <GetAllUserInClass
+            listOfTeacher={this.state.listOfTeacher}
+            goBack={this.setStateToOrigin}
+          ></GetAllUserInClass>
+        )}
+        {this.state.getStudent && (
+          <GetAllUserInClass
+            listOfStudent={this.state.listOfStudent}
+            goBack={this.setStateToOrigin}
+          ></GetAllUserInClass>
+        )}
       </Container>
     );
   }
 }
+
+function GetAllUserInClass(props) {
+  const { listOfStudent, listOfTeacher, goBack } = props;
+  return (
+    <div>
+      <ul>
+        {listOfStudent &&
+          listOfStudent.map(item => {
+            return <li>{item}</li>;
+          })}
+        {listOfTeacher &&
+          listOfTeacher.map(item => {
+            return <li>{item}</li>;
+          })}
+        <Button onClick={goBack}>GO BACK</Button>
+      </ul>
+    </div>
+  );
+}
+
 
 export default withRouter(GetClass);

@@ -13,15 +13,15 @@ import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
-import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
-
+// import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
+import ProfilePage from "./Components/ProfilePage";
 class App extends React.Component {
   state = {
     authenUser: {
       isAuthen: true,
       userName: "Tung Lam Nguyen Ba",
       userEmail: "tunglam.ngxba@gmail.com",
-      roll: "Teacher",
+      roll: "Student",
       address: "",
       officeAddress: "",
       city: "",
@@ -41,7 +41,7 @@ class App extends React.Component {
       state: register_data.state,
       zip: register_data.zip,
       agree: register_data.agree,
-      roll : register_data.roll
+      roll: register_data.roll
     });
   };
 
@@ -114,6 +114,9 @@ class App extends React.Component {
   TESTUI = () => {
     this.props.history.push(`/TESTUI`);
   };
+  getProfilePage = () => {
+    this.props.history.push(`/profile`);
+  };
   render() {
     return (
       <div>
@@ -130,24 +133,14 @@ class App extends React.Component {
           takeTest={this.takeTest}
           createClass={this.createClass}
           seeOwnedClass={this.seeOwnedClass}
-          TESTUI={this.TESTUI}
+          getProfilePage={this.getProfilePage}
         ></NavBar>
-        <br />
-        <Route
-          path="/createclass"
-          render={() => (
-            <CreateClass
-              authedUser={this.state.authenUser}
-              getClass={this.getClass}
-            ></CreateClass>
-          )}
-        />
         <Route exact path="/" render={() => <Carousel></Carousel>} />
         <Route path="/class/get" render={() => <GetClass></GetClass>} />
         <Route
-          path="/TESTUI"
+          path="/profile"
           render={() => (
-            <ProfilePage authenUser={this.state.authenUser}></ProfilePage>
+            <ProfilePage authenUser={this.state.authenUser} seeOwnedClass={this.seeOwnedClass}></ProfilePage>
           )}
         />
         <Route
@@ -160,13 +153,23 @@ class App extends React.Component {
             return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
           }}
         />
-        <Route
-          exact
-          path="/class/getallquestion"
-          render={() => <GetQuestion></GetQuestion>}
-        />
+
         {this.state.authenUser.isAuthen && (
           <>
+            <Route
+              path="/createclass"
+              render={() => (
+                <CreateClass
+                  authedUser={this.state.authenUser}
+                  getClass={this.getClass}
+                ></CreateClass>
+              )}
+            />
+            <Route
+              exact
+              path="/class/getallquestion"
+              render={() => <GetQuestion></GetQuestion>}
+            />
             <Route
               path="/addquestion"
               render={() => <AddQuestion></AddQuestion>}

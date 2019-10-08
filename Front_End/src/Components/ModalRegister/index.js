@@ -134,10 +134,13 @@ class Register extends React.Component {
             </FormGroup>
             <FormGroup>
               <Label for="Roll">Roll</Label>
-              <Input name="roll" type="select" onChange={event => {
+              <Input
+                name="roll"
+                type="select"
+                onChange={event => {
                   this.onChange({ roll: event.target.value });
                 }}
-                 >
+              >
                 <option value="Teacher">Teacher</option>
                 <option value="Student">Student</option>
               </Input>
@@ -222,8 +225,11 @@ class Register extends React.Component {
                   this.onChange({ agree: !this.state.agree });
                 }}
               />
-              <Label for="Check" check>
-                I agree with the{" "}
+              <Label check>
+                <Input defaultValue="true" type="checkbox" checked={this.state.agree}  onChange={event => {
+                      this.onChange({ agree: !this.state.agree});
+                    }} />
+                <span className="form-check-sign" />I agree with the{" "}
                 <a href="/term" className="alert-link">
                   term
                 </a>
@@ -237,6 +243,9 @@ class Register extends React.Component {
           )}
         </ModalBody>
         <ModalFooter>
+        <br/>
+        <br/>
+        <br/>
           <Button
             disabled={this.state.loading}
             color="primary"
@@ -244,9 +253,10 @@ class Register extends React.Component {
           >
             Register
           </Button>{" "}
-          <Button color="secondary" onClick={this.onToggle}>
+          <Button style={{marginRight : "1em"}} color="secondary" onClick={this.onToggle}>
             Cancel
           </Button>
+          <br/>
         </ModalFooter>
       </Modal>
     );

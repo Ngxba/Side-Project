@@ -10,7 +10,8 @@ import {
   Label,
   Button,
   Form,
-  Alert
+  Alert,
+  Container
 } from "reactstrap";
 import {createNewClass} from "../../Action/class"
 
@@ -76,6 +77,8 @@ export default class CreateClass extends Component {
   render() {
     return (
       <div>
+      <Container>
+      <div style={{height : "70px"}}></div>
         <Card>
           <CardBody>
             {this.state.pushStatus === true && (
@@ -152,7 +155,9 @@ export default class CreateClass extends Component {
             </Form>
           </CardBody>
         </Card>
+        </Container>
       </div>
+      
     );
   }
 }

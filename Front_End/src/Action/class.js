@@ -22,7 +22,8 @@ export const getClass = async (classCode) => {
 }
 
 export const getOwnedClass = async (roll, userEmail) => {
-    const res = await axios.post(`http://localhost:5000/class/getownedclasses?q=${userEmail}`)
+    const res = await axios.post(`http://localhost:5000/class/getownedclasses?q=${userEmail}`, {roll})
+    
     if(res.status === 200) {
         return res.data
     } else {

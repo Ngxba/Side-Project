@@ -18,13 +18,13 @@ const authService = {
       const newUser = User({
         email: email,
         password: password,
-        name : name,
+        name: name,
         address1: address1,
         address2: address2,
         city: city,
         state: state,
         zip: zip,
-        roll : roll
+        roll: roll
       });
       await newUser.save();
       return newUser;
@@ -32,15 +32,22 @@ const authService = {
       throw new Error("EMAIL_EXISTED");
     }
   },
-  signIn : async (email, password)=>{
-    let result = await User.findOne({"email": email, "password" : password})
-    if(result){
-        return result;
+  signIn: async (email, password) => {
+    let result = await User.findOne({ email: email, password: password });
+    if (result) {
+      return result;
+    } else {
+      throw new Error("error/user_not_found");
     }
-    else{
-        throw new Error("error/user_not_found")
+  },
+
+  findUser: async (email, roll) => {
+    let result = await User.findOne({ email: email, roll : roll });
+    if (result) {
+      return result;
+    } else {
+      throw new Error("error/user_not_found");
     }
-    
   }
 };
 
