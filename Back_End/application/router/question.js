@@ -102,4 +102,16 @@ router.post("/edit", async (req, res) => {
   }
 });
 
+router.post("/getlistquest", async (req,res) => {
+  const {listOfQuizQuest, listOfEssayQuest} = req.body
+  try {
+    const result = await questService.getListQuest(listOfQuizQuest, listOfEssayQuest)
+    res.json(result)
+  } catch (err) {
+    res.json({
+      err: err.message
+    })
+  }
+})
+
 module.exports = router;

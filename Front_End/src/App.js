@@ -12,6 +12,7 @@ import { Row, Container } from "reactstrap";
 import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
+import GetAllTest from "./Components/GetAllTest"
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
 // import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
 import ProfilePage from "./Components/ProfilePage";
@@ -153,7 +154,16 @@ class App extends React.Component {
             return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
           }}
         />
-
+        <Route
+            exact
+            path="/class/getalltest"
+            render={() => <GetAllTest></GetAllTest>}
+          />
+        <Route
+          exact
+          path="/class/getallquestion"
+          render={() => <GetQuestion></GetQuestion>}
+        />
         {this.state.authenUser.isAuthen && (
           <>
             <Route

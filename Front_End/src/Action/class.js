@@ -1,13 +1,22 @@
 import axios from "axios";
 
-export const createTest = async (classCode, listOfQuizQuest, listOfEssayQuest ,authedUser) => {
+export const createTest = async (classCode, title, description, listOfQuizQuest, listOfEssayQuest ,authedUser) => {
     const res = await axios.post(`http://localhost:5000/class/createTest`, {
-        classCode, listOfQuizQuest, listOfEssayQuest, authedUser
+        classCode, title, description, listOfQuizQuest, listOfEssayQuest, authedUser
     });
     if(res.status === 200) {
         return res.data
     } else {
         throw new Error("Cannot create test", res)
+    }
+}
+
+export const getTest = async (classCode) => {
+    const res = await axios.get(`http://localhost:5000/class/getTest?q=${classCode}`)
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot get test", res)
     }
 }
 

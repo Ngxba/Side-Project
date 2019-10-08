@@ -67,7 +67,13 @@ class GetClass extends Component {
       getTeacher: false
     });
   };
-  render() {
+
+
+  getAllTest = () => {
+    this.props.history.push(`/class/getalltest?q=${this.state.classCode}`)
+  }
+
+  render(){
     return (
       <Container>
         <h2 style={{ textAlign: "center" }}>
@@ -112,16 +118,10 @@ class GetClass extends Component {
                 </Button>
               </Col>
             </Row>
-            <br />
-            <Row style={{ textAlign: "center" }}>
-              <Col>
-                <Button className="Button" onClick={this.addQuestInPool}>
-                  ADD QUEST IN QUESTPOOL
-                </Button>
-              </Col>
-              <Col>
-                <Button className="Button">BUTTON 6</Button>
-              </Col>
+            <br/>
+            <Row style={{textAlign : "center"}}>
+                <Col><Button className= "Button" onClick={this.addQuestInPool}>ADD QUEST IN QUESTPOOL</Button></Col>
+                <Col><Button className= "Button" onClick={this.getAllTest}>SEE ALL TEST</Button></Col>
             </Row>
           </div>
         )}
@@ -141,6 +141,7 @@ class GetClass extends Component {
     );
   }
 }
+
 
 function GetAllUserInClass(props) {
   const { listOfStudent, listOfTeacher, goBack } = props;
