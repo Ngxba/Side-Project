@@ -205,6 +205,8 @@ class App extends React.Component {
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
             />
+            <Route exact path="/class/taketest" render={() => <TakeExam></TakeExam>} />
+
           </>
         )}
         <>
