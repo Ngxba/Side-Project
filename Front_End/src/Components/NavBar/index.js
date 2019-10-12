@@ -7,7 +7,11 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Container
+  Container,
+  Form,
+  FormGroup,
+  UncontrolledCollapse,
+  Input
 } from "reactstrap";
 import Register from "../ModalRegister";
 import Login from "../ModalLogin";
@@ -100,6 +104,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
+      
         <Navbar color="dark" light expand="md">
           <Container>
             <NavbarBrand href="#" onClick={this.props.home}>
@@ -187,9 +192,75 @@ class NavBar extends React.Component {
           submit={this.onSubmitRegister}
           registerStatus={this.state.registerSuccessful}
         ></Register>
+        {/* <Example></Example> */}
       </div>
     );
   }
+}
+
+function Example() {
+  const [bodyClick, setBodyClick] = React.useState(false);
+  return (
+    <>
+      {bodyClick ? (
+        <div
+          id="bodyClick"
+          onClick={() => {
+            document.documentElement.classList.toggle("nav-open");
+            setBodyClick(false);
+          }}
+        />
+      ) : null}
+      <Navbar color="primary" expand="lg">
+        <Container>
+          <button
+            className="navbar-toggler"
+            id="navbarTogglerDemo01"
+            type="button"
+            onClick={() => {
+              document.documentElement.classList.toggle("nav-open");
+              setBodyClick(true);
+            }}
+          >
+            <span className="navbar-toggler-bar bar1" />
+            <span className="navbar-toggler-bar bar2" />
+            <span className="navbar-toggler-bar bar3" />
+          </button>
+          <UncontrolledCollapse navbar toggler="#navbarTogglerDemo01">
+            <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+              Hidden brand
+            </NavbarBrand>
+            <Nav className="mr-auto mt-2 mt-lg-0" navbar>
+              <NavItem className="active">
+                <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+                  Home <span className="sr-only">(current)</span>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+                  Link
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="disabled"
+                  href="#pablo"
+                  onClick={e => e.preventDefault()}
+                >
+                  Disabled
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <Form className="form-inline ml-auto">
+              <FormGroup className="has-white">
+                <Input placeholder="Search" type="text" />
+              </FormGroup>
+            </Form>
+          </UncontrolledCollapse>
+        </Container>
+      </Navbar>
+    </>
+  );
 }
 
 export default NavBar;

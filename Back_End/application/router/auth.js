@@ -3,7 +3,6 @@ var router = express.Router();
 var authService = require("../../domain/service/authService");
 var auth = require("../../config/auth")
 var passport = require("passport")
-var passportLocal = require("passport-local")
 
 
 
@@ -37,10 +36,24 @@ router.post("/getuser", async (req,res) => {
   } catch (err) {
     res.status(400);
     res.json({
-      account: err.message
+      user: err.message
     });
   }
 })
+
+router.post("/getalluserwithroll", async (req,res) => {
+  const {roll} = req.body;
+  try {
+    const user = await authService.findMany(roll)
+    res.json(user);
+  } catch (err) {
+    res.status(400);
+    res.json({
+      user: err.message
+    });
+  }
+})
+
 
 router.post("/register",auth.optional, async (req, res) => {
   const {
@@ -80,7 +93,10 @@ router.post("/register",auth.optional, async (req, res) => {
 });
 
 router.get("/me", auth.require, async(req,res) => {
-  console.log(req)
+  const user = await authService.find(req.payload.email)
+  res.json({
+    user : user
+  })
 })
 
 router.post("/logout", (req, res) => {});

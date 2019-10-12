@@ -26,7 +26,8 @@ class ProfilePage extends React.Component {
     zip: "",
     userID: "",
     activeTab: "1",
-    IAmUser : ""
+    IAmUser : "",
+    cannotGetUser : false
   };
 
   toggle = tab => {
@@ -54,6 +55,7 @@ class ProfilePage extends React.Component {
         IAmUser : true
       });
     } else {
+      try{
       const response = await getUser(user, roll);
       if(response){
         this.setState({
@@ -69,7 +71,11 @@ class ProfilePage extends React.Component {
           IAmUser : false,
         });
       }
-      
+    } catch (err){
+      this.setState({
+        cannotGetUser : true
+      })
+    }
     }
   };
 
@@ -79,7 +85,13 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <>
-        <div style={{ height: 100 }}></div>
+      {this.state.cannotGetUser && <Container>
+        <h1>OOPS !!!</h1> 
+        <h3>User "{queryString.parse(this.props.location.search).q}" <br/> with main roll: "{queryString.parse(this.props.location.search).d}" cannot found</h3>
+      </Container>}
+      {!this.state.cannotGetUser && 
+      <>
+      <div style={{ height: 100 }}></div>
         <div className="section profile-content">
           <Container>
             <div className="owner">
@@ -173,7 +185,8 @@ class ProfilePage extends React.Component {
               </TabPane>
             </TabContent>
           </Container>
-        </div>
+        </div></>}
+        
       </>
     );
   }

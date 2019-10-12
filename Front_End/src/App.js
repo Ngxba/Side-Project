@@ -20,9 +20,9 @@ class App extends React.Component {
   state = {
     authenUser: {
       isAuthen: true,
-      userName: "Tung Lam Nguyen Ba",
-      userEmail: "tunglam.ngxba@gmail.com",
-      roll: "Student",
+      userName: "",
+      userEmail: "",
+      roll: "",
       address: "",
       officeAddress: "",
       city: "",
@@ -120,9 +120,24 @@ class App extends React.Component {
   getProfilePage = () => {
     this.props.history.push(`/profile`);
   };
+
+  async componentDidMount() {
+    const token = localStorage.getItem("jwt_token")
+    const currentUser = await this.getCurrentUser(token);
+    console.log(currentUser)
+  }
+
+  getCurrentUser= async (token) => {
+    const currentUser = await axios.get("http://localhost:5000/auth/me", {
+      headers : {
+        Authorization : `Bearer ${token}`
+      }
+    })
+    return currentUser
+  }
   render() {
     return (
-      <div>
+      <div className="d-flex flex-column h-100">
         <NavBar
           submitRegister={this.onRegister}
           submitLogin={this.onLogin}
@@ -138,6 +153,7 @@ class App extends React.Component {
           seeOwnedClass={this.seeOwnedClass}
           getProfilePage={this.getProfilePage}
         ></NavBar>
+        <div className="flex-grow-1">
         <Route exact path="/" render={() => <Carousel></Carousel>} />
         <Route path="/class/get" render={() => <GetClass></GetClass>} />
         <Route
@@ -181,11 +197,6 @@ class App extends React.Component {
               )}
             />
             <Route
-              exact
-              path="/class/getallquestion"
-              render={() => <GetQuestion></GetQuestion>}
-            />
-            <Route
               path="/addquestion"
               render={() => <AddQuestion></AddQuestion>}
             />
@@ -213,7 +224,8 @@ class App extends React.Component {
           <Route exact path="/taketest" render={() => <TakeExam></TakeExam>} />
         </>
         <br />
-        <footer className="footer footer-black footer-white">
+        </div>
+        <footer className="footer footer-black footer-white" style={{backgroundColor : "transparent"}}>
           <Container>
             <Row>
               <nav className="footer-nav">
