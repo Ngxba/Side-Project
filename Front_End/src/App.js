@@ -12,7 +12,7 @@ import { Row, Container } from "reactstrap";
 import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
-import GetAllTest from "./Components/GetAllTest"
+import GetAllTest from "./Components/GetAllTest";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
 // import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
 import ProfilePage from "./Components/ProfilePage";
@@ -68,21 +68,23 @@ class App extends React.Component {
       email: login_data.loginEmail,
       password: login_data.loginPassword
     });
+
     if (response.status === 200) {
       this.setState({
         authenUser: {
           isAuthen: true,
-          userName: response.data.name,
-          userEmail: response.data.email,
-          address: response.data.address1,
-          officeAddress: response.data.address2,
-          city: response.data.city,
-          state: response.data.state,
-          zip: response.data.zip,
-          userID: response.data._id,
-          roll: response.data.roll
+          userName: response.data.user.name,
+          userEmail: response.data.user.email,
+          address: response.data.user.address1,
+          officeAddress: response.data.user.address2,
+          city: response.data.user.city,
+          state: response.data.user.state,
+          zip: response.data.user.zip,
+          userID: response.data.user._id,
+          roll: response.data.user.roll
         }
       });
+      localStorage.setItem("jwt_token", response.data.token);
     }
     return response;
   };
@@ -141,7 +143,10 @@ class App extends React.Component {
         <Route
           path="/profile"
           render={() => (
-            <ProfilePage authenUser={this.state.authenUser} seeOwnedClass={this.seeOwnedClass}></ProfilePage>
+            <ProfilePage
+              authenUser={this.state.authenUser}
+              seeOwnedClass={this.seeOwnedClass}
+            ></ProfilePage>
           )}
         />
         <Route
@@ -155,10 +160,10 @@ class App extends React.Component {
           }}
         />
         <Route
-            exact
-            path="/class/getalltest"
-            render={() => <GetAllTest></GetAllTest>}
-          />
+          exact
+          path="/class/getalltest"
+          render={() => <GetAllTest></GetAllTest>}
+        />
         <Route
           exact
           path="/class/getallquestion"

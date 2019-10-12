@@ -73,6 +73,10 @@ class GetClass extends Component {
     this.props.history.push(`/class/getalltest?q=${this.state.classCode}`)
   }
 
+  seeUser = (user, roll) => {
+    this.props.history.push(`/profile?q=${user}&&d=${roll}`);
+  }
+
   render(){
     return (
       <Container>
@@ -129,12 +133,14 @@ class GetClass extends Component {
           <GetAllUserInClass
             listOfTeacher={this.state.listOfTeacher}
             goBack={this.setStateToOrigin}
+            seeUser = {this.seeUser}
           ></GetAllUserInClass>
         )}
         {this.state.getStudent && (
           <GetAllUserInClass
             listOfStudent={this.state.listOfStudent}
             goBack={this.setStateToOrigin}
+            seeUser = {this.seeUser}
           ></GetAllUserInClass>
         )}
       </Container>
@@ -144,13 +150,13 @@ class GetClass extends Component {
 
 
 function GetAllUserInClass(props) {
-  const { listOfStudent, listOfTeacher, goBack } = props;
+  const { listOfStudent, listOfTeacher, goBack, seeUser } = props;
   return (
     <div>
       <ul>
         {listOfStudent &&
           listOfStudent.map(item => {
-            return <li>{item}</li>;
+            return <li key={item}><span className="Btn" onClick={()=>(seeUser(item, "Student"))}>{item}</span></li>;
           })}
         {listOfTeacher &&
           listOfTeacher.map(item => {

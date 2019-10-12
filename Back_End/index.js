@@ -11,6 +11,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true})) 
 
+require("./config/passport")
+
 app.use(router);
 app.use(morgan("dev"))
 app.get("/" , (req,res)=>{

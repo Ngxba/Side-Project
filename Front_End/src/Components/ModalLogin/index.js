@@ -34,7 +34,8 @@ class Login extends React.Component {
     this.setState({
       loginEmail: "",
       loginPassword: "",
-      remember_me: false
+      remember_me: false,
+      loading : false
     });
   };
 

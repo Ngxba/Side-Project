@@ -17,7 +17,6 @@ const authService = {
     if (!result && agree) {
       const newUser = User({
         email: email,
-        password: password,
         name: name,
         address1: address1,
         address2: address2,
@@ -26,6 +25,7 @@ const authService = {
         zip: zip,
         roll: roll
       });
+      newUser.setPassword(password)
       await newUser.save();
       return newUser;
     } else {

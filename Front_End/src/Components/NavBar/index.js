@@ -84,6 +84,7 @@ class NavBar extends React.Component {
           this.setModalLogin();
         }, 600);
       }
+      
     } catch (err) {
       this.setState({
         loginSuccessful: false

@@ -63,7 +63,8 @@ class Register extends React.Component {
       state: "",
       zip: "",
       agree: false,
-      roll: ""
+      roll: "",
+      loading : false
     });
   };
   onToggle = () => {

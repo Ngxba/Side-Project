@@ -1,24 +1,38 @@
 var express = require("express");
 var router = express.Router();
 var authService = require("../../domain/service/authService");
+var auth = require("../../config/auth")
+var passport = require("passport")
+var passportLocal = require("passport-local")
 
-router.post("/login", async (req, res) => {
+
+
+router.post("/login",auth.optional, async (req, res, next) => {
   const {email, password } = req.body;
-  try {
-    const user = await authService.signIn(email, password);
-    res.json(user);
-  } catch (err) {
-    res.status(400);
-    res.json({
-      account: err.message
-    });
+  if(!email || !password){
+      // return err
   }
+  return passport.authenticate("local", {session : false}, (err, user, next)=> {
+    if(err){
+      return(next(err))
+    }
+    if(user){
+      return res.json({
+        user : user,
+        token : user.generateJWT()})
+    }
+    else {
+      return res.json({
+        user : null
+      });
+    }
+  })(req, res, next);
 });
 
 router.post("/getuser", async (req,res) => {
-  const {email, roll} = req.body;
+  const {userEmail, roll} = req.body;
   try {
-    const user = await authService.findUser(email, roll)
+    const user = await authService.findUser(userEmail, roll)
     res.json(user);
   } catch (err) {
     res.status(400);
@@ -28,7 +42,7 @@ router.post("/getuser", async (req,res) => {
   }
 })
 
-router.post("/register", async (req, res) => {
+router.post("/register",auth.optional, async (req, res) => {
   const {
     email,
     password,
@@ -54,7 +68,9 @@ router.post("/register", async (req, res) => {
       agree,
       roll
     );
-    res.json(user);
+    res.json({
+      token : user.generateJWT()
+    });
   } catch (err) {
     res.status(400);
     res.json({
@@ -62,6 +78,10 @@ router.post("/register", async (req, res) => {
     });
   }
 });
+
+router.get("/me", auth.require, async(req,res) => {
+  console.log(req)
+})
 
 router.post("/logout", (req, res) => {});
 
