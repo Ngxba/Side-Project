@@ -62,6 +62,7 @@ class NavBar extends React.Component {
   onSubmitRegister = async register_data => {
     try {
       const response = await this.props.submitRegister(register_data);
+      console.log(response)
       if (response.status === 200) {
         this.setState({
           registerSuccessful: true

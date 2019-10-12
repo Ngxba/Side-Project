@@ -70,7 +70,7 @@ export default class CreateClass extends Component {
   submit = async event => {
     event.preventDefault();
     const wrongValue = [];
-    const unavaiStudent = this.state.Student.filter((item, index) => {
+    this.state.Student.filter((item, index) => {
       if (this.state.listOfCorrectStudent.indexOf(item.value) === -1) {
         wrongValue.push(index);
       }

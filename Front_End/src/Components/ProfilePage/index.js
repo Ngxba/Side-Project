@@ -24,7 +24,6 @@ class ProfilePage extends React.Component {
     city: "",
     state: "",
     zip: "",
-    userID: "",
     activeTab: "1",
     IAmUser : "",
     cannotGetUser : false
@@ -51,7 +50,6 @@ class ProfilePage extends React.Component {
         city: this.props.authenUser.city,
         state: this.props.authenUser.state,
         zip: this.props.authenUser.zip,
-        userID: this.props.authenUser.userID,
         IAmUser : true
       });
     } else {
@@ -67,7 +65,6 @@ class ProfilePage extends React.Component {
           city: response.city,
           state: response.state,
           zip: response.zip,
-          userID: response._id,
           IAmUser : false,
         });
       }
@@ -140,7 +137,7 @@ class ProfilePage extends React.Component {
                       Info
                     </NavLink>
                   </NavItem>
-                  <NavItem>
+                  {this.state.IAmUser &&<NavItem>
                     <NavLink
                       className={this.state.activeTab === "2" ? "active" : ""}
                       onClick={() => {
@@ -149,7 +146,7 @@ class ProfilePage extends React.Component {
                     >
                       Notification
                     </NavLink>
-                  </NavItem>
+                  </NavItem>}
                 </Nav>
               </div>
             </div>
@@ -164,7 +161,6 @@ class ProfilePage extends React.Component {
                       <h5>City:</h5>
                       <h5>Quan:</h5>
                       <h5>Zipcode:</h5>
-                      <h5>user ID:</h5>
                     </Col>
                     <Col lg="4" md="4" sm="4">
                       <h5>{this.state.address}</h5>
@@ -172,7 +168,6 @@ class ProfilePage extends React.Component {
                       <h5>{this.state.city}</h5>
                       <h5>{this.state.state}</h5>
                       <h5>{this.state.zip}</h5>
-                      <h5>{this.state.userID}</h5>
                     </Col>
                   </Row>
                 </Container>

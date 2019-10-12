@@ -99,4 +99,19 @@ router.post("/createnewclass", async (req,res)=>{
   }
 })
 
+router.post("/adduser", async (req,res)=>{
+  const {classCode, userEmail, roll} = req.body;
+  try {
+    let modifiedClass;
+    if(roll ==="Teacher"){modifiedClass = await classService.addTeacher(classCode,userEmail)}
+    else if ( roll === "Student"){modifiedClass = await classService.addTeacher(classCode,userEmail)}
+    res.json(modifiedClass)
+  } catch(err) {
+    res.status(400);
+    res.json({
+      err : err.message
+    })
+  }
+})
+
 module.exports = router;

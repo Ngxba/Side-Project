@@ -31,7 +31,6 @@ export const deleteTest = async (testID) => {
 }
 
 export const getClass = async (classCode) => {
-    console.log(classCode)
     const res = await axios.post(`http://localhost:5000/class?q=${classCode}`)
     if(res.status === 200) {
         return res.data
@@ -60,5 +59,16 @@ export const createNewClass = async (classCode, listOfGivenStudent, teacher) => 
         return res.data
     } else {
         throw new Error("Cannot create class", res)
+    }
+}
+
+export const addUserIntoClass = async (classCode, userEmail, roll) => {
+    const res = await axios.post(`http://localhost:5000/class/adduser`,{
+        classCode, userEmail, roll
+    })
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot add user in class", res)
     }
 }
