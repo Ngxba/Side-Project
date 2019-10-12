@@ -155,10 +155,10 @@ class App extends React.Component {
           }}
         />
         <Route
-            exact
-            path="/class/getalltest"
-            render={() => <GetAllTest></GetAllTest>}
-          />
+          exact
+          path="/class/getalltest"
+          render={() => <GetAllTest></GetAllTest>}
+        />
         <Route
           exact
           path="/class/getallquestion"
@@ -200,6 +200,8 @@ class App extends React.Component {
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
             />
+            <Route exact path="/class/taketest" render={() => <TakeExam></TakeExam>} />
+
           </>
         )}
         <>

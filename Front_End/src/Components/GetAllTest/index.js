@@ -78,6 +78,11 @@ class GetAllTest extends Component {
         this.fetchAllTest()
     }
 
+    takeTest = (testID) => {
+        const classCode = queryString.parse(this.props.location.search).q
+        this.props.history.push(`/class/taketest?q=${testID}&&c=${classCode}`)
+    }
+
     render() {
         return (
             <Container>
@@ -116,6 +121,14 @@ class GetAllTest extends Component {
                                         style={{ marginRight: 5, borderRadius: 50 }}
                                         onClick={() => this.onDeleteTest(item._id)}
                                     ><i className="fas fa-trash"></i>
+                                    </Button>
+                                    <Button
+                                        outline
+                                        className="float-left"
+                                        color="primary"
+                                        style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.takeTest(item._id)}
+                                    >Take Exam
                                     </Button>
                                 </td>
                             </tr>
