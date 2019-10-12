@@ -48,6 +48,22 @@ const authService = {
     } else {
       throw new Error("error/user_not_found");
     }
+  },
+  find : async (email) => {
+    const user = await User.findOne({email : email})
+    if (user) {
+      return user;
+    } else {
+      throw new Error("error/user_not_found");
+    }
+  },
+  findMany : async (roll) => {
+    const user = await User.find({roll : roll})
+    if (user) {
+      return user;
+    } else {
+      throw new Error("error/user_not_found");
+    }
   }
 };
 

@@ -160,7 +160,7 @@ function GetAllUserInClass(props) {
           })}
         {listOfTeacher &&
           listOfTeacher.map(item => {
-            return <li>{item}</li>;
+            return <li key={item}><span className="Btn" onClick={()=>(seeUser(item, "Teacher"))}>{item}</span></li>;
           })}
         <Button onClick={goBack}>GO BACK</Button>
       </ul>
