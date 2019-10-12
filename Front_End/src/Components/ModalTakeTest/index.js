@@ -8,8 +8,6 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  Alert,
   Spinner
 } from "reactstrap";
 
@@ -18,20 +16,9 @@ class ModalTakeTest extends React.Component {
   constructor() {
     super();
     this.state = {
-        classCode : "",
-        loading: false
+      loading: false
     };
   }
-
-  onChange = object => {
-    this.setState(Object.assign(this.state, object));
-  };
-
-  setStatetoOrigin = () => {
-    this.setState({
-      classCode : ""
-    });
-  };
 
   toggleLoading = () => {
     this.setState({
@@ -39,67 +26,66 @@ class ModalTakeTest extends React.Component {
     });
   };
 
-
-
-  takeTest = async () => {
+  onSubmit = () => {
     this.toggleLoading();
-    setTimeout(async () => {
-      await this.props.takeTest(this.state);
+    this.props.onSubmit();
+    setTimeout(() => {
       this.toggleLoading();
-      if (this.props.testStatus === true) {
-        this.setStatetoOrigin();
-      }
-    }, 1000);
-  };
+      this.props.history.push(`/class/getalltest?q=${this.props.classCode}`)
+    }, 1000)
+  }
 
-  onToggle = () => {
-    this.props.onToggle();
-    this.setStatetoOrigin();
-  };
   render() {
     return (
-      <Modal isOpen={this.props.visible} toggle={this.onToggle}>
+      <Modal isOpen={this.props.visible} toggle={this.props.onToggle}>
         <ModalHeader>ENROLL TEST</ModalHeader>
         <ModalBody>
-          {this.props.testStatus === true && (
-            <Alert color="success">ENROLL SUCCESSFUL.</Alert>
-          )}
-          {this.props.testStatus === false && (
-            <Alert color="danger">
-            FALSE. <em>ENROLLMENT CODE ARE INCORRECT</em>.
-            </Alert>
-          )}
           <Form>
             <FormGroup>
-              <Label for="classcode">Class Code or Test Code</Label>
-              <Input
-                type="password"
-                name="classcode"
-                id="classcode"
-                placeholder="classcode"
-                onChange={event => {
-                  this.onChange({ classCode: event.target.value });
-                }}
-                value={this.state.classCode}
-              />
+              {this.props.isQuizUndone || this.props.isEssayUndone
+                ?
+                <>
+                  <h4>Bạn còn một số câu chưa làm</h4>
+                  <hr />
+                  {this.props.isQuizUndone
+                    &&
+                    <div>
+                      <span>câu hỏi trắc nghiệm số: </span>
+                      {this.props.undoneQuests.quiz.map((item, index) => {
+                        return <span key={item}>{item}{index + 1 < this.props.undoneQuests.quiz.length && ", "}</span>
+                      })}
+                    </div>
+                  }
+                  {this.props.isEssayUndone
+                    &&
+                    <div>
+                      <span>câu hỏi trắc tự luận số: </span>
+                      {this.props.undoneQuests.essay.map((item, index) => {
+                        return <span key={item}>{item}{index + 1 < this.props.undoneQuests.essay.length && ", "}</span>
+                      })}
+                    </div>
+                  }
+                </>
+                :
+                <h3>Bạn còn ??? thời gian</h3>
+                }
             </FormGroup>
           </Form>
-
-          {this.state.loading && 
-            <div style={{ textAlign: "center" }}>
-              <Spinner style={{ width: "3rem", height: "3rem" }} />
-            </div>}
         </ModalBody>
-        <ModalFooter>
-          <Button
-            disabled={this.state.loading}
-            color="primary"
-            onClick={this.takeTest}
-          >
-            Submit
-          </Button>{" "}
-          <Button color="secondary" onClick={this.onToggle}>
-            Cancel
+        <ModalFooter className="pt-2 pb-2">
+          {this.state.loading
+            ?
+            <Spinner className="mr-4" style={{ width: "3rem", height: "3rem" }} />
+            :
+            <Button
+              disabled={this.state.loading}
+              color="primary"
+              onClick={this.onSubmit}
+            >Submit</Button>
+          }
+          {" "}
+          <Button className="mr-2" color="secondary" onClick={this.props.onToggle}>
+            Continue
           </Button>
         </ModalFooter>
       </Modal>

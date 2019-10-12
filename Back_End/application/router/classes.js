@@ -51,6 +51,21 @@ router.post("/deleteTest", async (req, res) => {
   }
 })
 
+router.post("/addTakenTest", async (req, res) => {
+  const {testID, studentEmail, quizScore, quest} = req.body
+  try {
+    await testService.addTakenTest(testID, studentEmail, quizScore, quest)
+    res.json({
+      success: true
+    })
+  } catch (err) {
+    res.status(400)
+    res.json({
+      err: err.message
+    })
+  }
+})
+
 router.post("/", async (req,res) => {
   const classCode = req.query.q
   try {

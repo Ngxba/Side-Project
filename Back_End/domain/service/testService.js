@@ -1,4 +1,5 @@
 var Test = require("../model/test")
+var TakenTest = require("../model/takenTest")
 
 const testService = {
     createTest: async (
@@ -35,6 +36,20 @@ const testService = {
     },
     deleteTest: async (testID) => {
         await Test.deleteOne({ _id: testID})
+    },
+    addTakenTest: async (testID, studentEmail, quizScore, quest) => {
+        try {
+            const newTakenTest = TakenTest({
+                testID, 
+                studentEmail, 
+                quizScore, 
+                quest
+            })
+            await newTakenTest.save()
+            return newTakenTest
+        } catch (err) {
+            throw new Error(err.message)
+        }
     }
 }
 
