@@ -205,7 +205,7 @@ class App extends React.Component {
               path="/getallquestion"
               render={() => <GetQuestion></GetQuestion>}
             />
-            <Route exact path="/class/taketest" render={() => <TakeExam></TakeExam>} />
+            <Route exact path="/class/taketest" render={() => <TakeExam authedUser={this.state.authenUser}></TakeExam>} />
 
           </>
         )}

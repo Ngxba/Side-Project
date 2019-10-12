@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardBody, CardSubtitle, CardTitle, CardText, Input } from "reactstrap"
+import { CardBody, CardSubtitle, CardTitle, CardText, Input } from "reactstrap"
 
 class ExamItem extends Component {
   state = {
@@ -61,9 +61,9 @@ function Quiz(props) {
               <input
                 type="radio"
                 name={data._id}
-                onChange={() => onChange({ chosenAnswer: answer.value })}
+                onChange={() => onChange({ userAnswer: answer.value })}
                 value={answer.value}
-                checked={data.chosenAnswer === answer.value}
+                checked={data.userAnswer === answer.value}
               />
               {" "}{answer.value}
             </div>
@@ -98,8 +98,8 @@ function Essay(props) {
           type="textarea"
           name="text"
           rows="5"
-          value={data.chosenAnswer}
-          onChange={e => onChange({ chosenAnswer: e.target.value })}
+          value={data.userAnswer}
+          onChange={e => onChange({ userAnswer: e.target.value })}
         />
       </CardBody>
     </div>
