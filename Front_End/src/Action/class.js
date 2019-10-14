@@ -30,9 +30,9 @@ export const deleteTest = async (testID) => {
     }
 }
 
-export const addTakenTest = async (testID, studentEmail, studentName, quizScore, quest) => {
+export const addTakenTest = async (testID, studentEmail, studentName, quizScore, essayScore, quest) => {
     const res = await axios.post(`http://localhost:5000/class/addTakenTest`, {
-        testID, studentEmail, studentName, quizScore, quest})
+        testID, studentEmail, studentName, quizScore, essayScore, quest})
     if(res.status === 200) {
         return res.data
     } else {

@@ -6,16 +6,21 @@ import {
     Button,
     Card,
     CardHeader,
-    // CardFooter,
+    CardFooter,
     CardBody,
-    // CardText, 
+    CardText,
+    CardTitle,
+    CardSubtitle,
     Dropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Input,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText
 } from "reactstrap"
 import queryString from "query-string";
-import Essay from '../QuestItem/essay';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 
@@ -29,7 +34,67 @@ class MarkExam extends Component {
             student: "",
             listQuiz: [],
             listEssay: [],
+            model: "essay",
+            quizScore: 0,
+            essayScore: 0
         }
+    }
+
+    onScoreChange = (questIndex, model, score) => {
+        if (model === "essay") {
+            let essay = this.state.displayTest.listEssay.map((item, index) => {
+                if (index === questIndex - 1 && score <= 10) {
+                    item.score = score
+                } else {
+                    item.score = 10
+                }
+                return item
+            })
+            this.setState({
+                student: this.state.displayTest.student,
+                listQuiz: this.state.displayTest.listQuiz,
+                listEssay: essay,
+                model: this.state.displayTest.model,
+                quizScore: this.state.displayTest.quizScore,
+                essayScore: this.state.displayTest.essayScore
+            })
+        } else {
+            let quiz = this.state.displayTest.listQuiz.map((item, index) => {
+                if (index === questIndex - 1 && score <= 1) {
+                    item.score = score
+                } else {
+                    item.score = 1
+                }
+                return item
+            })
+            this.setState({
+                student: this.state.displayTest.student,
+                listQuiz: quiz,
+                listEssay: this.state.displayTest.listEssay,
+                model: this.state.displayTest.model,
+                quizScore: this.state.displayTest.quizScore,
+                essayScore: this.state.displayTest.essayScore
+            })
+        }
+    }
+
+    onCommentChange = (essayIndex, comment) => {
+        let essay = this.state.displayTest.listEssay.map((item, index) => {
+            if (index === essayIndex - 1) item.essayComment = comment
+            return item
+        })
+        this.setState({
+            student: this.state.displayTest.student,
+            listQuiz: this.state.displayTest.listQuiz,
+            listEssay: essay,
+            model: this.state.displayTest.model,
+            quizScore: this.state.displayTest.quizScore,
+            essayScore: this.state.displayTest.essayScore
+        })
+    }
+
+    onModelChange = model => {
+        this.setState(Object.assign(this.state.displayTest, model))
     }
 
     nextDisplayTest = student => {
@@ -54,8 +119,8 @@ class MarkExam extends Component {
         const studentTest = this.state.listTest.filter(item => item.studentEmail === student)
         this.setState(Object.assign(this.state.displayTest, {
             student: student,
-            listQuiz: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model == "quiz") : [],
-            listEssay: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model == "essay") : [],
+            listQuiz: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model === "quiz") : [],
+            listEssay: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model === "essay") : [],
         }))
     }
 
@@ -74,8 +139,11 @@ class MarkExam extends Component {
             listTest: [...takenTestList.test],
             displayTest: {
                 student: takenTestList.test.length > 0 ? takenTestList.test[0].studentEmail : "NO STUDENT FOUND",
-                listQuiz: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model == "quiz") : [],
-                listEssay: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model == "essay") : [],
+                listQuiz: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model === "quiz") : [],
+                listEssay: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model === "essay") : [],
+                model: "essay",
+                quizScore: takenTestList.test[0].quizScore,
+                essayScore: takenTestList.test[0].essayScore
             }
         })
     }
@@ -88,7 +156,7 @@ class MarkExam extends Component {
         return (
             <Container className="d-flex justify-content-center">
                 <Card
-                    className="mt-5"
+                    className="mt-5 d-flex"
                     style={{
                         minWidth: "100%",
                         minHeight: "80vh",
@@ -135,13 +203,13 @@ class MarkExam extends Component {
                             onClick={() => this.nextDisplayTest(this.state.displayTest.student)}
                         ><i className="fas fa-arrow-right"></i></Button>
                     </CardHeader>
-                    <div className="row">
+                    <CardBody className="row" style={{ paddingTop: "initial", paddingBottom: "initial" }}>
                         <CardBody
                             className="col-8"
                             style={{ minHeight: "60vh" }}
                         >
                             <Scrollbars
-                                // universal
+                                universal
                                 autoHide
                                 // Hide delay in ms
                                 autoHideTimeout={1500}
@@ -152,24 +220,84 @@ class MarkExam extends Component {
                                 {this.state.displayTest.listEssay.length > 0
                                     ?
                                     <div className="pl-2 pr-4">
-                                        {this.state.displayTest.listEssay.map((item, index) => {
-                                            return <Essay key={index} data={item} />
-                                        })}
+                                        {this.state.displayTest.model === "essay"
+                                            ?
+                                            <>
+                                                {this.state.displayTest.listEssay.map((item, index) => {
+                                                    return <Essay
+                                                        key={index}
+                                                        data={item}
+                                                        numberOfQuest={index + 1}
+                                                        onCommentChange={this.onCommentChange}
+                                                        onScoreChange={this.onScoreChange}
+                                                    />
+                                                })}
+                                            </>
+                                            :
+                                            <>
+                                                {this.state.displayTest.listQuiz.map((item, index) => {
+                                                    return <Quiz
+                                                        key={index}
+                                                        data={item}
+                                                        numberOfQuest={index + 1}
+                                                        onScoreChange={this.onScoreChange}
+                                                    />
+                                                })}
+                                            </>
+                                        }
                                     </div>
                                     :
-                                    <h3 style={{ textAlign: "center" }}>No essay found</h3>
+                                    <h3 style={{ textAlign: "center" }}>No Submission found</h3>
                                 }
 
                             </Scrollbars>
                         </CardBody>
                         <CardBody
-                            className="col-3"
+                            className="col-4"
                             style={{
                                 minHeight: "72vh",
                                 borderLeft: "1px solid rgba(0, 0, 0, 0.125)",
+                                padding: "inherit"
                             }}
-                        >asdasdda</CardBody>
-                    </div>
+                        >
+                            <CardHeader className="row text-align-center" style={{ backgroundColor: "#fff" }}>
+                                <Button
+                                    className="col m-1"
+                                    onClick={() => this.onModelChange({ model: "quiz" })}
+                                >quiz</Button>
+                                <Button
+                                    className="col m-1"
+                                    onClick={() => this.onModelChange({ model: "essay" })}
+                                >Essay</Button>
+                            </CardHeader>
+                            <CardBody
+                                style={{
+                                    height: "57vh",
+                                    marginRight: "-15px",
+                                    marginLeft: "-15px",
+                                    marginBottom: "10px",
+                                    borderBottom: "1px solid rgba(0, 0, 0, 0.125)",
+                                }}
+                            >
+                                <h2>Test Info</h2>
+                                <br/>
+                                <ul>
+                                    <li><p>Test duration: </p></li>
+                                    <br/>
+                                    <li><p>Quiz Score: {this.state.displayTest.quizScore * 5}</p></li>
+                                    <li><p>Essay Score: {this.state.displayTest.essayScore}</p></li>
+                                    <hr/>
+                                    <li><p>Overall Score: {this.state.displayTest.quizScore * 5 + this.state.displayTest.essayScore}</p></li>
+                                </ul>
+                                <p>*Note: Overall Score = ( Quiz score x 5 ) + Essay Score</p>
+                            </CardBody>
+                            <CardFooter
+                                className="d-flex justify-content-center"
+                            >
+                                <Button >Mark this test</Button>
+                            </CardFooter>
+                        </CardBody>
+                    </CardBody>
                 </Card>
             </Container>
         )
@@ -177,3 +305,118 @@ class MarkExam extends Component {
 }
 
 export default withRouter(MarkExam)
+
+function Essay(props) {
+    const { numberOfQuest, data, onCommentChange, onScoreChange } = props;
+
+    return (
+        <Card>
+            <CardBody>
+                <CardTitle className="row">
+                    <h5 className="col-10 col-md-9" style={{ display: "inline-block" }}>
+                        Essay NO: {numberOfQuest}
+                    </h5>
+                    <InputGroup className="col-4 col-md-3">
+                        <Input
+                            placeholder="Score"
+                            min={0}
+                            max={10}
+                            type="number"
+                            step="1"
+                            value={data.score}
+                            onChange={e => onScoreChange(numberOfQuest, "essay", e.target.value)}
+                        />
+                        <InputGroupAddon addonType="append">
+                            <InputGroupText>/10</InputGroupText>
+                        </InputGroupAddon>
+                    </InputGroup>
+                </CardTitle>
+                <hr />
+                <CardSubtitle>
+                    <h6>
+                        <em>Question: </em>
+                    </h6>
+                    <p>{data.essayQuestionContent}</p>
+                </CardSubtitle>
+                <hr />
+                <CardSubtitle>
+                    <h6><em>Student's Answer :</em>
+                    </h6>
+                    {data.userAnswer !== "" ? <p>data.userAnswer</p> : <p style={{ color: "red" }}>NO ANSWER FOUND</p>}
+                </CardSubtitle>
+                <hr /><CardText>Sample Answer : </CardText>
+                <CardText>{data.modelEssayQuestionAnswer}</CardText>
+                <CardText>Teacher's comment: </CardText>
+                <Input
+                    type="textarea"
+                    name="text"
+                    rows="5"
+                    value={data.essayComment}
+                    onChange={e => onCommentChange(numberOfQuest, e.target.value)}
+                />
+            </CardBody>
+        </Card>
+    )
+}
+
+function Quiz(props) {
+    const { numberOfQuest, data, onScoreChange } = props;
+    return (
+        <div>
+            <Card>
+                <CardBody style={{ minHeight: "45vh" }}>
+                    <CardTitle className="row">
+                        <h5 className="col-10 col-md-9" style={{ display: "inline-block" }}>
+                            Quiz NO: {numberOfQuest}
+                        </h5>
+                        <InputGroup className="col-4 col-md-3">
+                            <Input
+                                placeholder="Score"
+                                min={0}
+                                max={1}
+                                type="number"
+                                step="1"
+                                value={data.score}
+                                onChange={e => onScoreChange(numberOfQuest, "quiz", e.target.value)}
+                            />
+                            <InputGroupAddon addonType="append">
+                                <InputGroupText>/1</InputGroupText>
+                            </InputGroupAddon>
+                        </InputGroup>
+                    </CardTitle>
+                    <hr />
+                    <CardSubtitle>
+                        <h6>
+                            <em>Question: </em>
+                        </h6>
+                        <p>{data.QuizQuestionContent}</p>
+                    </CardSubtitle>
+                    <hr />
+                    <CardSubtitle>
+                        <h6>
+                            <em>Right Answer: </em>
+                        </h6>
+                        <p>{data.rightAnswer}</p>
+                    </CardSubtitle>
+                    <hr />
+                    <CardText>
+                        Student's answer: {data.userAnswer === "" && <span style={{ color: "red" }}>NO ANSWER FOUND</span>}
+                    </CardText>
+                    {data.Answers.map(answer => {
+                        return (
+                            <div key={answer._id}>
+                                <input
+                                    type="radio"
+                                    name={data._id}
+                                    onChange={() => { }}
+                                    checked={data.userAnswer === answer.value}
+                                />
+                                {" "}{answer.value}
+                            </div>
+                        );
+                    })}
+                </CardBody>
+            </Card>
+        </div>
+    );
+}

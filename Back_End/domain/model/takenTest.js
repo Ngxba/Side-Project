@@ -10,20 +10,22 @@ var question = new Schema({
       value: String
     }
   ],
-  rightAnswer:String,
+  score: Number,
+  essayComment: String,
+  rightAnswer: String,
   essayQuestionContent: String,
   modelEssayQuestionAnswer: String,
-  userAnswer : String,
+  userAnswer: String,
 });
 
 var takenTest = new Schema({
-    testID: String,
-    studentEmail: String,
-    studentName: String, 
-    quizScore : Number,
-    essayScore: Number,
-    quest : [question],
-  })
+  testID: String,
+  studentEmail: String,
+  studentName: String,
+  quizScore: Number,
+  essayScore: Number,
+  quest: [question],
+})
 
 const TakenTest = mongoose.model("TakenTest", takenTest);
 module.exports = TakenTest;

@@ -52,9 +52,9 @@ router.post("/deleteTest", async (req, res) => {
 })
 
 router.post("/addTakenTest", async (req, res) => {
-  const {testID, studentEmail, studentName, quizScore, quest} = req.body
+  const {testID, studentEmail, studentName, quizScore, essayScore, quest} = req.body
   try {
-    await testService.addTakenTest(testID, studentEmail, studentName, quizScore, quest)
+    await testService.addTakenTest(testID, studentEmail, studentName, quizScore, essayScore, quest)
     res.json({
       success: true
     })

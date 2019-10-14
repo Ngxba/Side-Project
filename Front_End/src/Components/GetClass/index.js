@@ -130,7 +130,7 @@ class GetClass extends Component {
       this.setState({
         submitTA: true,
         TA: "",
-        listOfTeacher : [... this.state.listOfTeacher, this.state.TA],
+        listOfTeacher : [...this.state.listOfTeacher, this.state.TA],
       });
       this.toggleModalAddTeacher()
     }

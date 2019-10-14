@@ -38,7 +38,7 @@ function Quiz(props) {
   const { numberOfQuest, data, onChange } = props;
   return (
     <div>
-      <CardBody>
+      <CardBody style={{minHeight: "45vh"}}>
         <CardTitle>
           <h5 style={{ display: "inline-block" }}>
             Câu hỏi trắc nghiệm số {numberOfQuest}
