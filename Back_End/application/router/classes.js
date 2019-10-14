@@ -52,11 +52,27 @@ router.post("/deleteTest", async (req, res) => {
 })
 
 router.post("/addTakenTest", async (req, res) => {
-  const {testID, studentEmail, quizScore, quest} = req.body
+  const {testID, studentEmail, studentName, quizScore, quest} = req.body
   try {
-    await testService.addTakenTest(testID, studentEmail, quizScore, quest)
+    await testService.addTakenTest(testID, studentEmail, studentName, quizScore, quest)
     res.json({
       success: true
+    })
+  } catch (err) {
+    res.status(400)
+    res.json({
+      err: err.message
+    })
+  }
+})
+
+router.post("/getTakenTest", async (req, res) => {
+  const {testID} = req.body
+  try {
+    let test = await testService.getTakenTest(testID)
+    test = test.map(test=>test)
+    res.json({
+      test
     })
   } catch (err) {
     res.status(400)

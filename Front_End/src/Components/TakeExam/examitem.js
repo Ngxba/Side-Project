@@ -11,7 +11,6 @@ class ExamItem extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         {this.props.data.model === "quiz" && (

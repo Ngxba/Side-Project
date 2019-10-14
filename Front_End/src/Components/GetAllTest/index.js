@@ -83,6 +83,11 @@ class GetAllTest extends Component {
         this.props.history.push(`/class/taketest?q=${testID}&&c=${classCode}`)
     }
 
+    markTest = testID => {
+        const classCode = queryString.parse(this.props.location.search).q
+        this.props.history.push(`/class/marktest?q=${testID}&&c=${classCode}`)
+    }
+
     render() {
         return (
             <Container>
@@ -135,7 +140,7 @@ class GetAllTest extends Component {
                                         className="float-left"
                                         color="success"
                                         style={{ marginRight: 5, borderRadius: 50 }}
-                                        // onClick={() => this.takeTest(item._id)}
+                                        onClick={() => this.markTest(item._id)}
                                     >marking
                                     </Button>
                                 </td>

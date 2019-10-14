@@ -37,16 +37,25 @@ const testService = {
     deleteTest: async (testID) => {
         await Test.deleteOne({ _id: testID})
     },
-    addTakenTest: async (testID, studentEmail, quizScore, quest) => {
+    addTakenTest: async (testID, studentEmail, studentName, quizScore, quest) => {
         try {
             const newTakenTest = TakenTest({
                 testID, 
                 studentEmail, 
+                studentName,
                 quizScore, 
                 quest
             })
             await newTakenTest.save()
             return newTakenTest
+        } catch (err) {
+            throw new Error(err.message)
+        }
+    },
+    getTakenTest: async (testID) => {
+        try{
+            const test = await TakenTest.find({testID})
+            return test
         } catch (err) {
             throw new Error(err.message)
         }

@@ -102,6 +102,7 @@ class TakeExam extends Component {
       await addTakenTest(
         queryString.parse(this.props.location.search).q,
         this.props.authedUser.userEmail,
+        this.props.authedUser.userName,
         quizScore,
         // essayScore, 
         [...this.state.listOfEssayQuest, ...this.state.listOfQuizQuest]
@@ -132,7 +133,7 @@ class TakeExam extends Component {
             <Container>There are no quest avalaible</Container>
           )}
         <Container className="row mt-5">
-          <Card className="col-7 mr-3 ml-2">
+          <Card className="col-7 mr-3 ml-2" style={{WebkitTransform: "translateY(0px)"}}>
             {this.state.listOfQuizQuest.map((post, index) => {
               if (this.state.displayQuest.model === "quiz" && this.state.displayQuest.num === index)
                 return (
@@ -176,7 +177,7 @@ class TakeExam extends Component {
               >Next</Button>
             </CardFooter>
           </Card>
-          <Card className="col-4">
+          <Card className="col-4" style={{WebkitTransform: "translateY(0px)"}}>
             <CardBody>
               <h5>Các câu hỏi</h5>
               <hr />
