@@ -147,6 +147,8 @@ class GetClass extends Component {
         <br/>
         Main Teacher: <strong>{this.state.listOfTeacher[0]}</strong>
         <br />
+        Total students : {this.state.listOfStudent.length} students
+        <br/>
         Teaching Asisstant:
         <ul>
           {this.state.listOfTeacher.map((item, index) => {
@@ -248,12 +250,14 @@ function GetAllUserInClass(props) {
       <ul>
         {listOfStudent &&
           listOfStudent.map(item => {
-            return (
+            return (<>
               <li key={item}>
                 <span className="Btn" onClick={() => seeUser(item, "Student")}>
                   {item}
                 </span>
               </li>
+              <hr/>
+              </>
             );
           })}
       </ul>

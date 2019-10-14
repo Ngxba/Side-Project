@@ -14,12 +14,12 @@ import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
 import GetAllTest from "./Components/GetAllTest";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
-import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage";
+// import LandingPage from "./Components/TESTING/paper-kit-react-master/src/components/Navbars/IndexNavbar";
 import ProfilePage from "./Components/ProfilePage";
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: false,
+      isAuthen: true,
       userName: "Tung Lam Ngx Ba",
       userEmail: "tunglam.ngxba@gmail.com",
       roll: "Teacher",
@@ -175,9 +175,11 @@ class App extends React.Component {
           toggleLogin = {this.toggleLogin}
         ></NavBar>
         <div className="flex-grow-1">
-        <Route path="/class/get" render={() => <GetClass></GetClass>} />
-          <Route exact path="/" render={() => <Carousel openLogin={this.toggleLogin}></Carousel>} />
-          <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} />
+        <Route exact path="/" render={() => <Carousel openLogin={this.toggleLogin}></Carousel>} />
+          {/* <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} /> */}
+          {this.state.authenUser.isAuthen && (
+            <>
+            <Route path="/class/get" render={() => <GetClass></GetClass>} />
           <Route
             path="/profile"
             render={() => (
@@ -207,8 +209,6 @@ class App extends React.Component {
             path="/class/getallquestion"
             render={() => <GetQuestion></GetQuestion>}
           />
-          {this.state.authenUser.isAuthen && (
-            <>
               <Route
                 path="/createclass"
                 render={() => (

@@ -119,6 +119,7 @@ export default class Essay extends Component {
                   id="essayQuestion"
                   rows="3"
                   value={this.state.essayQuestionContent}
+                  placeholder="Noi dung cau hoi"
                   onChange={event => {
                     this.onChange({
                       essayQuestionContent: event.target.value
@@ -140,6 +141,7 @@ export default class Essay extends Component {
                   id="questionContent"
                   rows="5"
                   value={this.state.modelEssayQuestionAnswer}
+                  placeholder="Noi dung cau tra loi"
                   onChange={event => {
                     this.onChange({
                       modelEssayQuestionAnswer: event.target.value

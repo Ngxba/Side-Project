@@ -90,7 +90,6 @@ class Register extends React.Component {
           <Form>
             <Row form>
               <Col md={6}>
-                <FormGroup>
                   <Label for="Email">Email</Label>
                   <Input
                     type="email"
@@ -101,8 +100,8 @@ class Register extends React.Component {
                       this.onChange({ email: event.target.value });
                     }}
                     placeholder="1213@email.com"
+                    required = {true}
                   />
-                </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
@@ -116,6 +115,7 @@ class Register extends React.Component {
                       this.onChange({ password: event.target.value });
                     }}
                     placeholder="password"
+                    required = {true}
                   />
                 </FormGroup>
               </Col>
@@ -131,6 +131,7 @@ class Register extends React.Component {
                   this.onChange({ name: event.target.value });
                 }}
                 placeholder="Your Name"
+                required = {true}
               />
             </FormGroup>
             <FormGroup>
@@ -141,6 +142,7 @@ class Register extends React.Component {
                 onChange={event => {
                   this.onChange({ roll: event.target.value });
                 }}
+                required = {true}
               >
                 <option value="Teacher">Teacher</option>
                 <option value="Student">Student</option>
@@ -157,6 +159,7 @@ class Register extends React.Component {
                   this.onChange({ address1: event.target.value });
                 }}
                 placeholder="1234 Main St"
+                required = {true}
               />
             </FormGroup>
             <FormGroup>
@@ -170,6 +173,7 @@ class Register extends React.Component {
                   this.onChange({ address2: event.target.value });
                 }}
                 placeholder="Apartment, studio, or floor"
+                required = {true}
               />
             </FormGroup>
             <Row form>
@@ -184,6 +188,7 @@ class Register extends React.Component {
                       this.onChange({ city: event.target.value });
                     }}
                     value={this.state.city}
+                    required = {true}
                   />
                 </FormGroup>
               </Col>
@@ -198,6 +203,7 @@ class Register extends React.Component {
                       this.onChange({ state: event.target.value });
                     }}
                     value={this.state.state}
+                    required = {true}
                   />
                 </FormGroup>
               </Col>
@@ -212,6 +218,7 @@ class Register extends React.Component {
                     onChange={event => {
                       this.onChange({ zip: event.target.value });
                     }}
+                    required = {true}
                   />
                 </FormGroup>
               </Col>

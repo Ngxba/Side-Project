@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Button, Row, Col, Card, CardBody, CardTitle, Inputm, CardFooter, InputGroupText, Form,InputGroupAddon, InputGroup, Input} from "reactstrap"
+import {Container, Button, Row, Col} from "reactstrap"
 import "./index.css"
 
 class CAROUSEL extends Component {

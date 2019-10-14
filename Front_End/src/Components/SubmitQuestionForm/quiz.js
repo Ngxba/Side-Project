@@ -24,7 +24,7 @@ export default class Quiz extends Component {
     model: "quiz",
     numberOfQuest: 1,
     QuizQuestionContent: "",
-    Answers: [{ order: 0, value: "Dap an A" }, { order: 1, value: "Dap an B" }],
+    Answers: [{ order: 0, value: "" }, { order: 1, value: " " }],
     rightAnswer: "",
     loading: false,
     pushStatus: "not",

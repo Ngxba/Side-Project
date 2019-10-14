@@ -159,7 +159,7 @@ class ProfilePage extends React.Component {
                       <h5>Address:</h5>
                       <h5>Office:</h5>
                       <h5>City:</h5>
-                      <h5>Quan:</h5>
+                      <h5>State:</h5>
                       <h5>Zipcode:</h5>
                     </Col>
                     <Col lg="4" md="4" sm="4">
