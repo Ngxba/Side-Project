@@ -15,7 +15,9 @@ import {
   Spinner,
   Container,
   CustomInput,
-  Button
+  Button,
+  UncontrolledPopover,
+  PopoverHeader,
 } from "reactstrap";
 import classnames from "classnames";
 class GetQuestion extends Component {
@@ -27,8 +29,7 @@ class GetQuestion extends Component {
     activeTab: "1",
     selectedQuest: [],
     selectedAll: false,
-    type: "",
-
+    type: ""
   };
   toggleLoading = () => {
     this.setState({
@@ -39,7 +40,7 @@ class GetQuestion extends Component {
   fetchQuestPool = async time => {
     this.toggleLoading();
     const query = queryString.parse(this.props.location.search).q;
-    if(query){
+    if (query) {
       setTimeout(async () => {
         try {
           const response = await getQuiz();
@@ -51,17 +52,11 @@ class GetQuestion extends Component {
         }
         var numberOfQuizQuest = this.state.listQuest.filter(function(quest) {
           quest.checked = false;
-          return (
-            quest.model === "quiz" &&
-            quest.type === query
-          );
+          return quest.model === "quiz" && quest.type === query;
         });
         var numberOfEssayQuest = this.state.listQuest.filter(function(quest) {
           quest.checked = false;
-          return (
-            quest.model === "essay" &&
-            quest.type === query
-          );
+          return quest.model === "essay" && quest.type === query;
         });
         this.setState({
           numberOfQuizQuest: numberOfQuizQuest,
@@ -69,8 +64,7 @@ class GetQuestion extends Component {
         });
         this.toggleLoading();
       }, time);
-    }
-    else {
+    } else {
       setTimeout(async () => {
         try {
           const response = await getQuiz();
@@ -101,7 +95,6 @@ class GetQuestion extends Component {
         this.toggleLoading();
       }, time);
     }
-    
   };
   componentDidMount() {
     this.fetchQuestPool(1000);
@@ -200,53 +193,81 @@ class GetQuestion extends Component {
           </div>
         ) : (
           <Container>
-          {queryString.parse(this.props.location.search).q && <h3 style={{ textAlign: "center" }}>Chú ý, đang xem các câu hỏi của bộ đề luyện tập Class: "{queryString.parse(this.props.location.search).q}"</h3>}
-            {!(queryString.parse(this.props.location.search).q) && <h3 style={{ textAlign: "center" }}>Chú ý, đang xem các câu hỏi của bộ đề thi</h3>}
-            <Nav tabs>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "1"
-                  })}
-                  onClick={() => {
-                    this.toggle("1");
-                  }}
-                >
-                  Câu hỏi trắc nghiệm
-                </NavLink>
+            {queryString.parse(this.props.location.search).q && (
+              <h3 style={{ textAlign: "center" }}>
+                Chú ý, đang xem các câu hỏi của bộ đề luyện tập Class: "
+                {queryString.parse(this.props.location.search).q}"
+              </h3>
+            )}
+            {!queryString.parse(this.props.location.search).q && (
+              <h3 style={{ textAlign: "center" }}>
+                Chú ý, đang xem các câu hỏi của bộ đề thi
+              </h3>
+            )}
+            <Nav>
+              <NavItem className="p-2 flex-grow-1 bd-highlight">
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({
+                        active: this.state.activeTab === "1"
+                      })}
+                      onClick={() => {
+                        this.toggle("1");
+                      }}
+                    >
+                      Câu hỏi trắc nghiệm
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({
+                        active: this.state.activeTab === "2"
+                      })}
+                      onClick={() => {
+                        this.toggle("2");
+                      }}
+                    >
+                      Câu hỏi tự luận
+                    </NavLink>
+                  </NavItem>
+                </Nav>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "2"
-                  })}
-                  onClick={() => {
-                    this.toggle("2");
-                  }}
+              <NavItem
+                className="d-flex align-items-center"
+                style={{ marginRight: "3em" }}
+              >
+                <UncontrolledPopover
+                  placement="right-start"
+                  target="UncontrolledPopover"
                 >
-                  Câu hỏi tự luận
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <Button
-              color="danger"
-              className="d-flex justify-content-end"
-              style={{ textAlign: "end" }}
-              onClick={this.onDeleteQuest}
-            >
-              XÓA
-            </Button>
-
-            <TabContent activeTab={this.state.activeTab}>
-              <TabPane tabId="1">
+                  <PopoverHeader>Sellect all</PopoverHeader>
+                </UncontrolledPopover>
+                <Button
+                  color="danger"
+                  style={{ textAlign: "end", marginRight : "2em" }}
+                  onClick={this.onDeleteQuest}
+                >
+                  DELETE
+                  
+                </Button>
                 <CustomInput
                   type="checkbox"
-                  id="chooseAllQuiz"
-                  label="chooseall"
+                  id="UncontrolledPopover"
                   checked={this.state.selectedAll}
-                  onChange={() => this.onSelectAll("quiz")}
+                  onChange={() => {
+                    if (this.state.activeTab === "1") {
+                      this.onSelectAll("quiz");
+                    } else if (this.state.activeTab === "2") {
+                      this.onSelectAll("essay");
+                    }
+                  }}
                   inline
                 />
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="1">
                 <Row>
                   <Col sm="12">
                     {this.state.numberOfQuizQuest.map((post, index) => {
@@ -264,15 +285,6 @@ class GetQuestion extends Component {
                 </Row>
               </TabPane>
               <TabPane tabId="2">
-                <CustomInput
-                  type="checkbox"
-                  className="d-flex justify-content-end"
-                  id="chooseAllEssay"
-                  label="chooseall"
-                  checked={this.state.selectedAll}
-                  onChange={() => this.onSelectAll("essay")}
-                  inline
-                />
                 <Row>
                   <Col sm="12">
                     {this.state.numberOfEssayQuest.map((post, index) => {

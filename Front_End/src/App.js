@@ -14,20 +14,21 @@ import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
 import GetAllTest from "./Components/GetAllTest";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
-// import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
+import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage";
 import ProfilePage from "./Components/ProfilePage";
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: true,
-      userName: "",
-      userEmail: "",
-      roll: "",
-      address: "",
-      officeAddress: "",
-      city: "",
-      state: "",
-      zip: "",
+      isAuthen: false,
+      userName: "Tung Lam Ngx Ba",
+      userEmail: "tunglam.ngxba@gmail.com",
+      roll: "Teacher",
+      address: "a",
+      officeAddress: "b",
+      city: "c",
+      state: "d",
+      zip: "e",
+      ModalLogin : false,
     }
   };
   onRegister = async register_data => {
@@ -147,6 +148,11 @@ class App extends React.Component {
     });
     return currentUser;
   };
+  toggleLogin = () => {
+    this.setState({
+      ModalLogin : !this.state.ModalLogin
+    })
+  }
   render() {
     return (
       <div className="d-flex flex-column h-100">
@@ -164,10 +170,14 @@ class App extends React.Component {
           createClass={this.createClass}
           seeOwnedClass={this.seeOwnedClass}
           getProfilePage={this.getProfilePage}
+          TESTUI = {this.TESTUI}
+          ModalLogin = {this.state.ModalLogin}
+          toggleLogin = {this.toggleLogin}
         ></NavBar>
         <div className="flex-grow-1">
-          <Route exact path="/" render={() => <Carousel></Carousel>} />
-          <Route path="/class/get" render={() => <GetClass></GetClass>} />
+        <Route path="/class/get" render={() => <GetClass></GetClass>} />
+          <Route exact path="/" render={() => <Carousel openLogin={this.toggleLogin}></Carousel>} />
+          <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} />
           <Route
             path="/profile"
             render={() => (
@@ -229,11 +239,6 @@ class App extends React.Component {
                 exact
                 path="/getallquestion"
                 render={() => <GetQuestion></GetQuestion>}
-              />
-              <Route
-                exact
-                path="/class/taketest"
-                render={() => <TakeExam></TakeExam>}
               />
             </>
           )}

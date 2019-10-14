@@ -9,14 +9,12 @@ import {
   Button,
   Input,
   Modal,
-  Alert,
   Label
 } from "reactstrap";
 import "./index.css";
 import { getAllUserWithRoll } from "../../Action/user";
 import { addUserIntoClass } from "../../Action/class";
 
-// import ProfilePage from "../ProfilePage";
 class GetClass extends Component {
   state = {
     classCode: "",
@@ -28,7 +26,8 @@ class GetClass extends Component {
     modalAddTeacher: false,
     TA: "",
     listOfCorrectTeacher: [],
-    submitTA: "not"
+    submitTA: "not",
+    teacherDuplicated : "not"
   };
   async componentDidMount() {
     this.fetchClassResult();
@@ -109,27 +108,43 @@ class GetClass extends Component {
   };
 
   addTeacher = async () => {
+    this.setState({
+      submitTA :true
+    })
+    if(this.state.listOfTeacher.indexOf(this.state.TA) > -1){
+      this.setState({
+        teacherDuplicated : true,
+      })
+    }
+    else {
+      this.setState({
+        teacherDuplicated : false,
+      })
+    }
     if (this.state.listOfCorrectTeacher.indexOf(this.state.TA) === -1) {
       this.setState({
         submitTA: false
       });
-    } else {
+    } else if ((this.state.listOfCorrectTeacher.indexOf(this.state.TA) >-1) && this.state.listOfTeacher.indexOf(this.state.TA) === -1) {
       await addUserIntoClass(this.state.classCode, this.state.TA, "Teacher")
       this.setState({
         submitTA: true,
-        listOfTeacher : [... this.state.listOfTeacher, this.state.TA]
+        TA: "",
+        listOfTeacher : [... this.state.listOfTeacher, this.state.TA],
       });
       this.toggleModalAddTeacher()
-
     }
   };
 
   render() {
     return (
       <Container>
+      <div style={{height:"5em"}}></div>
         <h2 style={{ textAlign: "center" }}>
           Wellcome to class: "{queryString.parse(this.props.location.search).q}"
         </h2>
+        <br/>
+        <br/>
         Main Teacher: <strong>{this.state.listOfTeacher[0]}</strong>
         <br />
         Teaching Asisstant:
@@ -219,6 +234,7 @@ class GetClass extends Component {
           onChangeValue={this.onChangeTA}
           TA={this.state.TA}
           onToggle={this.toggleModalAddTeacher}
+          teacherDuplicated = {this.state.teacherDuplicated}
         ></ModalAddTeacher>
       </Container>
     );
@@ -246,7 +262,7 @@ function GetAllUserInClass(props) {
 }
 
 function ModalAddTeacher(props) {
-  const { isOpen, onToggle, onChangeValue, TA, addTeacher, canADD } = props;
+  const { isOpen, onToggle, onChangeValue, TA, addTeacher, canADD, teacherDuplicated } = props;
   return (
     <>
       <Modal isOpen={isOpen} toggle={onToggle}>
@@ -258,14 +274,20 @@ function ModalAddTeacher(props) {
         <div className="modal-body">
           {canADD === false && (
             <Label style={{ color: "#dc3545" }} className="float-right">
-              USER NOT EXIST
+            TEACHER NOT EXIST
+            </Label>
+          )} 
+          {teacherDuplicated === true && (
+            <Label style={{ color: "#dc3545" }} className="float-right">
+              DUPLICATED {" "}
             </Label>
           )}
-          {canADD ? (
+          {!canADD || teacherDuplicated === true ? (
             <Input
               type="text"
               name="text"
               onChange={e => onChangeValue(e.target.value)}
+              style={{ border: "1px solid #dc3545" }}
               value={TA}
               required={true}
             />
@@ -274,7 +296,6 @@ function ModalAddTeacher(props) {
               type="text"
               name="text"
               onChange={e => onChangeValue(e.target.value)}
-              style={{ border: "1px solid #dc3545" }}
               value={TA}
               required={true}
             />
