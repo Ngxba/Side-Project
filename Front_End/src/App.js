@@ -13,6 +13,7 @@ import CreateClass from "./Components/CreateClass";
 import GetClass from "./Components/GetClass";
 import GetAllClass from "./Components/GetAllClass";
 import GetAllTest from "./Components/GetAllTest";
+import MarkExam from "./Components/MarkExam"
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/components/Navbars/IndexNavbar";
 import ProfilePage from "./Components/ProfilePage";
@@ -249,6 +250,7 @@ class App extends React.Component {
               render={() => <TakeExam></TakeExam>}
             />
             <Route exact path="/class/taketest" render={() => <TakeExam authedUser={this.state.authenUser}></TakeExam>} />
+            <Route exact path="/class/marktest" render={() => <MarkExam authedUser={this.state.authenUser}></MarkExam>} />
 
           </>
           <br />

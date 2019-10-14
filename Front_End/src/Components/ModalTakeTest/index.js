@@ -7,7 +7,6 @@ import {
   Button,
   Form,
   FormGroup,
-  Label,
   Spinner
 } from "reactstrap";
 
@@ -26,9 +25,9 @@ class ModalTakeTest extends React.Component {
     });
   };
 
-  onSubmit = () => {
+  onSubmit = async () => {
     this.toggleLoading();
-    this.props.onSubmit();
+    await this.props.onSubmit();
     setTimeout(() => {
       this.toggleLoading();
       this.props.history.push(`/class/getalltest?q=${this.props.classCode}`)

@@ -18,7 +18,8 @@ var question = new Schema({
 
 var takenTest = new Schema({
     testID: String,
-    studentEmail: String, 
+    studentEmail: String,
+    studentName: String, 
     quizScore : Number,
     essayScore: Number,
     quest : [question],

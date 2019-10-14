@@ -30,13 +30,23 @@ export const deleteTest = async (testID) => {
     }
 }
 
-export const addTakenTest = async (testID, studentEmail, quizScore, quest) => {
+export const addTakenTest = async (testID, studentEmail, studentName, quizScore, quest) => {
     const res = await axios.post(`http://localhost:5000/class/addTakenTest`, {
-        testID, studentEmail, quizScore, quest})
+        testID, studentEmail, studentName, quizScore, quest})
     if(res.status === 200) {
         return res.data
     } else {
-        throw new Error("Cannot delete test", res)
+        throw new Error("Cannot add test", res)
+    }
+}
+
+export const getTakenTest = async (testID) => {
+    const res = await axios.post(`http://localhost:5000/class/getTakenTest`, {
+        testID})
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot get test", res)
     }
 }
 
