@@ -45,7 +45,7 @@ class ModalComplePushQuestion extends React.Component {
       <Modal isOpen={this.props.visible} toggle={this.onToggle}>
         <ModalHeader>ALL QUEST JUST INPUT</ModalHeader>
         <ModalBody>
-        {this.state.quizData[0] === undefined && <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam sequi, unde non doloribus adipisci autem corporis voluptate hic? Magnam eveniet reiciendis esse, corrupti et repellendus hic repellat veritatis? Eligendi, sed?</p> }
+        {this.state.quizData[0] === undefined && <p>You haven't push any quiz question yet</p> }
         {this.state.quizData.map((post, index) => {
               return (
                 <QuestItem
@@ -58,7 +58,7 @@ class ModalComplePushQuestion extends React.Component {
             <br/>
             <hr/>
             <br/>
-            {this.state.essayData[0] === undefined && <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam sequi, unde non doloribus adipisci autem corporis voluptate hic? Magnam eveniet reiciendis esse, corrupti et repellendus hic repellat veritatis? Eligendi, sed?</p> }
+            {this.state.essayData[0] === undefined && <p>You haven't push any essay question yet</p> }
             {this.state.essayData.map((post, index) => {
               return (
                 <QuestItem
@@ -73,15 +73,11 @@ class ModalComplePushQuestion extends React.Component {
           <Button
             disabled={this.state.loading}
             color="primary"
-            onClick={this.onClick}
+            onClick={this.onToggle}
+            style={{margin : "0 2em"}}
           >
             OK
           </Button>{" "}
-          <Button color="secondary" 
-          onClick={this.onToggle}
-          >
-            Cancel
-          </Button>
         </ModalFooter>
       </Modal>
     );

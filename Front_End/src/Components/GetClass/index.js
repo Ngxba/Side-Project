@@ -135,7 +135,9 @@ class GetClass extends Component {
       this.toggleModalAddTeacher()
     }
   };
-
+  addStudent= ()=>{
+    console.log(this.state.listOfStudent)
+  }
   render() {
     return (
       <Container>
@@ -227,6 +229,7 @@ class GetClass extends Component {
             listOfStudent={this.state.listOfStudent}
             goBack={this.setStateToOrigin}
             seeUser={this.seeUser}
+            addStudent = {this.addStudent}
           ></GetAllUserInClass>
         )}
         <ModalAddTeacher
@@ -244,10 +247,12 @@ class GetClass extends Component {
 }
 
 function GetAllUserInClass(props) {
-  const { listOfStudent, seeUser } = props;
+  const { listOfStudent, seeUser, addStudent } = props;
   return (
     <div>
-      <ul>
+    <h4 >List of students in class: </h4>
+      <br/>
+      <ol>
         {listOfStudent &&
           listOfStudent.map(item => {
             return (<>
@@ -260,7 +265,8 @@ function GetAllUserInClass(props) {
               </>
             );
           })}
-      </ul>
+      </ol>
+      <Button className ="float-right align-center" onClick={addStudent} style={{color : "gray"}} outline>Add student</Button>
     </div>
   );
 }

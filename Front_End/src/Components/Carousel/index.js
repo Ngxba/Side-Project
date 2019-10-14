@@ -23,14 +23,13 @@ class CAROUSEL extends Component {
                   <strong>"WE HERE TO HELP"</strong>  
                 </h5>
                 <br />
-                <Button
+                {!this.props.authenUser.isAuthen &&<Button
                   className="btn-round"
                   color="info"
-                  href="#pablo"
                   onClick={this.props.openLogin}
                 >
                   SIGN IN
-                </Button>
+                </Button>}
               </Col>
             </Row>
             <br />

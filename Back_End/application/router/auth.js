@@ -93,6 +93,7 @@ router.post("/register",auth.optional, async (req, res) => {
 });
 
 router.get("/me", auth.require, async(req,res) => {
+  
   const user = await authService.find(req.payload.email)
   res.json({
     user : user

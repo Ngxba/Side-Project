@@ -20,15 +20,15 @@ import ProfilePage from "./Components/ProfilePage";
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: true,
-      userName: "Tung Lam Ngx Ba",
-      userEmail: "tunglam.ngxba@gmail.com",
-      roll: "Teacher",
-      address: "a",
-      officeAddress: "b",
-      city: "c",
-      state: "d",
-      zip: "e",
+      isAuthen: false,
+      userName: "",
+      userEmail: "",
+      roll: "",
+      address: "",
+      officeAddress: "",
+      city: "",
+      state: "",
+      zip: "",
       ModalLogin : false,
     }
   };
@@ -80,6 +80,7 @@ class App extends React.Component {
   };
 
   onLogin = async login_data => {
+    console.log(login_data)
     const response = await axios.post("http://localhost:5000/auth/login", {
       email: login_data.loginEmail,
       password: login_data.loginPassword
@@ -99,7 +100,7 @@ class App extends React.Component {
           roll: response.data.user.roll
         }
       });
-      localStorage.setItem("jwt_token", response.data.token);
+      if(login_data.remember_me){localStorage.setItem("jwt_token", response.data.token);}
     }
     return response;
   };
@@ -138,11 +139,25 @@ class App extends React.Component {
 
   async componentDidMount() {
     const token = localStorage.getItem("jwt_token");
-    const currentUser = await this.getCurrentUser(token);
+    const response = await this.getCurrentUser(token);
+    this.setState({
+      authenUser: {
+        isAuthen: true,
+        userName: response.data.user.name,
+        userEmail: response.data.user.email,
+        address: response.data.user.address1,
+        officeAddress: response.data.user.address2,
+        city: response.data.user.city,
+        state: response.data.user.state,
+        zip: response.data.user.zip,
+        roll: response.data.user.roll
+      }
+    });
   }
 
   getCurrentUser = async token => {
     const currentUser = await axios.get("http://localhost:5000/auth/me", {
+    
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -176,7 +191,7 @@ class App extends React.Component {
           toggleLogin = {this.toggleLogin}
         ></NavBar>
         <div className="flex-grow-1">
-        <Route exact path="/" render={() => <Carousel openLogin={this.toggleLogin}></Carousel>} />
+        <Route exact path="/" render={() => <Carousel authenUser = {this.state.authenUser} openLogin={this.toggleLogin}></Carousel>} />
           {/* <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} /> */}
           {this.state.authenUser.isAuthen && (
             <>

@@ -2,7 +2,7 @@ const jwt = require("express-jwt");
 
 const getToken = req => {
   const {
-    header: { authorization }
+    headers: { authorization }
   } = req;
   if (authorization && authorization.split(" ")[0] === "Bearer") {
     return authorization.split(" ")[1];
@@ -15,7 +15,7 @@ const auth = {
   require: jwt({
     secret: process.env.JWT_SECRET,
     userProperty: "payload",
-    getToken: getToken
+    getToken: getToken  
   }),
   optional: jwt({
     secret: process.env.JWT_SECRET,

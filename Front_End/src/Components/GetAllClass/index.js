@@ -39,6 +39,7 @@ class GetAllClass extends React.Component {
     return (
       <Container>
         <div style={{height: "3em"}}></div>
+        {this.state.listOwnedClass.length === 0 && <h2>You haven't participate in any class yet !</h2>}
         {this.state.listOwnedClass.map((item, index) => {
           return <ClassForm
             key = {index}
