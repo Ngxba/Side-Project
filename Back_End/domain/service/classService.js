@@ -1,27 +1,8 @@
-// var Class = require("../model/class");
+
 var newClass = require("../model/newClass");
 
 const classService = {
-  // createClass: async (
-  //   classCode,
-  //   listOfQuizQuest,
-  //   listOfEssayQuest,
-  //   authedUser
-  // ) => {
-  //   const result = await Class.findOne({ classCode: classCode });
-  //   if (!result) {
-  //     const newClass = Class({
-  //       classCode: classCode,
-  //       listOfQuizQuest: listOfQuizQuest,
-  //       listOfEssayQuest: listOfEssayQuest,
-  //       authedUser: authedUser
-  //     });
-  //     await newClass.save();
-  //     return newClass;
-  //   } else {
-  //     throw new Error("Class_EXISTED");
-  //   }
-  // },
+ 
   getClass: async classCode => {
     let result = await newClass.findOne({ classCode: classCode });
     if (result) {
@@ -66,6 +47,7 @@ const classService = {
       throw new Error("Class_EXISTED");
     }
   },
+
 
   addStudent: async (classCode, student) => {
     const result = await newClass.updateOne(

@@ -1,25 +1,119 @@
 import React, { Component } from 'react';
-import {Container, Button} from "reactstrap"
+import {Container, Button, Row, Col, Card, CardBody, CardTitle, Inputm, CardFooter, InputGroupText, Form,InputGroupAddon, InputGroup, Input} from "reactstrap"
 import "./index.css"
 
 class CAROUSEL extends Component {
   render() {
     return(<div className="d-flex flex-column justify-content-center align-content-center h-100">
-  <video poster="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/polina.jpg" id="bgvid" playsInline autoPlay muted loop>
-  <source src="http://thenewcode.com/assets/videos/polina.mp4" type="video/mp4"/>
+  <video  id="bgvid" playsInline autoPlay muted loop>
+  <source src="https://storage.coverr.co/videos/Working-it?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTcxMDY1MzkxfQ.qqR5IQ4NFfuPtR6KtG0TbPdTRDXhd-QrjdfQimSWbYA" type="video/mp4"/>
   
   </video>
-  <Container>
-  <div style={{textAlign : "center"}}>
-  <h1>SMART EXAM</h1>
-  <p>Created in 2019</p>
-  <p><a href="#NONE">Our FACEBOOK</a></p>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur porta dictum turpis, eu mollis justo gravida ac. Proin non eros blandit, rutrum est a, cursus quam. Nam ultricies, velit ac suscipit vehicula, turpis eros sollicitudin lacus, at convallis mauris magna non justo. Etiam et suscipit elit. Morbi eu ornare nulla, sit amet ornare est. Sed vehicula ipsum a mattis dapibus. Etiam volutpat vel enim at auctor.</p>
-  <p>Aenean pharetra convallis pellentesque. Vestibulum et metus lectus. Nunc consectetur, ipsum in viverra eleifend, erat erat ultricies felis, at ultricies mi massa eu ligula. Suspendisse in justo dapibus metus sollicitudin ultrices id sed nisl.</p>
-  <br/>
-  <Button>SIGN IN</Button>
-  </div>
-  </Container>
+  
+  <>
+      <div className="main">
+        <div className="section text-center" style={{background : "transparent"}}>
+          <Container>
+            <Row>
+              <Col className="ml-auto mr-auto" md="8">
+                <h1 className="title" style={{color : "#F5F5F5", textDecoration: "underline"}}>SMART EXAM</h1>
+                <h5 className="description" style={{color : "#F5F5F5"}}>
+                 <br/>
+                  <hr/>
+                  <strong>"WE HERE TO HELP"</strong>  
+                </h5>
+                <br />
+                <Button
+                  className="btn-round"
+                  color="info"
+                  href="#pablo"
+                  onClick={this.props.openLogin}
+                >
+                  SIGN IN
+                </Button>
+              </Col>
+            </Row>
+            <br />
+            <br />
+            <Row>
+              <Col md="3">
+                <div className="info">
+                  <div className="icon icon-info">
+                    <i className="nc-icon nc-album-2" />
+                  </div>
+                  <div className="description">
+                    <h4 style={{color : "white"}} className="info-title">Full control</h4>
+                    {/* <p style={{color : "white"}} className="description">
+                      Spend your time generating new ideas. You don't have to
+                      think of implementing.
+                    </p> */}
+                    {/* <Button className="btn-link" color="info" href="#pablo">
+                      See more
+                    </Button> */}
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="icon icon-info">
+                    <i className="nc-icon nc-bulb-63" />
+                  </div>
+                  <div className="description">
+                    <h4 style={{color : "white"}} className="info-title">User friendly</h4>
+                    {/* <p style={{color : "white"}} className="description" >
+                      Larger, yet dramatically thinner. More powerful, but
+                      remarkably power efficient.
+                    </p> */}
+                    {/* <Button className="btn-link" color="info" href="#pablo">
+                      See more
+                    </Button> */}
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="icon icon-info">
+                    <i className="nc-icon nc-chart-bar-32" />
+                  </div>
+                  <div className="description">
+                    <h4 style={{color : "white"}} className="info-title">Statistics</h4>
+                    {/* <p style={{color : "white"}} className="description">
+                      Choose from a veriety of many colors resembling sugar
+                      paper pastels.
+                    </p> */}
+                    {/* <Button className="btn-link" color="info" href="#pablo">
+                      See more
+                    </Button> */}
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="icon icon-info">
+                    <i className="nc-icon nc-sun-fog-29" />
+                  </div>
+                  <div className="description">
+                    <h4 style={{color : "white"}} className="info-title">Delightful design</h4>
+                    {/* <p style={{color : "white"}} className="description">
+                      Find unique and handmade delightful designs related items
+                      directly from our sellers.
+                    </p> */}
+                    {/* <Button className="btn-link" color="info" href="#pablo">
+                      See more
+                    </Button> */}
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <br/>
+            <br/>
+            <br/>
+            <h6 style={{color:"#F5F5F5"}}>"Smart Exam was created in order to help students, teachers, lectures connect together and work in the most effective way. <br/>
+                  In Smart Exam, we understand the struggle."</h6>
+          </Container>
+        </div>
+      </div>
+    </>
     </div>)
   }
 }

@@ -50,8 +50,7 @@ function LandingPage() {
   });
   return (
     <>
-      {/* <ExamplesNavbar />
-      <LandingPageHeader /> */}
+
       <div className="main">
         <div className="section text-center">
           <Container>
@@ -70,9 +69,9 @@ function LandingPage() {
                   className="btn-round"
                   color="info"
                   href="#pablo"
-                  onClick={e => e.preventDefault()}
+                  onClick={this.props.openLogin}
                 >
-                  See Details
+                  Sign In
                 </Button>
               </Col>
             </Row>

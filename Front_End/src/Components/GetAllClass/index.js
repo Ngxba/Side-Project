@@ -38,6 +38,7 @@ class GetAllClass extends React.Component {
   render() {
     return (
       <Container>
+        <div style={{height: "3em"}}></div>
         {this.state.listOwnedClass.map((item, index) => {
           return <ClassForm
             key = {index}

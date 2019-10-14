@@ -15,25 +15,25 @@ import GetAllClass from "./Components/GetAllClass";
 import GetAllTest from "./Components/GetAllTest";
 import MarkExam from "./Components/MarkExam"
 // import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage.js";
-// import ProfilePage from "./Components/TESTING/paper-kit-react-master/src/views/examples/ProfilePage.js";
+import LandingPage from "./Components/TESTING/paper-kit-react-master/src/views/examples/LandingPage";
 import ProfilePage from "./Components/ProfilePage";
 class App extends React.Component {
   state = {
     authenUser: {
-      isAuthen: true,
-      userName: "tung lam",
+      isAuthen: false,
+      userName: "Tung Lam Ngx Ba",
       userEmail: "tunglam.ngxba@gmail.com",
       roll: "Teacher",
-      address: "",
-      officeAddress: "",
-      city: "",
-      state: "",
-      zip: "",
-      userID: ""
+      address: "a",
+      officeAddress: "b",
+      city: "c",
+      state: "d",
+      zip: "e",
+      ModalLogin : false,
     }
   };
   onRegister = async register_data => {
-    return await axios.post("http://localhost:5000/auth/register", {
+    const response = await axios.post("http://localhost:5000/auth/register", {
       email: register_data.email,
       password: register_data.password,
       name: register_data.name,
@@ -45,6 +45,22 @@ class App extends React.Component {
       agree: register_data.agree,
       roll: register_data.roll
     });
+    if (response.status === 200) {
+      this.setState({
+        authenUser: {
+          isAuthen: true,
+        userName: register_data.name,
+        userEmail: register_data.email,
+        roll: register_data.roll,
+        address: register_data.address1,
+        officeAddress: register_data.address2,
+        city: register_data.city,
+        state: register_data.state,
+        zip: register_data.zip,
+        }
+      });
+    }
+    return response;
   };
 
   onLogOut = () => {
@@ -59,7 +75,6 @@ class App extends React.Component {
         city: "",
         state: "",
         zip: "",
-        userID: ""
       }
     });
   };
@@ -81,7 +96,6 @@ class App extends React.Component {
           city: response.data.user.city,
           state: response.data.user.state,
           zip: response.data.user.zip,
-          userID: response.data.user._id,
           roll: response.data.user.roll
         }
       });
@@ -123,18 +137,22 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    const token = localStorage.getItem("jwt_token")
+    const token = localStorage.getItem("jwt_token");
     const currentUser = await this.getCurrentUser(token);
-    console.log(currentUser)
   }
 
-  getCurrentUser= async (token) => {
+  getCurrentUser = async token => {
     const currentUser = await axios.get("http://localhost:5000/auth/me", {
-      headers : {
-        Authorization : `Bearer ${token}`
+      headers: {
+        Authorization: `Bearer ${token}`
       }
+    });
+    return currentUser;
+  };
+  toggleLogin = () => {
+    this.setState({
+      ModalLogin : !this.state.ModalLogin
     })
-    return currentUser
   }
   render() {
     return (
@@ -153,81 +171,94 @@ class App extends React.Component {
           createClass={this.createClass}
           seeOwnedClass={this.seeOwnedClass}
           getProfilePage={this.getProfilePage}
+          TESTUI = {this.TESTUI}
+          ModalLogin = {this.state.ModalLogin}
+          toggleLogin = {this.toggleLogin}
         ></NavBar>
         <div className="flex-grow-1">
-        <Route exact path="/" render={() => <Carousel></Carousel>} />
         <Route path="/class/get" render={() => <GetClass></GetClass>} />
-        <Route
-          path="/profile"
-          render={() => (
-            <ProfilePage
-              authenUser={this.state.authenUser}
-              seeOwnedClass={this.seeOwnedClass}
-            ></ProfilePage>
+          <Route exact path="/" render={() => <Carousel openLogin={this.toggleLogin}></Carousel>} />
+          <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} />
+          <Route
+            path="/profile"
+            render={() => (
+              <ProfilePage
+                authenUser={this.state.authenUser}
+                seeOwnedClass={this.seeOwnedClass}
+              ></ProfilePage>
+            )}
+          />
+          <Route
+            path="/class/getallclasses"
+            render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}
+          />
+          <Route
+            path="/class/maketest"
+            render={() => {
+              return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
+            }}
+          />
+          <Route
+            exact
+            path="/class/getalltest"
+            render={() => <GetAllTest></GetAllTest>}
+          />
+          <Route
+            exact
+            path="/class/getallquestion"
+            render={() => <GetQuestion></GetQuestion>}
+          />
+          {this.state.authenUser.isAuthen && (
+            <>
+              <Route
+                path="/createclass"
+                render={() => (
+                  <CreateClass
+                    authedUser={this.state.authenUser}
+                    getClass={this.getClass}
+                  ></CreateClass>
+                )}
+              />
+              <Route
+                path="/addquestion"
+                render={() => <AddQuestion></AddQuestion>}
+              />
+              <Route
+                path="/class/addquestion"
+                render={() => <AddQuestion></AddQuestion>}
+              />
+              <Route
+                path="/maketest"
+                render={() => {
+                  console.log("aaa");
+                  return (
+                    <MakeTest authedUser={this.state.authenUser}></MakeTest>
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/getallquestion"
+                render={() => <GetQuestion></GetQuestion>}
+              />
+            </>
           )}
-        />
-        <Route
-          path="/class/getallclasses"
-          render={() => <GetAllClass getClass={this.getClass}></GetAllClass>}
-        />
-        <Route
-          path="/class/maketest"
-          render={() => {
-            return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
-          }}
-        />
-        <Route
-          exact
-          path="/class/getalltest"
-          render={() => <GetAllTest></GetAllTest>}
-        />
-        <Route
-          exact
-          path="/class/getallquestion"
-          render={() => <GetQuestion></GetQuestion>}
-        />
-        {this.state.authenUser.isAuthen && (
           <>
             <Route
-              path="/createclass"
-              render={() => (
-                <CreateClass
-                  authedUser={this.state.authenUser}
-                  getClass={this.getClass}
-                ></CreateClass>
-              )}
-            />
-            <Route
-              path="/addquestion"
-              render={() => <AddQuestion></AddQuestion>}
-            />
-            <Route
-              path="/class/addquestion"
-              render={() => <AddQuestion></AddQuestion>}
-            />
-            <Route
-              path="/maketest"
-              render={() => {
-                console.log("aaa");
-                return <MakeTest authedUser={this.state.authenUser}></MakeTest>;
-              }}
-            />
-            <Route
               exact
-              path="/getallquestion"
-              render={() => <GetQuestion></GetQuestion>}
+              path="/taketest"
+              render={() => <TakeExam></TakeExam>}
             />
             <Route exact path="/class/taketest" render={() => <TakeExam authedUser={this.state.authenUser}></TakeExam>} />
             <Route exact path="/class/marktest" render={() => <MarkExam authedUser={this.state.authenUser}></MarkExam>} />
 
           </>
-        )}
-        <>
-          <Route exact path="/taketest" render={() => <TakeExam></TakeExam>} />
-        </>
-        <br />
+          <br />
         </div>
-        <footer className="footer footer-black footer-white" style={{backgroundColor : "transparent"}}>
+        <footer
+          className="footer footer-black footer-white"
+          style={{ backgroundColor: "transparent" }}
+        >
           <Container>
             <Row>
               <nav className="footer-nav">
