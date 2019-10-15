@@ -43,7 +43,7 @@ class SubmitQuestionForm extends React.Component {
                     this.toggle("1");
                   }}
                 >
-                  Câu hỏi trắc nghiệm
+                  Quiz question
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -55,7 +55,7 @@ class SubmitQuestionForm extends React.Component {
                     this.toggle("2");
                   }}
                 >
-                  Câu hỏi tự luận
+                  Essay question
                 </NavLink>
               </NavItem>
             </Nav>

@@ -191,13 +191,15 @@ class TakeExam extends Component {
           <Col lg="4">
             <Card  style={{ WebkitTransform: "translateY(0px)" }}>
               <CardBody>
-                <h5>Các câu hỏi</h5>
+                <h5>List of questions: </h5>
                 <hr />
-                <CardText>Câu hỏi trắc nghiệm: </CardText>
+                <CardText>Quiz question: </CardText>
+                <div className="d-flex flex-wrap">
                 {this.state.listOfQuizQuest.map((item, index) => {
                   return (
                     <Button
                       className="mr-1 mb-1"
+                      // style={{height:"3em", width : "3em"}}
                       color={item.userAnswer !== "" ? "primary" : ""}
                       key={index}
                       onClick={() => this.onDisplayQuestChange({
@@ -207,7 +209,10 @@ class TakeExam extends Component {
                     >{index + 1}</Button>
                   )
                 })}
-                <CardText>Câu hỏi tự luận</CardText>
+                </div>
+                <br/>
+                <br/>
+                <CardText>Essay questions</CardText>
                 {this.state.listOfEssayQuest.map((item, index) => {
                   return (
                     <Button

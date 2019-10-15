@@ -69,14 +69,14 @@ export default class editEssay extends Component {
                         )}
                         <CardTitle>
                             <h5 style={{ display: "inline-block" }}>
-                                Câu hỏi tự luận số {this.props.numberOfQuest}
+                                Essay question number: {this.props.numberOfQuest}
                             </h5>
                         </CardTitle>
                         <hr />
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <CardSubtitle>
-                                    <h6><em>Em hãy đọc câu hỏi sau đây và trả lời :</em></h6>
+                                    <h6><em>Read the question and write down the answer</em></h6>
                                     <Input
                                         type="textarea"
                                         name="text"
@@ -92,7 +92,7 @@ export default class editEssay extends Component {
                                     />
                                 </CardSubtitle>
                                 <hr />
-                                <CardText>Câu trả lời mẫu : </CardText>
+                                <CardText>Sample Answer: </CardText>
                                 <Input
                                     type="textarea"
                                     name="text"

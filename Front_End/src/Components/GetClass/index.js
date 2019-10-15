@@ -233,14 +233,14 @@ class GetClass extends Component {
             {!this.state.getStudent && !this.state.getTeacher && (
               <div>
                 <Row style={{ textAlign: "center" }}>
-                  <Col>
+                {this.props.authenUser.roll === "Teacher" && <Col>
                     <Button
                       className="Button"
                       onClick={this.toggleModalAddTeacher}
                     >
                       ADD TEACHER
                     </Button>
-                  </Col>
+                  </Col>}
                   <Col>
                     <Button
                       className="Button"
@@ -257,24 +257,24 @@ class GetClass extends Component {
                 </Row>
                 <br />
                 <Row style={{ textAlign: "center" }}>
+                {this.props.authenUser.roll === "Teacher" && <Col>
+                    <Button className="Button" onClick={this.makeTest}>
+                      TAKE TEST / MAKE TEST
+                    </Button>
+                  </Col>}
                   <Col>
                     <Button className="Button" onClick={this.getQuestPool}>
                       GET QUESTPOOL
                     </Button>
                   </Col>
-                  <Col>
-                    <Button className="Button" onClick={this.makeTest}>
-                      TAKE TEST / MAKE TEST
-                    </Button>
-                  </Col>
                 </Row>
                 <br />
                 <Row style={{ textAlign: "center" }}>
-                  <Col>
+                {this.props.authenUser.roll === "Teacher" && <Col>
                     <Button className="Button" onClick={this.addQuestInPool}>
                       ADD QUEST IN QUESTPOOL
                     </Button>
-                  </Col>
+                  </Col> }
                   <Col>
                     <Button className="Button" onClick={this.getAllTest}>
                       SEE ALL TEST
@@ -296,6 +296,7 @@ class GetClass extends Component {
                 goBack={this.setStateToOrigin}
                 seeUser={this.seeUser}
                 toggleModalAddStudent={this.toggleModalAddStudent}
+                userRoll = {this.props.authenUser.roll}
               ></GetAllUserInClass>
             )}
             <ModalAddTeacher
@@ -315,6 +316,7 @@ class GetClass extends Component {
               addStudent = {this.addStudent}
               studentNotExist = {this.state.studentNotExist}
               studentDuplicated = {this.state.studentDuplicated}
+              
             ></ModalAddStudent>
           </>
         )}
@@ -393,7 +395,7 @@ function ModalAddStudent(props) {
 }
 
 function GetAllUserInClass(props) {
-  const { listOfStudent, seeUser, toggleModalAddStudent } = props;
+  const { listOfStudent, seeUser, toggleModalAddStudent, userRoll } = props;
   return (
     <div>
       <h4>List of students in class: </h4>
@@ -414,14 +416,14 @@ function GetAllUserInClass(props) {
               </div>
           ))}
       </ol>
-      <Button
+      {userRoll === "Teacher" && <Button
         className="float-right align-center"
         onClick={toggleModalAddStudent}
         style={{ color: "gray" }}
         outline
       >
         Add student
-      </Button>
+      </Button>}
     </div>
   );
 }

@@ -41,19 +41,19 @@ function Quiz(props) {
       <CardBody style={{minHeight: "45vh"}}>
         <CardTitle>
           <h5 style={{ display: "inline-block" }}>
-            Câu hỏi trắc nghiệm số {numberOfQuest}
+            Quiz question number: {numberOfQuest}
           </h5>
           {" "}
         </CardTitle>
         <hr />
         <CardSubtitle>
           <h6>
-            <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
+            <em>Read the question and choose the right answer</em>
           </h6>
           <p>{data.QuizQuestionContent}</p>
         </CardSubtitle>
         <hr />
-        <CardText>Các đáp án: </CardText>
+        <CardText>Answers: </CardText>
         {data.Answers.map(answer => {
           return (
             <div key={answer._id}>
@@ -77,22 +77,22 @@ function Essay(props) {
   const { numberOfQuest, data, onChange } = props;
   return (
     <div>
-      <CardBody>
+      <CardBody style={{minHeight: "45vh"}}>
         <CardTitle>
           <h5 style={{ display: "inline-block" }}>
-            Câu hỏi tự luận số {numberOfQuest}
+            Essay questions: {numberOfQuest}
           </h5>
           {" "}
         </CardTitle>
         <hr />
         <CardSubtitle>
           <h6>
-            <em>Em hãy đọc câu hỏi sau đây và trả lời :</em>
+            <em>Read the question and write down the answer</em>
           </h6>
           <p>{data.essayQuestionContent}</p>
         </CardSubtitle>
         <hr />
-        <CardText>Câu trả lời : </CardText>
+        <CardText>Answers : </CardText>
         <Input
           type="textarea"
           name="text"

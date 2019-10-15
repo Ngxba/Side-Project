@@ -108,7 +108,7 @@ export default class CreateClass extends Component {
     let canSubmit = true
     return (
       <div>
-        <Container>
+      {this.state.teacher.roll === "Teacher" ?  <Container>
           <div style={{ height: "70px" }}></div>
           <Card>
             <CardBody>
@@ -125,7 +125,7 @@ export default class CreateClass extends Component {
                   Create Class FALSE ( Invalid student )
                 </Alert>
               )}
-              <h3>Tên giáo viên: {this.state.teacher.userName}</h3>
+              <h3>Teacher: {this.state.teacher.userName}</h3>
               <Form onSubmit={this.submit}>
               <CardTitle>
                   <Label for="classCode">Class Code: </Label>
@@ -144,7 +144,7 @@ export default class CreateClass extends Component {
               <hr />
               <CardSubtitle>
                 <h6>
-                  <em>Lưu ý : Mã lớp học không thể trùng</em>
+                  <em>Take note : Class code cannot be duplicated</em>
                 </h6>
               </CardSubtitle>
               
@@ -223,7 +223,10 @@ export default class CreateClass extends Component {
               </Form>
             </CardBody>
           </Card>
-        </Container>
+        </Container> : <Container>
+          <h1>You are not suppose to be here !!</h1>
+        </Container>}
+        
       </div>
     );
   }
@@ -253,7 +256,7 @@ function Student(props) {
           USER NOT EXIST 
         </Label>
       )}
-      <Label style={{ opacity: opacity }}>Học sinh {order}:</Label>
+      <Label style={{ opacity: opacity }}>Student {order}:</Label>
       {wrong || duplicate ? (
         <Input
           type="text"

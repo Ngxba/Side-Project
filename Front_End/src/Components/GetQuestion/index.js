@@ -196,13 +196,12 @@ class GetQuestion extends Component {
           <Container>
             {queryString.parse(this.props.location.search).q && (
               <h3 style={{ textAlign: "center" }}>
-                Chú ý, đang xem các câu hỏi của bộ đề luyện tập Class: "
-                {queryString.parse(this.props.location.search).q}"
+              Pay attention, you are watching questions from the practice pool quest of Class: "{queryString.parse(this.props.location.search).q}"
               </h3>
             )}
             {!queryString.parse(this.props.location.search).q && (
               <h3 style={{ textAlign: "center" }}>
-                Chú ý, đang xem các câu hỏi của bộ đề thi
+              Pay attention, you are watching questions from the general exam pool quest
               </h3>
             )}
             <hr/>
@@ -220,7 +219,7 @@ class GetQuestion extends Component {
                         this.toggle("1");
                       }}
                     >
-                      Câu hỏi trắc nghiệm
+                      Quiz questions
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -232,12 +231,12 @@ class GetQuestion extends Component {
                         this.toggle("2");
                       }}
                     >
-                      Câu hỏi tự luận
+                      Essay questions
                     </NavLink>
                   </NavItem>
                 </Nav>
               </NavItem>
-              <NavItem
+              {this.props.authenUser.roll === "Teacher" && <NavItem
                 className="d-flex align-items-center"
                 style={{ marginRight: "3em" }}
               >
@@ -268,7 +267,7 @@ class GetQuestion extends Component {
                   }}
                   inline
                 />
-              </NavItem>
+              </NavItem>}
             </Nav>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
@@ -282,6 +281,7 @@ class GetQuestion extends Component {
                           numberOfQuizQuest={index + 1}
                           onSelect={this.onSelectOne}
                           selected={post.checked}
+                          authenUser = {this.props.authenUser}
                         ></QuestItem>
                       );
                     })}
@@ -297,6 +297,7 @@ class GetQuestion extends Component {
                           key={post._id}
                           data={post}
                           numberOfEssayQuest={index + 1}
+                          authenUser = {this.props.authenUser}
                           onSelect={this.onSelectOne}
                           selected={post.checked}
                         ></QuestItem>

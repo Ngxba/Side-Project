@@ -16,9 +16,10 @@ export default class Essay extends Component {
           <CardBody>
             <CardTitle>
               <h5 style={{ display: "inline-block" }}>
-                Câu hỏi tự luận số {this.props.numberOfQuest}
+              Essay question number: {this.props.numberOfQuest}
               </h5>
-              {" "}<Button
+              {" "}
+              {this.props.authenUser.roll === "Teacher" && <><Button
                 outline
                 className="float-right"
                 color="danger"
@@ -44,14 +45,16 @@ export default class Essay extends Component {
                   }
                   inline
                 />
-              )}</CardTitle>
+              )}</> }
+              </CardTitle>
             <hr />
-            <CardSubtitle>
-              <h6><em>Em hãy đọc câu hỏi sau đây và trả lời :</em>
-              </h6>
-              <p>{this.props.data.essayQuestionContent}</p>
+              <CardSubtitle>
+          <p style={{whiteSpace: "pre"}}>Read the question and write down the answer</p>
+          <h5>
+            <em>{this.props.data.essayQuestionContent}</em>
+          </h5>
             </CardSubtitle>
-            <hr /><CardText>Câu trả lời mẫu : </CardText>
+            <hr /><CardText>Sample Answer: </CardText>
             <CardText>{this.props.data.modelEssayQuestionAnswer}</CardText>
           </CardBody>
         </Card>

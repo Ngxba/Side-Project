@@ -37,19 +37,18 @@ class ModalTakeTest extends React.Component {
   render() {
     return (
       <Modal isOpen={this.props.visible} toggle={this.props.onToggle}>
-        <ModalHeader>ENROLL TEST</ModalHeader>
+        <ModalHeader>SUBMITION</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
               {this.props.isQuizUndone || this.props.isEssayUndone
                 ?
-                <>
-                  <h4>Bạn còn một số câu chưa làm</h4>
+                <><h4>You still have number of question haven't dont yet</h4>
                   <hr />
                   {this.props.isQuizUndone
                     &&
                     <div>
-                      <span>câu hỏi trắc nghiệm số: </span>
+                      <span>Quiz number: </span>
                       {this.props.undoneQuests.quiz.map((item, index) => {
                         return <span key={item}>{item}{index + 1 < this.props.undoneQuests.quiz.length && ", "}</span>
                       })}
@@ -58,7 +57,7 @@ class ModalTakeTest extends React.Component {
                   {this.props.isEssayUndone
                     &&
                     <div>
-                      <span>câu hỏi trắc tự luận số: </span>
+                      <span>Essay number: </span>
                       {this.props.undoneQuests.essay.map((item, index) => {
                         return <span key={item}>{item}{index + 1 < this.props.undoneQuests.essay.length && ", "}</span>
                       })}
@@ -66,7 +65,7 @@ class ModalTakeTest extends React.Component {
                   }
                 </>
                 :
-                <h3>Bạn còn ??? thời gian</h3>
+                <h3>You have ... minutes left</h3>
                 }
             </FormGroup>
           </Form>

@@ -104,13 +104,11 @@ function ClassForm(props) {
               {/* <Row>Môn học :</Row><br/> */}
               <br />
               <Row>
-                <i className="fas fa-user-friends fa-lg mr-2 ml-3"></i>Số lượng
-                học sinh : {totalStudentsNumber}
+                <i className="fas fa-user-friends fa-lg mr-2 ml-3"></i>Number of students : {totalStudentsNumber}
               </Row>{" "}
               <br />
               <Row>
-                <i className="fas fa-briefcase fa-lg mr-2 ml-3"></i>Giảng viên
-                chính : {teacher}
+                <i className="fas fa-briefcase fa-lg mr-2 ml-3"></i>Main Teacher: {teacher}
               </Row>{" "}
               <br />
             </Media>

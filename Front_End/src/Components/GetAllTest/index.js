@@ -97,7 +97,7 @@ class GetAllTest extends Component {
         return (
             <Container>
                 <h3 style={{ textAlign: "center" }}>
-                    Chú ý, đang xem các đề thi của Class: "{queryString.parse(this.props.location.search).q}"
+                    Attention, this is list of exam in Class: "{queryString.parse(this.props.location.search).q}"
                 </h3>
                 <br />
                 <hr />
@@ -190,11 +190,11 @@ function ModalListQuest(props) {
 
     return (
         <Modal isOpen={isOpen} toggle={onCancel} >
-            <ModalHeader toggle={onCancel}>ĐỀ THI SỐ: {testNum + 1}</ModalHeader>
+            <ModalHeader toggle={onCancel}>Test number: {testNum + 1}</ModalHeader>
             <ModalBody>
                 {listQuest[0] && <>
                     <h3 style={{ textAlign: "center" }}>
-                        Câu hỏi Trắc nghiệm:
+                        Quiz questions:
                     </h3>
                     <br />
                     <hr />
@@ -208,7 +208,7 @@ function ModalListQuest(props) {
                 </>}
                 {listQuest[1] && <>
                     <h3 style={{ textAlign: "center" }}>
-                        Câu hỏi Tự luận:
+                        Essay questions:
                     </h3>
                     <br />
                     <hr />

@@ -106,12 +106,12 @@ export default class editQuiz extends Component {
                             </Alert>
                         )}
                         <CardTitle><h5 style={{ display: "inline-block" }}>
-                            Câu hỏi trắc nghiệm số {this.props.numberOfQuest}</h5>
+                            Quiz question number: {this.props.numberOfQuest}</h5>
                         </CardTitle>
                         <hr />
                         <CardSubtitle>
                             <h6>
-                                <em>Em hãy trả lời câu hỏi sau và chọn một đáp án đúng</em>
+                                <em>Read the question and choose the right answer</em>
                             </h6>
                         </CardSubtitle>
                         <Form onSubmit={this.onSubmit}>
@@ -130,7 +130,7 @@ export default class editQuiz extends Component {
                                     required={true}
                                 />
                                 <hr />
-                                <CardText>Các đáp án: </CardText>
+                                <CardText>Answers: </CardText>
                                 {this.state.quiz.Answers.map(v => (
                                     <Answer
                                         order={v.order + 1}
@@ -164,7 +164,7 @@ export default class editQuiz extends Component {
                                 <br />
                                 <hr />
                                 <CardText>
-                                    Câu trả lời đúng : {this.state.quiz.rightAnswer}
+                                    Right Answer : {this.state.quiz.rightAnswer}
                                 </CardText>
                                 <div style={{
                                     display: "flex",

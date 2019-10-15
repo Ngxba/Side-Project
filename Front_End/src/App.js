@@ -195,7 +195,7 @@ class App extends React.Component {
           {/* <Route exact path="/TESTUI" render={() => <LandingPage></LandingPage>} /> */}
           {this.state.authenUser.isAuthen && (
             <>
-            <Route path="/class/get" render={() => <GetClass></GetClass>} />
+            <Route path="/class/get" render={() => <GetClass authenUser = {this.state.authenUser}></GetClass>} />
           <Route
             path="/profile"
             render={() => (
@@ -223,7 +223,7 @@ class App extends React.Component {
           <Route
             exact
             path="/class/getallquestion"
-            render={() => <GetQuestion></GetQuestion>}
+            render={() => <GetQuestion authenUser={this.state.authenUser}></GetQuestion>}
           />
               <Route
                 path="/createclass"
@@ -236,11 +236,11 @@ class App extends React.Component {
               />
               <Route
                 path="/addquestion"
-                render={() => <AddQuestion></AddQuestion>}
+                render={() => <AddQuestion authenUser={this.state.authenUser}></AddQuestion>}
               />
               <Route
                 path="/class/addquestion"
-                render={() => <AddQuestion></AddQuestion>}
+                render={() => <AddQuestion authenUser={this.state.authenUser}></AddQuestion>}
               />
               <Route
                 path="/maketest"
@@ -254,7 +254,7 @@ class App extends React.Component {
               <Route
                 exact
                 path="/getallquestion"
-                render={() => <GetQuestion></GetQuestion>}
+                render={() => <GetQuestion authenUser={this.state.authenUser}></GetQuestion>}
               />
             </>
           )}
