@@ -5,8 +5,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Container,
-  UncontrolledCollapse
+  Container
 } from "reactstrap";
 import Register from "../ModalRegister";
 import Login from "../ModalLogin";
@@ -110,7 +109,7 @@ class NavBar extends React.Component {
         ) : null}
         <Navbar color="dark" expand="md">
           <Container>
-            <div className="navbar-translate">
+            
               <NavbarBrand
                 href="#"
                 onClick={this.props.home}
@@ -125,25 +124,7 @@ class NavBar extends React.Component {
                   SmartEXAM
                 </span>
               </NavbarBrand>
-              <button
-                className="navbar-toggler"
-                id="navbarTogglerDemo01"
-                type="button"
-                onClick={() => {
-                  document.documentElement.classList.toggle("nav-open");
-                  this.toggle();
-                }}
-              >
-                <span className="navbar-toggler-bar bar1" />
-                <span className="navbar-toggler-bar bar2" />
-                <span className="navbar-toggler-bar bar3" />
-              </button>
-            </div>
-            <UncontrolledCollapse
-              className="justify-content-end"
-              navbar
-              toggler="#navbarTogglerDemo01"
-            >
+            
               <Nav className="ml-auto" navbar>
                 {/* <NavItem>
                   <NavLink href="#" onClick={this.props.takeTest}>
@@ -170,7 +151,7 @@ class NavBar extends React.Component {
                   </>
                 ) : (
                   <>
-                    {this.props.userInfo.roll === "Teacher" && (
+                    {/* {this.props.userInfo.roll === "Teacher" && (
                       <>
                         <NavItem>
                           <NavLink href="#" onClick={this.props.getQuest}>
@@ -202,11 +183,14 @@ class NavBar extends React.Component {
                       userInfo={this.props.userInfo}
                       seeOwnedClass={this.props.seeOwnedClass}
                       seeMyProfile={this.props.getProfilePage}
+                      createClass = {this.props.createClass}
+                      seeAllQuest = {this.props.getQuest}
+                      addQuestion = {this.props.addQuest}
+                      userRoll = {this.props.userInfo.roll}
                     />
                   </>
                 )}
               </Nav>
-            </UncontrolledCollapse>
           </Container>
         </Navbar>
         <Login

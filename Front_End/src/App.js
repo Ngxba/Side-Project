@@ -81,7 +81,6 @@ class App extends React.Component {
   };
 
   onLogin = async login_data => {
-    console.log(login_data)
     const response = await axios.post("http://localhost:5000/auth/login", {
       email: login_data.loginEmail,
       password: login_data.loginPassword
@@ -158,7 +157,6 @@ class App extends React.Component {
 
   getCurrentUser = async token => {
     const currentUser = await axios.get("http://localhost:5000/auth/me", {
-    
       headers: {
         Authorization: `Bearer ${token}`
       }

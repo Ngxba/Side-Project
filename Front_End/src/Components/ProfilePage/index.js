@@ -154,7 +154,8 @@ class ProfilePage extends React.Component {
             <TabContent className="following" activeTab={this.state.activeTab}>
               <TabPane tabId="1" id="follows">
                 <Container>
-                  <Row style={{ margin: "0% 20%" }}>
+                <div style={{height : "3em"}}></div>
+                  <Row style={{ margin: "0% 20%"}} className = "d-flex justify-content-around">
                     <Col lg="2" md="2" sm="2">
                       <h5>Address:</h5>
                       <h5>Office:</h5>

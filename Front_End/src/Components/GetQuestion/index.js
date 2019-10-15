@@ -205,7 +205,10 @@ class GetQuestion extends Component {
                 Chú ý, đang xem các câu hỏi của bộ đề thi
               </h3>
             )}
-            <Nav>
+            <hr/>
+            {this.state.numberOfQuizQuest.length === 0 && this.state.numberOfEssayQuest.length ===0 ? <>
+              <h4>No question founded</h4>
+            </> : <><Nav>
               <NavItem className="p-2 flex-grow-1 bd-highlight">
                 <Nav tabs>
                   <NavItem>
@@ -302,7 +305,8 @@ class GetQuestion extends Component {
                   </Col>
                 </Row>
               </TabPane>
-            </TabContent>
+            </TabContent></> }
+            
           </Container>
         )}
       </div>

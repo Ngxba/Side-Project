@@ -150,7 +150,7 @@ router.post("/adduser", async (req,res)=>{
   try {
     let modifiedClass;
     if(roll ==="Teacher"){modifiedClass = await classService.addTeacher(classCode,userEmail)}
-    else if ( roll === "Student"){modifiedClass = await classService.addTeacher(classCode,userEmail)}
+    else if ( roll === "Student"){modifiedClass = await classService.addStudent(classCode,userEmail)}
     res.json(modifiedClass)
   } catch(err) {
     res.status(400);
