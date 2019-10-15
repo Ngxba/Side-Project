@@ -42,38 +42,47 @@ class MarkExam extends Component {
 
     onScoreChange = (questIndex, model, score) => {
         if (model === "essay") {
+            let tempScore1 = 0;
             let essay = this.state.displayTest.listEssay.map((item, index) => {
                 if (index === questIndex - 1 && score <= 10) {
                     item.score = score
-                } else {
+                } else if (index === questIndex - 1) {
                     item.score = 10
                 }
+                tempScore1 = tempScore1 + item.score
                 return item
             })
             this.setState({
-                student: this.state.displayTest.student,
-                listQuiz: this.state.displayTest.listQuiz,
-                listEssay: essay,
-                model: this.state.displayTest.model,
-                quizScore: this.state.displayTest.quizScore,
-                essayScore: this.state.displayTest.essayScore
+                displayTest: {
+                    student: this.state.displayTest.student,
+                    listQuiz: this.state.displayTest.listQuiz,
+                    listEssay: essay,
+                    model: this.state.displayTest.model,
+                    quizScore: this.state.displayTest.quizScore,
+                    essayScore: tempScore1
+                }
             })
         } else {
+            let tempScore = 0;
             let quiz = this.state.displayTest.listQuiz.map((item, index) => {
                 if (index === questIndex - 1 && score <= 1) {
                     item.score = score
-                } else {
+                } else if (index === questIndex - 1) {
                     item.score = 1
                 }
+                tempScore = tempScore + item.score
                 return item
             })
+            console.log(tempScore)
             this.setState({
-                student: this.state.displayTest.student,
-                listQuiz: quiz,
-                listEssay: this.state.displayTest.listEssay,
-                model: this.state.displayTest.model,
-                quizScore: this.state.displayTest.quizScore,
-                essayScore: this.state.displayTest.essayScore
+                displayTest: {
+                    student: this.state.displayTest.student,
+                    listQuiz: quiz,
+                    listEssay: this.state.displayTest.listEssay,
+                    model: this.state.displayTest.model,
+                    quizScore: tempScore,
+                    essayScore: this.state.displayTest.essayScore
+                }
             })
         }
     }
@@ -142,8 +151,8 @@ class MarkExam extends Component {
                 listQuiz: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model === "quiz") : [],
                 listEssay: takenTestList.test.length > 0 ? takenTestList.test[0].quest.filter(item => item.model === "essay") : [],
                 model: "essay",
-                quizScore: takenTestList.test[0].quizScore,
-                essayScore: takenTestList.test[0].essayScore
+                quizScore: takenTestList.test.length > 0 ? takenTestList.test[0].quizScore : 0,
+                essayScore: takenTestList.test.length > 0 ? takenTestList.test[0].essayScore : 0
             }
         })
     }
@@ -280,13 +289,13 @@ class MarkExam extends Component {
                                 }}
                             >
                                 <h2>Test Info</h2>
-                                <br/>
+                                <br />
                                 <ul>
                                     <li><p>Test duration: </p></li>
-                                    <br/>
+                                    <br />
                                     <li><p>Quiz Score: {this.state.displayTest.quizScore * 5}</p></li>
                                     <li><p>Essay Score: {this.state.displayTest.essayScore}</p></li>
-                                    <hr/>
+                                    <hr />
                                     <li><p>Overall Score: {this.state.displayTest.quizScore * 5 + this.state.displayTest.essayScore}</p></li>
                                 </ul>
                                 <p>*Note: Overall Score = ( Quiz score x 5 ) + Essay Score</p>
@@ -342,7 +351,7 @@ function Essay(props) {
                 <CardSubtitle>
                     <h6><em>Student's Answer :</em>
                     </h6>
-                    {data.userAnswer !== "" ? <p>data.userAnswer</p> : <p style={{ color: "red" }}>NO ANSWER FOUND</p>}
+                    {data.userAnswer !== "" ? <p>{data.userAnswer}</p> : <p style={{ color: "red" }}>NO ANSWER FOUND</p>}
                 </CardSubtitle>
                 <hr /><CardText>Sample Answer : </CardText>
                 <CardText>{data.modelEssayQuestionAnswer}</CardText>
