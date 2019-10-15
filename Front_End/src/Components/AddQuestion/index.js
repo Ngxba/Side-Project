@@ -41,12 +41,12 @@ class AddQuestion extends Component {
           </div>
         ) : (
           <>
-            {queryString.parse(this.props.location.search).q && <h3 style={{ textAlign: "center" }}>Chú ý, đang thêm câu hỏi vào bộ đề luyện tập của Class: "{queryString.parse(this.props.location.search).q}"</h3>}
-            {!(queryString.parse(this.props.location.search).q) && <h3 style={{ textAlign: "center" }}>Chú ý, đang thêm câu hỏi vào bộ đề thi</h3>}
+            {queryString.parse(this.props.location.search).q && <h3 style={{ textAlign: "center" }}>Pay attention, you are adding questions to the practice pool quest of Class: "{queryString.parse(this.props.location.search).q}"</h3>}
+            {!(queryString.parse(this.props.location.search).q) && <h3 style={{ textAlign: "center" }}>Pay attention, you are adding questions to the general exam pool quest</h3>}
             <SubmitQuestionForm classCode={this.state.classCode}  ModalComplePushQuestion ={this.state.ModalComplePushQuestion} onToggle = {this.ToggleModalComplePushQuestion}></SubmitQuestionForm>
             <br />
             <div style={{ textAlign: "center" }}>
-              <Button color="danger" onClick={this.ToggleModalComplePushQuestion}>Hoàn Thành</Button>
+              <Button color="danger" onClick={this.ToggleModalComplePushQuestion}>Fininsh</Button>
             </div>
           </>
         )}

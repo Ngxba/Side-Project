@@ -24,7 +24,7 @@ export default class Quiz extends Component {
     model: "quiz",
     numberOfQuest: 1,
     QuizQuestionContent: "",
-    Answers: [{ order: 0, value: "" }, { order: 1, value: " " }],
+    Answers: [{ order: 0, value: " " }, { order: 1, value: "  " }],
     rightAnswer: "",
     loading: false,
     pushStatus: "not",
@@ -108,8 +108,8 @@ export default class Quiz extends Component {
         numberOfQuest: this.state.numberOfQuest + 1,
         QuizQuestionContent: "",
         Answers: [
-          { order: 0, value: "Dap an A" },
-          { order: 1, value: "Dap an B" }
+          { order: 0, value: " " },
+          { order: 1, value: "  " }
         ],
         rightAnswer: "",
         pushStatus: true,
@@ -177,12 +177,12 @@ export default class Quiz extends Component {
               <Alert color="danger">Submit Question FALSE</Alert>
             )}
             <CardTitle>
-              <h5>Câu hỏi trắc nhiệm số {this.state.numberOfQuest}</h5>{" "}
+              <h5>Quiz question number: {this.state.numberOfQuest}</h5>{" "}
             </CardTitle>
             <hr />
             <CardSubtitle>
               <h6>
-                <em>Vui lòng nhập câu hỏi</em>
+                <em>Please input your question</em>
               </h6>
             </CardSubtitle>
             <Form onSubmit={this.submit}>
@@ -203,7 +203,7 @@ export default class Quiz extends Component {
                 />
                 <hr />
                 <CardText>
-                  <strong>Các câu trả lời</strong>
+                  <strong>Answers</strong>
                 </CardText>
                 {this.state.Answers.map((v, index) => {
                   let duplicate = false;
@@ -273,7 +273,7 @@ export default class Quiz extends Component {
                 <br />
                 <br />
                 <hr />
-                <Label>Câu trả lời đúng:</Label>
+                <Label>Right answers:</Label>
                 <div
                   style={{
                     display: "flex",
@@ -328,7 +328,7 @@ export function Answer(props) {
   }
   return (
     <>
-      <Label style={{ opacity: opacity }}>Câu trả lời {order}:</Label>
+      <Label style={{ opacity: opacity }}>Answer {order}:</Label>
       {duplicate && (
         <Label
           style={{ opacity: opacity, color: "#dc3545" }}

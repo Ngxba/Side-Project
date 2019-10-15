@@ -103,12 +103,12 @@ export default class Essay extends Component {
               <Alert color="danger">Submit Question FALSE</Alert>
             )}
             <CardTitle>
-              <h5>Câu hỏi tự luận số {this.state.numberOfQuest}</h5>{" "}
+              <h5>Essay question number: {this.state.numberOfQuest}</h5>{" "}
             </CardTitle>
             <hr />
             <CardSubtitle>
               <h6>
-                <em>Vui lòng nhập câu hỏi</em>
+                <em>Please input your question</em>
               </h6>
             </CardSubtitle>
             <Form onSubmit={this.submit}>
@@ -131,10 +131,9 @@ export default class Essay extends Component {
               <hr />
 
               <CardText>
-                <strong>Câu trả lời</strong>
               </CardText>
               <FormGroup>
-                <Label for="questionContent">Câu trả lời mẫu:</Label>
+                <Label for="questionContent">Sample Answer:</Label>
                 <Input
                   type="textarea"
                   name="text"

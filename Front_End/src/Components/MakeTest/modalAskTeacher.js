@@ -47,11 +47,11 @@ class ModalAskTeacher extends React.Component {
   render() {
     return (
       <Modal isOpen={this.props.visible} toggle={this.onToggle}>
-        <ModalHeader>Lựa chọn số câu hỏi</ModalHeader>
+        <ModalHeader>MAKE TEST</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label>Tiêu đề</Label>
+              <Label>Test name:</Label>
               <Input
                 type="textarea"
                 rows="1"
@@ -59,7 +59,7 @@ class ModalAskTeacher extends React.Component {
                 value={this.state.title}
                 onChange={event => this.onChange({title: event.target.value})}
               />
-              <Label>Mô tả</Label>
+              <Label>Description</Label>
               <Input
                 type="textarea"
                 rows="3"
@@ -68,7 +68,7 @@ class ModalAskTeacher extends React.Component {
                 onChange={event => this.onChange({description: event.target.value})}
               />
               <Label for="quiz">
-                Số câu hỏi trắc nghiệm (max : {this.props.numberOfQuizQuest})
+                Number of quiz questions (max : {this.props.numberOfQuizQuest})
               </Label>
               <Input
                 type="text"
@@ -81,7 +81,7 @@ class ModalAskTeacher extends React.Component {
                 placeholder="10"
               />
               <Label for="essay">
-                Số câu hỏi tự luận (max : {this.props.numberOfEssayQuest})
+              Number of essay questions (max : {this.props.numberOfEssayQuest})
               </Label>
               <Input
                 type="text"
