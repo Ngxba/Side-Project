@@ -9,7 +9,7 @@ import {
   Button,
   Media,
   Container,
-  Row, Col
+  Row
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
@@ -69,8 +69,8 @@ function ClassForm(props) {
             <Media body>
               {/* <Row>Môn học :</Row><br/> */}
               <br/>
-              <Row><i class="fas fa-user-friends fa-lg mr-2 ml-3"></i>Số lượng học sinh : {totalStudentsNumber}</Row> <br/>
-              <Row><i class="fas fa-briefcase fa-lg mr-2 ml-3"></i>Giảng viên chính : {teacher}</Row> <br/>
+              <Row><i className="fas fa-user-friends fa-lg mr-2 ml-3"></i>Số lượng học sinh : {totalStudentsNumber}</Row> <br/>
+              <Row><i className="fas fa-briefcase fa-lg mr-2 ml-3"></i>Giảng viên chính : {teacher}</Row> <br/>
             </Media>
           </Media>
         </CardBody>

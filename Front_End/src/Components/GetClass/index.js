@@ -151,8 +151,8 @@ class GetClass extends Component {
   };
   render() {
     return (
-      <Container>
-      <div style={{ height: "5em" }}></div>
+      <Container >
+      <div style={{ height: "5em" }} ></div>
         {this.state.loading ? (
           <div style={{ textAlign: "center" }}>
             <Spinner style={{ width: "3rem", height: "3rem" }} />
