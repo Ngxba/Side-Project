@@ -37,13 +37,14 @@ const testService = {
     deleteTest: async (testID) => {
         await Test.deleteOne({ _id: testID})
     },
-    addTakenTest: async (testID, studentEmail, studentName, quizScore, quest) => {
+    addTakenTest: async (testID, studentEmail, studentName, quizScore, essayScore, quest) => {
         try {
             const newTakenTest = TakenTest({
                 testID, 
                 studentEmail, 
                 studentName,
                 quizScore, 
+                essayScore,
                 quest
             })
             await newTakenTest.save()

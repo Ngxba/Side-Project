@@ -87,15 +87,22 @@ class TakeExam extends Component {
       essay: undoneEssay
     }))
     this.setModalTakeTest();
-    console.log(this.state.undoneQuests.quiz)
   }
   onSubmit = async () => {
     let quizScore = 0;
+    const essayScore = 0;
     this.state.listOfQuizQuest.map(item => {
       if (item.userAnswer === item.rightAnswer) {
         quizScore = quizScore + 1;
-        return null
+        item.score = 1
+      } else {
+        item.score = 0
       }
+      return null
+    })
+    this.state.listOfEssayQuest.map(item => {
+      item.score = 0;
+      item.essayComment= "";
       return null
     })
     try {
@@ -104,7 +111,7 @@ class TakeExam extends Component {
         this.props.authedUser.userEmail,
         this.props.authedUser.userName,
         quizScore,
-        // essayScore, 
+        essayScore, 
         [...this.state.listOfEssayQuest, ...this.state.listOfQuizQuest]
       )
     } catch (err) {
