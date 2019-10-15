@@ -117,45 +117,50 @@ class GetAllTest extends Component {
                                 <td>{item.title}</td>
                                 <td>{item.authedUser.userName}</td>
                                 <td>
-                                    <Button
-                                        className="float-left"
-                                        color="dark"
-                                        style={{ marginRight: 5, borderRadius: 50 }}
-                                        onClick={() => this.onGetListQuest(item.listOfQuizQuest, item.listOfEssayQuest, index)}
-                                    ><i className="fas fa-pencil-alt"></i>
-                                    </Button>
-                                    <Button
+                                <Button
                                         outline
                                         className="float-left"
-                                        color="danger"
+                                        color="warning"
                                         style={{ marginRight: 5, borderRadius: 50 }}
-                                        onClick={() => this.onDeleteTest(item._id)}
-                                    ><i className="fas fa-trash"></i>
+                                        onClick={() => this.viewTest(item._id, item.title)}
+                                    >View test
                                     </Button>
-                                    <Button
-                                        outline
-                                        className="float-left"
-                                        color="primary"
-                                        style={{ marginRight: 5, borderRadius: 50 }}
-                                        onClick={() => this.takeTest(item._id)}
-                                    >Take Exam
-                                    </Button>
+                                {this.props.authenUser.roll === "Teacher" && <>
                                     <Button
                                         outline
                                         className="float-left"
                                         color="success"
                                         style={{ marginRight: 5, borderRadius: 50 }}
                                         onClick={() => this.markTest(item._id)}
-                                    >marking
+                                    >Marking
                                     </Button>
                                     <Button
+                                        className="float-right"
+                                        color="primary"
+                                        style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.onGetListQuest(item.listOfQuizQuest, item.listOfEssayQuest, index)}
+                                        outline
+                                    ><i  className="fas fa-pencil-alt"></i>
+                                    </Button>
+                                    <Button
+                                        outline
+                                        className="float-right"
+                                        color="danger"
+                                        style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.onDeleteTest(item._id)}
+                                    ><i className="fas fa-trash"></i>
+                                    </Button>
+                                </>}
+
+                                {this.props.authenUser.roll === "Student" && <><Button
                                         outline
                                         className="float-left"
                                         color="primary"
                                         style={{ marginRight: 5, borderRadius: 50 }}
-                                        onClick={() => this.viewTest(item._id, item.title)}
-                                    >view test
-                                    </Button>
+                                        onClick={() => this.takeTest(item._id)}
+                                    >Take Exam
+                                    </Button></>}
+                                    
                                 </td>
                             </tr>
                         })}
@@ -166,6 +171,7 @@ class GetAllTest extends Component {
                         onToggle={this.toggleModalListQuest}
                         onCancel={this.onDeleteListQuest}
                         listQuest={this.state.listQuest}
+                        authenUser = {this.props.authenUser}
                     />
                 </Table>
 
@@ -186,10 +192,10 @@ class GetAllTest extends Component {
 export default withRouter(GetAllTest)
 
 function ModalListQuest(props) {
-    const { isOpen, onToggle, onCancel, listQuest, testNum } = props
+    const { isOpen, onToggle, onCancel, listQuest, testNum, authenUser } = props
 
     return (
-        <Modal isOpen={isOpen} toggle={onCancel} >
+        <Modal isOpen={isOpen} toggle={onCancel} style={{minWidth : "70vh"}} >
             <ModalHeader toggle={onCancel}>Test number: {testNum + 1}</ModalHeader>
             <ModalBody>
                 {listQuest[0] && <>
@@ -203,6 +209,7 @@ function ModalListQuest(props) {
                             key={index}
                             data={item}
                             numberOfQuizQuest={index + 1}
+                            authenUser = {authenUser}
                         />
                     })}
                 </>}
@@ -217,6 +224,7 @@ function ModalListQuest(props) {
                             key={index}
                             data={item}
                             numberOfQuizQuest={index + 1}
+                            authenUser = {authenUser}
                         />
                     })}
                 </>}

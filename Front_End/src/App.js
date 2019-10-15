@@ -218,7 +218,7 @@ class App extends React.Component {
           <Route
             exact
             path="/class/getalltest"
-            render={() => <GetAllTest></GetAllTest>}
+            render={() => <GetAllTest authenUser={this.state.authenUser}></GetAllTest>}
           />
           <Route
             exact

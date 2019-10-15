@@ -34,15 +34,10 @@ class ModalComplePushQuestion extends React.Component {
         essayData : this.props.essayData
     })
   }
-  onClick = () => {
-    console.log(this.state.quizData)
-    console.log(this.state.essayData)
-
-  }
 
   render() {
     return (
-      <Modal isOpen={this.props.visible} toggle={this.onToggle}>
+      <Modal isOpen={this.props.visible} toggle={this.onToggle} style={{minWidth : "70vh"}}>
         <ModalHeader>ALL QUEST JUST INPUT</ModalHeader>
         <ModalBody>
         {this.state.quizData[0] === undefined && <p>You haven't push any quiz question yet</p> }
