@@ -17,9 +17,15 @@ import { editQuizQuest } from "../../../Action/editQuest"
 
 
 export default class editQuiz extends Component {
-
     preQuiz = {
-        Answers: this.props.data.Answers,
+        Answers: this.props.data.Answers.map(item => {
+            item = {
+                order: item.order,
+                value: item.value,
+                _id: item._id
+            }
+            return item
+        }),
         QuizQuestionContent: this.props.data.QuizQuestionContent,
         checked: this.props.data.checked,
         model: this.props.data.model,
@@ -73,7 +79,7 @@ export default class editQuiz extends Component {
                 this.state.rightAnswer
             )
             this.props.onEdit()
-        } catch (err) {           
+        } catch (err) {
             this.setState({
                 editStatus: false
             });
@@ -88,7 +94,7 @@ export default class editQuiz extends Component {
     }
 
     render() {
-        console.log(this.props.data)
+        console.log(this.props.data.Answers)
         return (
             <div>
                 <Card>
@@ -154,6 +160,7 @@ export default class editQuiz extends Component {
                                 >
                                     <i className="fas fa-minus"></i>
                                 </Button>
+                                <br/>
                                 <br />
                                 <hr />
                                 <CardText>
