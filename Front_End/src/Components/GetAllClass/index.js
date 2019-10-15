@@ -4,11 +4,12 @@ import {
   //   CardImg,
   //   CardText,
   CardBody,
-  //   CardTitle,
+    CardTitle,
   //   CardSubtitle,
   Button,
   Media,
-  Container
+  Container,
+  Row, Col
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
@@ -59,21 +60,19 @@ function ClassForm(props) {
   return (
     <div>
       <Card>
+        <CardTitle><Button onClick={() => getClass(classCode)} style={{width : "100%", height :"4em"}}> <p className="float-left"><strong>Class : {classCode}</strong></p><i className="fas fa-arrow-right float-right mt-2"></i></Button></CardTitle>
         <CardBody>
           <Media>
-            <Media left href="#">
+            {/* <Media left href="#">
               <i className="fas fa-user fa-5x"></i>
-            </Media>
+            </Media> */}
             <Media body>
-              <Media heading>Class : {classCode}</Media>
-              Môn học : <br />
-              Số lượng học sinh : {totalStudentsNumber} <br />
-              Giảng viên chính : {teacher}
-              <br />
+              {/* <Row>Môn học :</Row><br/> */}
+              <br/>
+              <Row><i class="fas fa-user-friends fa-lg mr-2 ml-3"></i>Số lượng học sinh : {totalStudentsNumber}</Row> <br/>
+              <Row><i class="fas fa-briefcase fa-lg mr-2 ml-3"></i>Giảng viên chính : {teacher}</Row> <br/>
             </Media>
           </Media>
-          <br />
-          <Button onClick={() => getClass(classCode)}>See Class</Button>
         </CardBody>
       </Card>
     </div>

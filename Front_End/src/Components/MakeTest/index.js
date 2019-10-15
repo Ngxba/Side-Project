@@ -48,6 +48,7 @@ class MakeTest extends Component {
     this.setState({
       ModalAskTeacherVisible: !this.state.ModalAskTeacherVisible
     });
+    this.props.history.push(`/class/get?q=${this.state.classCode}`);
   };
   onSubmit = async data => {
     
@@ -89,7 +90,6 @@ class MakeTest extends Component {
       listOfEssayQuestChoose: chooseEssayQuestion,
       testCode: data.testCode,
     });
-    console.log(this.state.classCode)
     await createTest(
       this.state.classCode,
       data.title,
@@ -105,7 +105,6 @@ class MakeTest extends Component {
     this.fetchQuestPool();
   };
   render() {
-    console.log(this.props.authedUser)
     let numberOfQuizQuest = 0;
     let numberOfEssayQuest = 0;
     return (
