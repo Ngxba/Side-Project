@@ -18,7 +18,8 @@ export default class Essay extends Component {
               <h5 style={{ display: "inline-block" }}>
               Essay question number: {this.props.numberOfQuest}
               </h5>
-              {" "}<Button
+              {" "}
+              {this.props.authenUser.roll === "Teacher" && <><Button
                 outline
                 className="float-right"
                 color="danger"
@@ -44,7 +45,8 @@ export default class Essay extends Component {
                   }
                   inline
                 />
-              )}</CardTitle>
+              )}</> }
+              </CardTitle>
             <hr />
               <CardSubtitle>
           <p style={{whiteSpace: "pre"}}>Read the question and write down the answer</p>

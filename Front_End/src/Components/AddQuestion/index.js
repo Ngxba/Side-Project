@@ -34,7 +34,7 @@ class AddQuestion extends Component {
   render() {
     return (
       <Container>
-        {this.state.loading ? (
+      {this.props.authenUser.roll === "Teacher" ? <>{this.state.loading ? (
           <div style={{ textAlign: "center" }}>
           <div style={{ height: "5em" }}></div>
             <Spinner style={{ width: "3rem", height: "3rem" }} />
@@ -49,7 +49,9 @@ class AddQuestion extends Component {
               <Button color="danger" onClick={this.ToggleModalComplePushQuestion}>Fininsh</Button>
             </div>
           </>
-        )}
+        )}</> : <>
+          <h1>You are not suppose to be here !</h1>
+        </>}
       </Container>
     );
   }

@@ -31,6 +31,7 @@ class QuestItem extends Component {
           /> 
           :
           <Quiz
+            authenUser = {this.props.authenUser}
             data={this.props.data}
             numberOfQuest={this.props.numberOfQuizQuest}
             onSelect={this.props.onSelect}
@@ -48,6 +49,7 @@ class QuestItem extends Component {
           /> 
           :
           <Essay
+            authenUser = {this.props.authenUser}
             data={this.props.data}
             numberOfQuest={this.props.numberOfEssayQuest}
             onSelect={this.props.onSelect}

@@ -108,7 +108,7 @@ export default class CreateClass extends Component {
     let canSubmit = true
     return (
       <div>
-        <Container>
+      {this.state.teacher.roll === "Teacher" ?  <Container>
           <div style={{ height: "70px" }}></div>
           <Card>
             <CardBody>
@@ -223,7 +223,10 @@ export default class CreateClass extends Component {
               </Form>
             </CardBody>
           </Card>
-        </Container>
+        </Container> : <Container>
+          <h1>You are not suppose to be here !!</h1>
+        </Container>}
+        
       </div>
     );
   }

@@ -14,7 +14,8 @@ export default class Quiz extends Component {
     return (
       <div><Card><CardBody><CardTitle><h5 style={{ display: "inline-block" }}>
         Quiz question number: {this.props.numberOfQuest}</h5>
-        {" "}<Button
+        {" "}
+        {this.props.authenUser.roll === "Teacher" &&<> <Button
           outline
           className="float-right"
           color="danger"
@@ -41,7 +42,7 @@ export default class Quiz extends Component {
               }
               inline
             />
-          )}
+          )}</>}
       </CardTitle>
         <hr />
         <CardSubtitle>

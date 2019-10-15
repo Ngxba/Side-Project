@@ -236,7 +236,7 @@ class GetQuestion extends Component {
                   </NavItem>
                 </Nav>
               </NavItem>
-              <NavItem
+              {this.props.authenUser.roll === "Teacher" && <NavItem
                 className="d-flex align-items-center"
                 style={{ marginRight: "3em" }}
               >
@@ -267,7 +267,7 @@ class GetQuestion extends Component {
                   }}
                   inline
                 />
-              </NavItem>
+              </NavItem>}
             </Nav>
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
@@ -281,6 +281,7 @@ class GetQuestion extends Component {
                           numberOfQuizQuest={index + 1}
                           onSelect={this.onSelectOne}
                           selected={post.checked}
+                          authenUser = {this.props.authenUser}
                         ></QuestItem>
                       );
                     })}
@@ -296,6 +297,7 @@ class GetQuestion extends Component {
                           key={post._id}
                           data={post}
                           numberOfEssayQuest={index + 1}
+                          authenUser = {this.props.authenUser}
                           onSelect={this.onSelectOne}
                           selected={post.checked}
                         ></QuestItem>
