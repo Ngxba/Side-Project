@@ -88,6 +88,11 @@ class GetAllTest extends Component {
         this.props.history.push(`/class/marktest?q=${testID}&&c=${classCode}`)
     }
 
+    viewTest = (testID, testTitle) => {
+        const classCode = queryString.parse(this.props.location.search).q
+        this.props.history.push(`/class/viewtest?q=${testID}&&c=${classCode}&&t=${testTitle}`)
+    }
+
     render() {
         return (
             <Container>
@@ -148,7 +153,7 @@ class GetAllTest extends Component {
                                         className="float-left"
                                         color="primary"
                                         style={{ marginRight: 5, borderRadius: 50 }}
-                                        onClick={() => this.markTest(item._id)}
+                                        onClick={() => this.viewTest(item._id, item.title)}
                                     >view test
                                     </Button>
                                 </td>
@@ -218,7 +223,7 @@ function ModalListQuest(props) {
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" onClick={onToggle}>Save</Button>{' '}
-                <Button color="secondary" onClick={onCancel}>Cancel</Button>
+                <Button className="m-2"color="secondary" onClick={onCancel}>Cancel</Button>
             </ModalFooter>
         </Modal>
     )

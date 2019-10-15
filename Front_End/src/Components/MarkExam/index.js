@@ -361,7 +361,7 @@ class MarkExam extends Component {
 
 export default withRouter(MarkExam)
 
-function Essay(props) {
+export function Essay(props) {
     const { numberOfQuest, data, onCommentChange, onScoreChange } = props;
 
     return (
@@ -414,7 +414,7 @@ function Essay(props) {
     )
 }
 
-function Quiz(props) {
+export function Quiz(props) {
     const { numberOfQuest, data, onScoreChange } = props;
     return (
         <div>
