@@ -38,10 +38,12 @@ export default class CreateClass extends Component {
   };
 
   deleteStudent = () => {
-    this.state.Student.pop();
-    this.setState({
-      Student: this.state.Student
-    });
+    if(this.state.Student.length >1){
+      this.state.Student.pop();
+      this.setState({
+        Student: this.state.Student
+      });
+    }
   };
 
   onChange = object => {
@@ -124,8 +126,8 @@ export default class CreateClass extends Component {
                 </Alert>
               )}
               <h3>Tên giáo viên: {this.state.teacher.userName}</h3>
+              <Form onSubmit={this.submit}>
               <CardTitle>
-                <FormGroup>
                   <Label for="classCode">Class Code: </Label>
                   <Input
                     type="text"
@@ -138,7 +140,6 @@ export default class CreateClass extends Component {
                     placeholder="class code"
                     required={true}
                   />
-                </FormGroup>
               </CardTitle>
               <hr />
               <CardSubtitle>
@@ -146,7 +147,7 @@ export default class CreateClass extends Component {
                   <em>Lưu ý : Mã lớp học không thể trùng</em>
                 </h6>
               </CardSubtitle>
-              <Form onSubmit={this.submit}>
+              
                 <hr />
                 <CardText>
                   <strong>Class's Student</strong>

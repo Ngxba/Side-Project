@@ -5,7 +5,7 @@ import "./index.css"
 class CAROUSEL extends Component {
   render() {
     return(<div className="d-flex flex-column justify-content-center align-content-center h-100">
-  <video poster=""  id="bgvid" playsInline autoPlay muted loop>
+  <video poster="https://us.123rf.com/450wm/sedatseven/sedatseven1601/sedatseven160100036/51502027-m%C3%A0u-x%C3%A1m-%C4%91en-gradient-n%E1%BB%81n-tr%E1%BB%ABu-t%C6%B0%E1%BB%A3ng-d%E1%BB%B1ng-h%C3%ACnh-%C4%91%E1%BB%83-tr%C6%B0ng-b%C3%A0y-montage-s%E1%BA%A3n-ph%E1%BA%A9m-c%E1%BB%A7a-b%E1%BA%A1n.jpg?ver=6"  id="bgvid" playsInline autoPlay muted loop>
   <source src="https://storage.coverr.co/videos/Working-it?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTcxMDY1MzkxfQ.qqR5IQ4NFfuPtR6KtG0TbPdTRDXhd-QrjdfQimSWbYA" type="video/mp4"/>
   Your browser does not support the video tag.
   </video>

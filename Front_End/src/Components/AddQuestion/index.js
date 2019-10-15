@@ -36,6 +36,7 @@ class AddQuestion extends Component {
       <Container>
         {this.state.loading ? (
           <div style={{ textAlign: "center" }}>
+          <div style={{ height: "5em" }}></div>
             <Spinner style={{ width: "3rem", height: "3rem" }} />
           </div>
         ) : (

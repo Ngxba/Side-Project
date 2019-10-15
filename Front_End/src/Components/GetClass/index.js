@@ -21,7 +21,11 @@ class GetClass extends Component {
     submitTA: "not",
     teacherDuplicated: "not",
     ModalAddStudent: false,
-    loading: false
+    loading: false,
+    Student : "",
+    listOfCorrectStudent : [],
+    studentDuplicated : false,
+    studentNotExist : false
   };
   toggleLoading = () => {
     this.setState({
@@ -32,9 +36,13 @@ class GetClass extends Component {
     this.fetchClassResult();
     const response = await getAllUserWithRoll("Teacher");
     const listOfCorrectTeacher = [];
+    const res = await getAllUserWithRoll("Student");
+    const listOfCorrectStudent = [];
+    res.map(item => listOfCorrectStudent.push(item.email));
     response.map(item => listOfCorrectTeacher.push(item.email));
     this.setState({
-      listOfCorrectTeacher: listOfCorrectTeacher
+      listOfCorrectTeacher: listOfCorrectTeacher,
+      listOfCorrectStudent: listOfCorrectStudent
     });
   }
   fetchClassResult = async () => {{
@@ -58,6 +66,11 @@ class GetClass extends Component {
 
   }
   };
+  onChangeStudent = value => {
+    this.setState({
+      Student: value
+    });
+  }
   onChangeTA = value => {
     this.setState({
       TA: value
@@ -146,8 +159,37 @@ class GetClass extends Component {
       this.toggleModalAddTeacher();
     }
   };
-  addStudent = () => {
-    console.log(this.state.listOfStudent);
+  addStudent = async () => {
+    if(this.state.listOfCorrectStudent.indexOf(this.state.Student) === -1){
+      console.log("user not exist")
+      this.setState({
+        studentNotExist : true
+      })
+    } else {
+      this.setState({
+        studentNotExist : false
+      })
+    }
+    if(this.state.listOfStudent.indexOf(this.state.Student) > -1){
+      console.log("duplicated")
+      this.setState({
+        studentDuplicated : true
+      })
+    } else {
+      this.setState({
+        studentDuplicated :  false
+      })
+    }
+    if(this.state.listOfCorrectStudent.indexOf(this.state.Student) > -1 && this.state.listOfStudent.indexOf(this.state.Student) === -1){
+      await addUserIntoClass(this.state.classCode, this.state.Student, "Student");
+      this.setState({
+        studentDuplicated: false,
+        studentNotExist: false,
+        Student : "",
+        listOfStudent: [...this.state.listOfStudent, this.state.Student]
+      });
+      this.toggleModalAddStudent();
+    }
   };
   render() {
     return (
@@ -266,8 +308,13 @@ class GetClass extends Component {
               teacherDuplicated={this.state.teacherDuplicated}
             ></ModalAddTeacher>
             <ModalAddStudent
-              isOpen={this.state.ModalAddStudent}
+              isOpen={this.state.modalAddStudent}
               onToggle={this.toggleModalAddStudent}
+              onChangeValue = {this.onChangeStudent}
+              student = {this.state.Student}
+              addStudent = {this.addStudent}
+              studentNotExist = {this.state.studentNotExist}
+              studentDuplicated = {this.state.studentDuplicated}
             ></ModalAddStudent>
           </>
         )}
@@ -277,44 +324,44 @@ class GetClass extends Component {
 }
 
 function ModalAddStudent(props) {
-  const { isOpen, onToggle, onChangeValue } = props;
+  const { isOpen, onToggle, onChangeValue, student, addStudent, studentNotExist, studentDuplicated  } = props;
   return (
     <>
       <Modal isOpen={isOpen} toggle={onToggle}>
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLiveLabel">
-            Add Teaching Assistant
+            Add Student
           </h5>
         </div>
         <div className="modal-body">
-          {/* {canADD === false && (
+          {studentNotExist && (
             <Label style={{ color: "#dc3545" }} className="float-right">
-            TEACHER NOT EXIST
+            STUDENT NOT EXIST
             </Label>
           )} 
-          {teacherDuplicated === true && (
+          {studentDuplicated&& (
             <Label style={{ color: "#dc3545" }} className="float-right">
               DUPLICATED {" "}
             </Label>
           )}
-          {!canADD || teacherDuplicated === true ? ( */}
+          {(studentNotExist || studentDuplicated)? (
           <Input
             type="text"
             name="text"
             onChange={e => onChangeValue(e.target.value)}
+            value={student}
             style={{ border: "1px solid #dc3545" }}
-            // value={TA}
             required={true}
           />
-          {/* ) : (
+          ) : (
             <Input
               type="text"
               name="text"
               onChange={e => onChangeValue(e.target.value)}
-              value={TA}
+              value={student}
               required={true}
             />
-          )} */}
+          )}
         </div>
         <div className="modal-footer">
           <div className="left-side">
@@ -323,7 +370,7 @@ function ModalAddStudent(props) {
               color="default"
               data-dismiss="modal"
               type="button"
-              // onClick={addTeacher}
+              onClick={addStudent}
             >
               Add
             </Button>
@@ -353,10 +400,9 @@ function GetAllUserInClass(props) {
       <br />
       <ol>
         {listOfStudent &&
-          listOfStudent.map(item => {
-            return (
-              <>
-                <li key={item}>
+          listOfStudent.map((item,index) => (
+              <div key={index}>
+                <li >
                   <span
                     className="Btn"
                     onClick={() => seeUser(item, "Student")}
@@ -365,9 +411,8 @@ function GetAllUserInClass(props) {
                   </span>
                 </li>
                 <hr />
-              </>
-            );
-          })}
+              </div>
+          ))}
       </ol>
       <Button
         className="float-right align-center"
