@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { getTakenTest, getClass } from "../../Action/class"
+import {
+    getTakenTest,
+    getClass,
+    markTakenTest
+} from "../../Action/class"
 import {
     Container,
     Button,
@@ -40,12 +44,30 @@ class MarkExam extends Component {
         }
     }
 
+    onSubmit = async () => {
+        try {
+            const test = this.state.listTest.filter(item => item.studentEmail === this.state.displayTest.student)[0]
+            console.log(test)
+            await markTakenTest(test._id, this.state.displayTest.quizScore, this.state.displayTest.essayScore, test.quest)
+            this.setState(Object.assign(this.state, {
+                listTest: this.state.listTest.map(item => {
+                    if (item.studentEmail === this.state.displayTest.student) {
+                        item.isMarked = true;
+                    }
+                    return item
+                })
+            }))
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
     onScoreChange = (questIndex, model, score) => {
         if (model === "essay") {
             let tempScore1 = 0;
             let essay = this.state.displayTest.listEssay.map((item, index) => {
                 if (index === questIndex - 1 && score <= 10) {
-                    item.score = score
+                    item.score = Number(score)
                 } else if (index === questIndex - 1) {
                     item.score = 10
                 }
@@ -66,14 +88,13 @@ class MarkExam extends Component {
             let tempScore = 0;
             let quiz = this.state.displayTest.listQuiz.map((item, index) => {
                 if (index === questIndex - 1 && score <= 1) {
-                    item.score = score
+                    item.score = Number(score)
                 } else if (index === questIndex - 1) {
                     item.score = 1
                 }
                 tempScore = tempScore + item.score
                 return item
             })
-            console.log(tempScore)
             this.setState({
                 displayTest: {
                     student: this.state.displayTest.student,
@@ -130,6 +151,8 @@ class MarkExam extends Component {
             student: student,
             listQuiz: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model === "quiz") : [],
             listEssay: studentTest.length > 0 ? studentTest[0].quest.filter(item => item.model === "essay") : [],
+            quizScore: studentTest.length > 0 ? studentTest[0].quizScore : 0,
+            essayScore: studentTest.length > 0 ? studentTest[0].essayScore : 0
         }))
     }
 
@@ -203,8 +226,8 @@ class MarkExam extends Component {
                                     },
                                 }}
                             >
-                                {this.state.listStudent.map(item => {
-                                    return <DropdownItem key={item} onClick={() => this.onToggleDisplayTest(item)}>{item}</DropdownItem>
+                                {this.state.listStudent.map((item, index) => {
+                                    return <DropdownItem key={index} onClick={() => this.onToggleDisplayTest(item)}>{item}</DropdownItem>
                                 })}
                             </DropdownMenu>
                         </Dropdown>
@@ -303,7 +326,30 @@ class MarkExam extends Component {
                             <CardFooter
                                 className="d-flex justify-content-center"
                             >
-                                <Button >Mark this test</Button>
+                                <Button
+                                    onClick={this.onSubmit}
+                                    disabled={
+                                        this.state.listTest.length > 0 && this.state.listTest.filter(item => item.studentEmail === this.state.displayTest.student)[0] !== undefined
+                                            ?
+                                            this.state.listTest.filter(item => item.studentEmail === this.state.displayTest.student)[0].isMarked
+                                            :
+                                            true
+                                    }
+                                >
+                                    {this.state.listTest.filter(item => item.studentEmail === this.state.displayTest.student)[0] !== undefined
+                                    ?
+                                    <span>
+                                        {this.state.listTest.filter(item => item.studentEmail === this.state.displayTest.student)[0].isMarked
+                                        ?
+                                        "Marked"
+                                        :
+                                        "Mark this test"
+                                        }
+                                    </span>
+                                    :
+                                    <span>Can't mark this test</span>
+                                    }
+                                </Button>
                             </CardFooter>
                         </CardBody>
                     </CardBody>

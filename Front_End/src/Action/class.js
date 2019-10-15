@@ -50,6 +50,16 @@ export const getTakenTest = async (testID) => {
     }
 }
 
+export const markTakenTest = async (takenTestID, quizScore, essayScore, quest) => {
+    const res = await axios.post(`http://localhost:5000/class/markTakenTest`, {
+        takenTestID, quizScore, essayScore, quest})
+    if(res.status === 200) {
+        return res.data
+    } else {
+        throw new Error("Cannot get test", res)
+    }
+}
+
 export const getClass = async (classCode) => {
     const res = await axios.post(`http://localhost:5000/class?q=${classCode}`)
     if(res.status === 200) {

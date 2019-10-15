@@ -24,6 +24,7 @@ var takenTest = new Schema({
   studentName: String,
   quizScore: Number,
   essayScore: Number,
+  isMarked: Boolean,
   quest: [question],
 })
 

@@ -143,6 +143,14 @@ class GetAllTest extends Component {
                                         onClick={() => this.markTest(item._id)}
                                     >marking
                                     </Button>
+                                    <Button
+                                        outline
+                                        className="float-left"
+                                        color="primary"
+                                        style={{ marginRight: 5, borderRadius: 50 }}
+                                        onClick={() => this.markTest(item._id)}
+                                    >view test
+                                    </Button>
                                 </td>
                             </tr>
                         })}

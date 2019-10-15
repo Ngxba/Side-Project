@@ -8,7 +8,9 @@ import {
   Card,
   CardFooter,
   CardBody,
-  CardText
+  CardText,
+  Row,
+  Col
 } from "reactstrap";
 import queryString from "query-string"
 import { withRouter } from "react-router-dom"
@@ -83,7 +85,7 @@ class TakeExam extends Component {
       return null
     })
     this.setState(Object.assign(this.state.undoneQuests, {
-      quiz: undoneQuiz, 
+      quiz: undoneQuiz,
       essay: undoneEssay
     }))
     this.setModalTakeTest();
@@ -102,7 +104,7 @@ class TakeExam extends Component {
     })
     this.state.listOfEssayQuest.map(item => {
       item.score = 0;
-      item.essayComment= "";
+      item.essayComment = "";
       return null
     })
     try {
@@ -111,7 +113,7 @@ class TakeExam extends Component {
         this.props.authedUser.userEmail,
         this.props.authedUser.userName,
         quizScore,
-        essayScore, 
+        essayScore,
         [...this.state.listOfEssayQuest, ...this.state.listOfQuizQuest]
       )
     } catch (err) {
@@ -139,86 +141,90 @@ class TakeExam extends Component {
           this.state.listOfQuizQuest.length === 0 && (
             <Container>There are no quest avalaible</Container>
           )}
-        <Container className="row mt-5">
-          <Card className="col-7 mr-3 ml-2" style={{WebkitTransform: "translateY(0px)"}}>
-            {this.state.listOfQuizQuest.map((post, index) => {
-              if (this.state.displayQuest.model === "quiz" && this.state.displayQuest.num === index)
-                return (
-                  <ExamItem
-                    key={index}
-                    data={post}
-                    numberOfQuizQuest={index + 1}
-                  ></ExamItem>
-                );
-              return null
-            })}
-            {this.state.listOfEssayQuest.map((post, index) => {
-              if (this.state.displayQuest.model === "essay" && this.state.displayQuest.num === index)
-                return (
-                  <ExamItem
-                    key={index}
-                    data={post}
-                    numberOfEssayQuest={index + 1}
-                  ></ExamItem>
-                );
-              return null
-            })}
-            <hr />
-            <CardFooter className="d-flex justify-content-between">
-              <Button
-                onClick={this.onPreQuest}
-                disabled={
-                  this.state.displayQuest.model === "quiz" &&
-                  this.state.displayQuest.num === 0
-                }
-              >Previous</Button>
-              <Button
-                onClick={this.onClick}
-              >Submit</Button>
-              <Button
-                onClick={this.onNextQuest}
-                disabled={
-                  this.state.displayQuest.model === "essay" &&
-                  this.state.displayQuest.num + 1 === this.state.listOfEssayQuest.length
-                }
-              >Next</Button>
-            </CardFooter>
-          </Card>
-          <Card className="col-4" style={{WebkitTransform: "translateY(0px)"}}>
-            <CardBody>
-              <h5>Các câu hỏi</h5>
+        <Row className="mt-5">
+          <Col lg="8">
+            <Card  style={{ WebkitTransform: "translateY(0px)" }}>
+              {this.state.listOfQuizQuest.map((post, index) => {
+                if (this.state.displayQuest.model === "quiz" && this.state.displayQuest.num === index)
+                  return (
+                    <ExamItem
+                      key={index}
+                      data={post}
+                      numberOfQuizQuest={index + 1}
+                    ></ExamItem>
+                  );
+                return null
+              })}
+              {this.state.listOfEssayQuest.map((post, index) => {
+                if (this.state.displayQuest.model === "essay" && this.state.displayQuest.num === index)
+                  return (
+                    <ExamItem
+                      key={index}
+                      data={post}
+                      numberOfEssayQuest={index + 1}
+                    ></ExamItem>
+                  );
+                return null
+              })}
               <hr />
-              <CardText>Câu hỏi trắc nghiệm: </CardText>
-              {this.state.listOfQuizQuest.map((item, index) => {
-                return (
-                  <Button
-                    className="mr-1 mb-1"
-                    color={item.userAnswer !== "" ? "primary" : ""}
-                    key={index}
-                    onClick={() => this.onDisplayQuestChange({
-                      num: index,
-                      model: "quiz"
-                    })}
-                  >{index + 1}</Button>
-                )
-              })}
-              <CardText>Câu hỏi tự luận</CardText>
-              {this.state.listOfEssayQuest.map((item, index) => {
-                return (
-                  <Button
-                    className="mr-1 mb-1"
-                    color={item.userAnswer !== "" ? "primary" : ""}
-                    key={index}
-                    onClick={() => this.onDisplayQuestChange({
-                      num: index,
-                      model: "essay"
-                    })}
-                  >{index + 1}</Button>
-                )
-              })}
-            </CardBody>
-          </Card>
-        </Container>
+              <CardFooter className="d-flex justify-content-between">
+                <Button
+                  onClick={this.onPreQuest}
+                  disabled={
+                    this.state.displayQuest.model === "quiz" &&
+                    this.state.displayQuest.num === 0
+                  }
+                >Previous</Button>
+                <Button
+                  onClick={this.onClick}
+                >Submit</Button>
+                <Button
+                  onClick={this.onNextQuest}
+                  disabled={
+                    this.state.displayQuest.model === "essay" &&
+                    this.state.displayQuest.num + 1 === this.state.listOfEssayQuest.length
+                  }
+                >Next</Button>
+              </CardFooter>
+            </Card>
+          </Col>
+          <Col lg="4">
+            <Card  style={{ WebkitTransform: "translateY(0px)" }}>
+              <CardBody>
+                <h5>Các câu hỏi</h5>
+                <hr />
+                <CardText>Câu hỏi trắc nghiệm: </CardText>
+                {this.state.listOfQuizQuest.map((item, index) => {
+                  return (
+                    <Button
+                      className="mr-1 mb-1"
+                      color={item.userAnswer !== "" ? "primary" : ""}
+                      key={index}
+                      onClick={() => this.onDisplayQuestChange({
+                        num: index,
+                        model: "quiz"
+                      })}
+                    >{index + 1}</Button>
+                  )
+                })}
+                <CardText>Câu hỏi tự luận</CardText>
+                {this.state.listOfEssayQuest.map((item, index) => {
+                  return (
+                    <Button
+                      className="mr-1 mb-1"
+                      color={item.userAnswer !== "" ? "primary" : ""}
+                      key={index}
+                      onClick={() => this.onDisplayQuestChange({
+                        num: index,
+                        model: "essay"
+                      })}
+                    >{index + 1}</Button>
+                  )
+                })}
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }

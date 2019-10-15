@@ -45,6 +45,7 @@ const testService = {
                 studentName,
                 quizScore, 
                 essayScore,
+                isMarked: false,
                 quest
             })
             await newTakenTest.save()
@@ -57,6 +58,19 @@ const testService = {
         try{
             const test = await TakenTest.find({testID})
             return test
+        } catch (err) {
+            throw new Error(err.message)
+        }
+    },
+    markTakenTest: async (takenTestID, quizScore, essayScore, quest) => {
+        try {
+            const takenTest = await TakenTest.findById(takenTestID)
+            takenTest.quizScore = quizScore;
+            takenTest.essayScore = essayScore;
+            takenTest.quest = quest;
+            takenTest.isMarked = true;
+            takenTest.save();
+            return takenTest
         } catch (err) {
             throw new Error(err.message)
         }
