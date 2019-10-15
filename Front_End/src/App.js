@@ -77,6 +77,7 @@ class App extends React.Component {
         zip: "",
       }
     });
+    localStorage.setItem("jwt_token", null);
   };
 
   onLogin = async login_data => {

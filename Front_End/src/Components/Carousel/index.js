@@ -5,9 +5,9 @@ import "./index.css"
 class CAROUSEL extends Component {
   render() {
     return(<div className="d-flex flex-column justify-content-center align-content-center h-100">
-  <video  id="bgvid" playsInline autoPlay muted loop>
+  <video poster=""  id="bgvid" playsInline autoPlay muted loop>
   <source src="https://storage.coverr.co/videos/Working-it?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTcxMDY1MzkxfQ.qqR5IQ4NFfuPtR6KtG0TbPdTRDXhd-QrjdfQimSWbYA" type="video/mp4"/>
-  
+  Your browser does not support the video tag.
   </video>
   
   <>
@@ -37,7 +37,7 @@ class CAROUSEL extends Component {
             <Row>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
+                  <div className="icon icon-info grow grow">
                     <i className="nc-icon nc-album-2" />
                   </div>
                   <div className="description">
@@ -54,7 +54,7 @@ class CAROUSEL extends Component {
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
+                  <div className="icon icon-info grow">
                     <i className="nc-icon nc-bulb-63" />
                   </div>
                   <div className="description">
@@ -71,7 +71,7 @@ class CAROUSEL extends Component {
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
+                  <div className="icon icon-info grow">
                     <i className="nc-icon nc-chart-bar-32" />
                   </div>
                   <div className="description">
@@ -88,7 +88,7 @@ class CAROUSEL extends Component {
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
+                  <div className="icon icon-info grow">
                     <i className="nc-icon nc-sun-fog-29" />
                   </div>
                   <div className="description">

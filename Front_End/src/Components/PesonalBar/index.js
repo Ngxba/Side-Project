@@ -8,7 +8,8 @@ class PesonalBar extends React.Component {
     return (
       <ButtonDropdown isOpen={this.props.visible} toggle={this.props.onToggle}>
         <DropdownToggle  outline caret>
-        <i className="fas fa-user-cog"></i>
+        <i className="far fa-user"></i>
+        {/* <i className="fas fa-user-cog"></i> */}
         </DropdownToggle>
         <DropdownMenu className="">
           <DropdownItem header>{this.props.userInfo.userEmail}</DropdownItem>

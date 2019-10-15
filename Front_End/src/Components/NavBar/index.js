@@ -6,7 +6,7 @@ import {
   NavItem,
   NavLink,
   Container,
-  UncontrolledCollapse,
+  UncontrolledCollapse
 } from "reactstrap";
 import Register from "../ModalRegister";
 import Login from "../ModalLogin";
@@ -42,7 +42,7 @@ class NavBar extends React.Component {
     this.setState({
       loginSuccessful: "not"
     });
-    this.props.toggleLogin()
+    this.props.toggleLogin();
   };
   setPersonalProfile = () => {
     this.setState({
@@ -108,13 +108,14 @@ class NavBar extends React.Component {
             }}
           />
         ) : null}
-        <Navbar
-          color="dark"
-          expand="md"
-        >
+        <Navbar color="dark" expand="md">
           <Container>
             <div className="navbar-translate">
-              <NavbarBrand href="#" onClick={this.props.home} data-placement="bottom">
+              <NavbarBrand
+                href="#"
+                onClick={this.props.home}
+                data-placement="bottom"
+              >
                 <img
                   className="logo"
                   src="https://blindspot.vn/wp-content/uploads/2019/05/cropped-Final-Final-LOGO-Blind-SpotDone.png"
@@ -138,7 +139,11 @@ class NavBar extends React.Component {
                 <span className="navbar-toggler-bar bar3" />
               </button>
             </div>
-            <UncontrolledCollapse className="justify-content-end" navbar toggler="#navbarTogglerDemo01">
+            <UncontrolledCollapse
+              className="justify-content-end"
+              navbar
+              toggler="#navbarTogglerDemo01"
+            >
               <Nav className="ml-auto" navbar>
                 {/* <NavItem>
                   <NavLink href="#" onClick={this.props.takeTest}>
@@ -165,26 +170,31 @@ class NavBar extends React.Component {
                   </>
                 ) : (
                   <>
-                    <NavItem>
+                    {this.props.userInfo.roll === "Teacher" && (
+                      <>
+                        <NavItem>
+                          <NavLink href="#" onClick={this.props.getQuest}>
+                            See all Quest
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink href="#" onClick={this.props.addQuest}>
+                            Add Question
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink href="#" onClick={this.props.createClass}>
+                            CREATE A CLASS
+                          </NavLink>
+                        </NavItem>
+                      </>
+                    )}
+                    {/* <NavItem>
                       <NavLink href="#" onClick={this.props.makeTest}>
                         Make Test
                       </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink href="#" onClick={this.props.getQuest}>
-                        See all Quest
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink href="#" onClick={this.props.addQuest}>
-                        Add Question
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink href="#" onClick={this.props.createClass}>
-                        CREATE A CLASS
-                      </NavLink>
-                    </NavItem>
+                    </NavItem> */}
+
                     <PesonalBar
                       logOut={this.onLogOut}
                       visible={this.state.personalProfile}
