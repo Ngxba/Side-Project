@@ -85,7 +85,12 @@ class GetAllTest extends Component {
     takeTest = async (testID, student) => {
         const classCode = queryString.parse(this.props.location.search).q
         const takenTests = await getTakenTest(testID)
-        if (takenTests.test.filter(item => item.studentEmail === student).length === 0) {
+        console.log(student)
+        
+        if (takenTests.test.filter(item =>{
+            console.log(item.studentEmail)
+            return item.studentEmail === student
+        } ).length === 0) {
             this.props.history.push(`/class/taketest?q=${testID}&&c=${classCode}`)
 
         } else {
